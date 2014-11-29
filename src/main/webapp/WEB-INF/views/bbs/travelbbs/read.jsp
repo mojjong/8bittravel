@@ -144,11 +144,16 @@
 
                             </article>
 
+							<button class="btn btn-success btn-sm" id="listBtn">목록</button>
+							<button class="btn btn-success btn-sm" id="updateBtn">수정</button>
+							<button class="btn btn-danger btn-sm" id="deleteBtn">삭제</button>
                         </div>
 
                     </div>
 
-
+					<form name="guideForm">
+						<input type="hidden" name="no" value="${vo.no}">
+					</form>
 
                 </div>
 
@@ -212,6 +217,18 @@
         <script src="/resources/inc/js/jquery-1.10.2.min.js"></script>
 
         <script src="/resources/inc/js/jquery-migrate-1.2.1.js"></script>
+        
+        <script type="text/javascript" src="/resources/js/event.js"></script>
+        
+        <script type="text/javascript" src="/resources/js/travelbbs.js"></script>
+        
+        <script>
+        EventUtil.addHandler(document, "DOMContentLoaded", function(event) {
+			EventUtil.addHandler(updateBtn, "click", function(event) {
+				update();
+			});
+		});
+        </script>
 
 
         <!-- modernizer -->

@@ -56,13 +56,22 @@ public class TravelbbsController {
 		return "/bbs/travelbbs/read";
 	}
 	
+	@RequestMapping(value="/update", method = RequestMethod.GET)
+	public String updateRead(TravelbbsVO vo, Model model){
+		logger.info("update : " + vo);
+		
+		model.addAttribute("vo", service.read(vo.getNo()));
+		
+		return "/bbs/travelbbs/update";
+	}
+	
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String update(TravelbbsVO vo){
 		logger.info("update : " + vo);
 		
 		service.update(vo);
 		
-		return "";
+		return "/bbs/travelbbs/read?no="+vo.getNo();
 	}
 	
 	

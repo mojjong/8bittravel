@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yo.travelbbs.mapper.TravelbbsMapper">
+
+<select id="getList" parameterType="int" resultType="org.yo.travelbbs.vo.TravelbbsVO">
+<![CDATA[
+select rn, no, title, content, startdate, enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid
+from
+(select /*+INDEX_DESC(tbl_travelbbs pk_travelbbs) */
+rownum rn, no, title, content, startdate, enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid
+from tbl_travelbbs where no > 0)
+where rn<=(#{page}*5);
+]]>
+</select>
+
+</mapper>

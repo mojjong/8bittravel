@@ -1,13 +1,15 @@
 package org.yo.travelbbs.vo;
 
-import java.util.Date;
+import java.sql.Date;
+
+
 
 public class TravelbbsVO {
 	private int no;
 	private String title;
 	private String content;
-	private Date startdate;
-	private Date enddate;
+	private String startdate;
+	private String enddate;
 	private int teammember;
 	private int cost;
 	private String transport;
@@ -37,16 +39,16 @@ public class TravelbbsVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getStartdate() {
+	public String getStartdate() {
 		return startdate;
 	}
-	public void setStartdate(Date startdate) {
+	public void setStartdate(String startdate) {
 		this.startdate = startdate;
 	}
-	public Date getEnddate() {
+	public String getEnddate() {
 		return enddate;
 	}
-	public void setEnddate(Date enddate) {
+	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
 	public int getTeammember() {

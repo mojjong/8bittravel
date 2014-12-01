@@ -1,5 +1,7 @@
 package org.yo.travelbbs.mapper;
 
+
+import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,8 +23,10 @@ public class TravelbbsMapperTest {
 	@Inject
 	TravelbbsMapper mapper;
 	
+	
+	
 	@Test
-	public void test() {
+	public void getListTest() {
 		
 		List<TravelbbsVO> list = mapper.getList(1);
 		
@@ -30,6 +34,42 @@ public class TravelbbsMapperTest {
 		
 	}
 	
+	@Test
+	public void createTest(){
+		//title, content, startdate, enddate, teammember, cost, transport, memo, region, userid, themeno
+		TravelbbsVO vo = new TravelbbsVO();
+		
+		vo.setTitle("테스트제목..");
+		vo.setContent("테스트내용..");
+		vo.setStartdate("20141206");
+		vo.setEnddate("20141210");
+		vo.setTeammember(2);
+		vo.setCost(50000);
+		vo.setTransport("기차");
+		vo.setMemo("테스트메모..");
+		vo.setRegion("부산");
+		vo.setUserid("user00");
+		vo.setThemeno(20);
+		
+		logger.info(vo);
+		
+		mapper.create(vo);
+	}
+	
+	
+	@Test
+	public void read() {
+		
+		logger.info(mapper.read(86).toString());
+		
+	}
+	
+	@Test
+	public void delete(){
+		
+		mapper.delete(91);
+		
+	}
 	
 
 }

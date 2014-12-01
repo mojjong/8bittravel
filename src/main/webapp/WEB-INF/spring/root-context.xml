@@ -12,7 +12,6 @@
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="org.yo.**.service">
 	</context:component-scan>
-	
 	<context:component-scan base-package="org.yo.config">
 	</context:component-scan>
 	<context:component-scan base-package="org.yo.**.vo">

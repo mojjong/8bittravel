@@ -34,15 +34,15 @@ public class GuideBbsController {
 
 	*/
 
-	//±Û ¸®½ºÆ® »Ñ¸®±â(¹«ÇÑ½ºÅ©·Ñ)
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ¸ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ñ½ï¿½Å©ï¿½ï¿½)
 		@RequestMapping(value="/list", method = RequestMethod.GET)
 		public String scrollList1(){
-			System.out.println("½ºÅ©·Ñ");
-			return "/bbs/travelbbs/guideboard";
+			System.out.println("ï¿½ï¿½Å©ï¿½ï¿½");
+			return "/bbs/guidebbs/guideboard";
 		}
 		
 		
-	//±Û ¸®½ºÆ® »Ñ¸®±â(¹«ÇÑ½ºÅ©·Ñ)
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ¸ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ñ½ï¿½Å©ï¿½ï¿½)
 		@RequestMapping(value="/list", method = RequestMethod.POST,produces = "application/json")
 		public @ResponseBody List<GuideBbsVO> scrollList2(GuideBbsVO vo, Integer no, Model model){
 			

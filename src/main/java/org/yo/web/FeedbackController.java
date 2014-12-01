@@ -35,12 +35,12 @@ public class FeedbackController {
 		return service.list(page);
 	}
 	
-	@RequestMapping("/write")
+	@RequestMapping(value="/write",method=RequestMethod.POST)
 	public String create(FeedbackVO vo){
 		
 		service.create(vo);
 		
-		return "/bbs/list";
+		return "bbs/guidebbs/guideboard";
 	
 	}
 	
@@ -50,7 +50,7 @@ public class FeedbackController {
 	
 		model.addAttribute("read",service.read(no));
 		
-		return "/bbs/list";
+		return "/bbs/feedback/list";
 	
 	}
 	@RequestMapping("/update")
@@ -58,7 +58,7 @@ public class FeedbackController {
 	
 		service.update(vo);
 		
-		return "/bbs/list";
+		return "/bbs/feedback/list";
 	
 	}
 	
@@ -67,7 +67,7 @@ public class FeedbackController {
 	
 		service.delete(no);
 		
-		return "/bbs/list";
+		return "/bbs/feedback/list";
 	
 	}
 }

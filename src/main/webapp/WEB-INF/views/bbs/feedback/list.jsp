@@ -24,7 +24,7 @@
 </section>
 
 
-<section class="section wide-fat image-bg">
+<section class="section wide-fat image-bg" >
 	<div class="container">
 
 		<div class="div-table" style="width: 80%;">
@@ -39,10 +39,24 @@
 			</div>
 		</div>
 
+				<form name="writeForm">
+				
+				<input type="text" name="userId" size="20" placeholder="userId"> 
+				<input type="text" name="title" size="100" placeholder="title">
+			   <input type="text" name="content" size="20" placeholder="content">
+			   <input type="text" name="guideId" size="20" placeholder="guideId">
+			   <input type="text" name="rating" size="20" placeholder="rating">
+				
+				<button id="writebtn">확인</button>
+				</form>
+
+
 	</div>
 </section>
 
-<hr>
+<hr style="border-color: pink;">
+
+
 
 <section id="more-pages" class="section wide-fat">
 	<div class="container" >
@@ -351,53 +365,27 @@
 
 						});
 				});
-	
-					/* ====================
-						
-						
-						<p class="story-meta">
-					<span class="story-author"><i class="fa fa-user"></i> <a
-						href="#">빅싱허</a></span> 
-						<span class="story-miles"><i
-						class="fa fa-location-arrow"></i>rating : 
-							<img
-						src="/resources/images/star-on.png"></span> 
-						<span
-						class="story-date">
-						<i class="fa fa-clock-o"></i> February
-						2, 2014</span> <span class="story-category"><i class="fa fa-tag"></i>
-						<a href="#">Single Travel</a></span>
-				</p>
 				
-				
-				
-						<div class="row">
-					<div class="contents col-sm-8 col-md-9">
-
-						<div class="stories">
-
-							<div class="media story">
-								<a href="#" class="pull-left story-avatar"> <img alt=""
-									src="/resources/images/blog/avatar-1.jpg"
-									class="media-object img-circle">
-								</a>
-								<div class="media-body">
-									<h3 class="media-heading">모종현가이드 덕분에 즐거운 여행 했습니다</h3>
-									<p class="story-text">재미있게 다녀왔습니다..재미있게 다녀왔습니다..재미있게 다녀왔습니다..
-										재미있게 다녀왔습니다..재미있게 다녀왔습니다..재미있게 다녀왔습니다.. 재미있게 다녀왔습니다..재미있게
-										다녀왔습니다..재미있게 다녀왔습니다..</p>
-								</div>
-								
-								
-								
-								
-							</div>
-						</div>
-					</div>
-				</div> */
+	var EventUtil = {
+			addHandler: function(element, type, handler){
+				element.addEventListener(type, handler, false);
+			}
+	}	
 	
 	
+	EventUtil.addHandler(document, "DOMContentLoaded", function(
+			event) {
+		EventUtil.addHandler(writebtn, "click", function() {
+			write();
+		});
+	});
 	
+	function write() {
+		alert("글작성");
+		document.writeForm.method = "post"
+		document.writeForm.action = "/bbs/feedback/write"
+		document.writeForm.submit();
+	}
 	
 				
 </script>

@@ -39,6 +39,8 @@
 
 
             <section id="travel list" class="section wide-fat ">
+            
+            	
 
                 <div class="container">   
                 
@@ -101,7 +103,14 @@
                     </div><!-- /.hotels-filter -->
                 
                             <div class="contents grid-contents col-xs-12 ">
-
+                            	<div class="row">
+                            		<form name="writeForm">
+                            			<input type="hidden" name="page">
+                            			<input type="hidden" name="region">
+                            			<input type="hidden" name="theme">
+                            			<button id="writeBtn" class="button mini">글쓰기</button>
+                            		</form>
+								</div>
 <!--                               <div class="row">
 
 
@@ -317,6 +326,9 @@
 
         <script src="/resources/inc/js/jquery-migrate-1.2.1.js"></script>
 
+        <script type="text/javascript" src="/resources/js/event.js"></script>
+        
+        <script type="text/javascript" src="/resources/js/travelbbs.js"></script>
 
 		<script type="text/javascript">
 			
@@ -360,6 +372,13 @@
 			            
 			        });
 		});
+		
+		EventUtil.addHandler(document, "DOMContentLoaded", function(event) {
+			EventUtil.addHandler(writeBtn, "click", function(event) {
+				write();
+			});
+		});
+		
 		</script>
 
 

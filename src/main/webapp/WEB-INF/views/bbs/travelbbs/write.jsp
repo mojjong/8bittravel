@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@include file="../../include/header.jsp" %>
+		
 
             <section class="page-head-holder">
                 <div class="container">
@@ -43,12 +44,18 @@
                                          
                                     </div>
                                     
+                                    <script type="text/javascript" src="/resources/fck/ckeditor.js"></script>
+                                    
                                     <div class="row field-row">
                                     	<div class="col-xs-10">
 		                                    <label>내용</label>
 		
 		                                    <br />
-		                                    <textarea class="col-xs-12" placeholder="Additional information" rows="7"></textarea>
+		                                    <textarea class="form-control" id="content" placeholder="Additional information" rows="7"></textarea>
+		                                    <!-- fck editor 설정 -->
+											<script type="text/javascript">
+		              			 					CKEDITOR.replace( 'content' );
+		           							</script>
 	                                  	</div>
         							</div>    
         							                      	
@@ -97,7 +104,7 @@
 
                                              <br />
 
-                                             <input id="check-in-date" class="traveline_date_input" type="text" value="d MM yy" />
+                                             <input id="check-in-date" class="traveline_date_input" type="text" value="YY-MM-DD" />
 
                                          </div>
 
@@ -107,7 +114,7 @@
 
                                              <br />
 
-                                             <input id="check-out-date" class="traveline_date_input" type="text" value="d MM yy" />
+                                             <input id="check-out-date" class="traveline_date_input" type="text" value="YY-MM-DD" />
 
                                          </div>
                                     	
@@ -364,6 +371,8 @@
         <script type="text/javascript" src="/resources/js/event.js"></script>
         
         <script type="text/javascript" src="/resources/js/travelbbs.js"></script>
+        
+
         
         <script>
         

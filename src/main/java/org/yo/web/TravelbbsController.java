@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.travelbbs.service.TravelbbsService;
 import org.yo.travelbbs.vo.TravelbbsVO;
+import org.yo.web.util.TravelBbsCriteria;
 
 @Controller
 @RequestMapping("/bbs/travelbbs/*")
@@ -24,7 +25,11 @@ public class TravelbbsController {
 	TravelbbsService service;
 	
 	@RequestMapping(value="/board")
-	public String travelbbs(){
+	public String travelbbs(TravelBbsCriteria cri, Model model){
+		
+		logger.info(cri.toString());
+		model.addAttribute("cri",cri);
+		
 		return "/bbs/travelbbs/list";
 	}
 	
@@ -33,6 +38,19 @@ public class TravelbbsController {
 	public List<TravelbbsVO> list(@RequestParam(value = "page", defaultValue = "1") Integer page){
 		logger.info("getList : " + page);
 		return service.getList(page);
+	}
+	
+	@RequestMapping(value="/filterlist", method = RequestMethod.GET)
+	@ResponseBody
+	public List<TravelbbsVO> filteringList(@RequestParam(value="page", defaultValue = "1")Integer page, Integer themeno, Integer regionno){
+		
+		TravelBbsCriteria cri = new TravelBbsCriteria();
+		cri.setPage(page);
+		cri.setThemeno(themeno);
+		cri.setRegionno(regionno);
+		
+		
+		return service.getFilteringList(cri);
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.GET)

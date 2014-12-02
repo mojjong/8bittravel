@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.yo.travelbbs.mapper.TravelbbsMapper;
 import org.yo.travelbbs.vo.TravelbbsVO;
+import org.yo.web.util.TravelBbsCriteria;
 
 @Service("travelbbsService")
 public class TravelbbsService {
@@ -21,6 +22,10 @@ public class TravelbbsService {
 	public List<TravelbbsVO> getList(Integer page){
 		logger.info(page.toString());
 		return mapper.getList(page);
+	}
+	
+	public List<TravelbbsVO> getFilteringList(TravelBbsCriteria cri){
+		return mapper.getFilteringList(cri);
 	}
 	
 	public void create(TravelbbsVO vo){

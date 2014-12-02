@@ -32,5 +32,5 @@
 	</beans:bean>
 
 	<context:component-scan base-package="org.yo.**.service" />
-	<context:component-scan base-package="org.yo.web" />
+	<context:component-scan base-package="org.yo.**.web" />
 </beans:beans>

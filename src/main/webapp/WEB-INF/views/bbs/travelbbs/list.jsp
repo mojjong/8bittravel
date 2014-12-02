@@ -336,10 +336,12 @@
 			    	var currentPage = 1;
 			    	var currentLocation = null;
 // 			    	checkForHash();
+
+					
 			    	console.log("set currentPage = " + currentPage);
 			        var target = $(".contents");
 			        
-			        $.getJSON("/bbs/travelbbs/list?page=" + currentPage, function (data) {
+			        $.getJSON("/bbs/travelbbs/filterlist?themeno=${cri.themeno}&regionno=${regionno}&page=" + currentPage, function (data) {
 			            
 			            $.each(data, function (key, val) {
 			            	target.append(

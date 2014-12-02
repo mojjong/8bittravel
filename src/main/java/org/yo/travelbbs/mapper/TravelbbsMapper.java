@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.yo.travelbbs.vo.TravelbbsVO;
+import org.yo.web.util.TravelBbsCriteria;
 
 public interface TravelbbsMapper {
 
@@ -13,6 +14,8 @@ public interface TravelbbsMapper {
 	public String getTime();
 	
 	public List<TravelbbsVO> getList(Integer page);
+	
+	public List<TravelbbsVO> getFilteringList(TravelBbsCriteria cri);
 	
 	public void create(TravelbbsVO vo);
 	

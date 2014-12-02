@@ -17,6 +17,26 @@ where rn<=(#{page}*5)
 </select>
 
 
+<select id="getFilteringList" parameterType="org.yo.web.util.TravelBbsCriteria" resultType="org.yo.travelbbs.vo.TravelbbsVO">
+<![CDATA[
+select rn, no, title, content, startdate, enddate, teammember, cost, transport, memo, bidstate, region, regionno, userid, themeno, guideid
+from
+(select /*+INDEX_DESC(tbl_travelbbs pk_travelbbs) */
+rownum rn, no, title, content, startdate, enddate, teammember, cost, transport, memo, bidstate, region, regionno, userid, themeno, guideid
+from tbl_travelbbs where no > 0]]>
+  <if test="regionno != null">
+    AND REGIONNO = #{regionno}
+  </if>
+  <if test="themeno != null">
+    AND THEMENO = #{themeno}
+  </if>
+<![CDATA[
+)
+where rn<=(#{page}*5)
+]]>
+</select>
+
+
 <insert id="create" parameterType="org.yo.travelbbs.vo.TravelbbsVO">
 insert into tbl_travelbbs (no, title, content, startdate, enddate, teammember, cost, transport, memo, region, userid, themeno) 
 values(seq_travelbbs.nextval,#{title},#{content},to_date(#{startdate},'YY/MM/DD'),to_date(#{enddate},'YY/MM/DD'),#{teammember},#{cost},#{transport},#{memo},#{region},#{userid},#{themeno})

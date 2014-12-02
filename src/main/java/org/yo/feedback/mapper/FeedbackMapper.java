@@ -17,15 +17,15 @@ public interface FeedbackMapper {
 //	@Select(" select rownum rn, no, userid, title, content, rating, regdate, guideid from tbl_feedback where no = 3")
 	public List<FeedbackVO> list(int page);
 	
-	@Insert(" insert into tbl_feedback(no, userid, title, content, rating, regdate, guideid) "
-			+ "values (seq_feedback.nextval,#{userId},#{title},#{content},#{rating},sysdate,#{guideId})" )
+	@Insert(" insert into tbl_feedback(no, title, content, rating, regdate) "
+			+ "values (seq_feedback.nextval,#{title},#{content},#{rating},sysdate)" )
 	public void create(FeedbackVO vo);
 
 
 	@Select(" select no, title, content, rating, regdate, userid, guideid from tbl_feedback where no=#{no}")
 	public FeedbackVO read(int no);
 	
-	@Update(" update tbl_feedback set title=#{title}, content=#{content}, rating=#{rating} where no=#{no} ")
+	@Update(" update tbl_feedback set title=#{title}, content=#{content} where no=#{no} ")
 	public void update(FeedbackVO vo);
 
 	@Delete(" delete from tbl_feedback where no=#{no} ")

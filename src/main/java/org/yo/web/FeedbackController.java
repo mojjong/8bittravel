@@ -40,7 +40,7 @@ public class FeedbackController {
 		
 		service.create(vo);
 		
-		return "bbs/guidebbs/guideboard";
+		return "redirect:/bbs/feedback/board";
 	
 	}
 	
@@ -53,16 +53,17 @@ public class FeedbackController {
 		return "/bbs/feedback/list";
 	
 	}
-	@RequestMapping("/update")
+	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(FeedbackVO vo){
 	
+		
 		service.update(vo);
 		
-		return "/bbs/feedback/list";
-	
+		
+		return "redirect:/bbs/feedback/board";
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping(value="/delete",method=RequestMethod.GET)
 	public String delete(int no){
 	
 		service.delete(no);

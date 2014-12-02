@@ -13,7 +13,7 @@ select rn, no, userid, title, content, rating, regdate, guideid
 from
 (select /*+INDEX_DESC(tbl_feedback pk_feedback) */
 rownum rn, no, userid, title, content, rating, regdate, guideid 
-from tbl_feedback where no > 0)
+from tbl_feedback where no > 0 order by no desc)
 where rn<=(#{page}*5)
 ]]>
     

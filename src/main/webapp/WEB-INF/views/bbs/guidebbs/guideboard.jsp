@@ -430,15 +430,6 @@
         scroll();
                    
         </script>
-        
-        <script>
-	/* $(window).scroll(function(){  
-        if  ($(window).scrollTop() == $(document).height() - $(window).height()){  
-        	scroll();  
-        }  
-	});  
- */
-	</script>
     </body>
 
 </html>

@@ -152,7 +152,7 @@
 
 
 					<a href="#"><img src="/resources/images/site-logo.png" alt="Traveline" />
-						<span>Travel<span class="higlight">ine</span></span></a>
+						<span>8 bit<span class="higlight">Travel</span></span></a>
 
 
 
@@ -199,9 +199,9 @@
 
 				<p>
 
-					Traveline - Copyright 2014. Designed by jThemes<br> Email:
-					info@example.com<br> Address: Lorem Ipsuum, Manchester M12
-					345, UK<br> +44 123 456 7890
+					8bitTravel - Copyright 2014. Designed by MomZZong<br> Email:
+					whdgus0313@naver.com<br> Address: 106-9, Cho-dong, Jung-gu, Seoul, Korea
+					<br> +82 010 4935 3595
 
 				</p>
 

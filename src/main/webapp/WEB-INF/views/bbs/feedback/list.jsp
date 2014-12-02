@@ -24,7 +24,7 @@
 </section>
 
 
-<section class="section wide-fat image-bg" >
+<section class="container" >
 	<div class="container">
 
 		<div class="div-table" style="width: 80%;">
@@ -119,7 +119,7 @@
 
 	
 	
-	<a class="button btn-block" href="#"> 글 더 보기...</a>
+	<button id="infiBtn" class="button btn-block" OnClick="javascript:infinityScrollFunction()"> 글 더 보기...</button>
 	
 
 	
@@ -152,7 +152,7 @@
 
 
 					<a href="#"><img src="/resources/images/site-logo.png" alt="Traveline" />
-						<span>Travel<span class="higlight">ine</span></span></a>
+						<span>8 bit<span class="higlight">Travel</span></span></a>
 
 
 
@@ -199,9 +199,9 @@
 
 				<p>
 
-					Traveline - Copyright 2014. Designed by jThemes<br> Email:
-					info@example.com<br> Address: Lorem Ipsuum, Manchester M12
-					345, UK<br> +44 123 456 7890
+					8bitTravel - Copyright 2014. Designed by MomZZong<br> Email:
+					whdgus0313@naver.com<br> Address: 106-9, Cho-dong, Jung-gu, Seoul, Korea
+					<br> +82 010 4935 3595
 
 				</p>
 
@@ -366,7 +366,7 @@
 <script type="text/javascript" src="/resources/inc/js/custom.js"></script>
  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 						var currentPage = 1;
 						var currentLocation = null;
 						//                 checkForHash();
@@ -399,7 +399,7 @@
 								});  $("#feedbackcon").append("<input type='hidden' name='feedbackno'>");
 
 						});
-				});
+				}); */
 				
 	var EventUtil = {
 			addHandler: function(element, type, handler){
@@ -497,6 +497,105 @@
 	
 				
 </script>
+
+<script>
+    $(document).ready(function()
+    {
+    	var currentPage = 1;
+    	/* checkForHash(); */
+    	console.log("set currentPage = " + currentPage);
+        var target = $("#feedbackcon");
+        
+        $.getJSON("/bbs/feedback/list?page="+ currentPage,function(data) {
+			$.each(data,function(key, val){
+				$("#feedbackcon").append( 
+						"<div id='modm_"+val.no+"'class='media story'>"
+						+"<a href='#' class='pull-left story-avatar'><img alt='' src='/resources/images/blog/avatar-1.jpg' class='media-object img-circle'></a>"
+						+ "<div id='mod_"+val.no+"' class='media-body'>"
+						+ "<div id='title_"+val.no+"'><h2 class='media-heading'> "+val.title+"</h2></div><br>"
+						+ "<div id='content_"+val.no+"'><p class='story-text'> "+val.content+"</p></div></div>"
+						
+						+ "<p class='story-meta'>"
+						+ "<span class='story-author'>"
+						  + "<i class='fa fa-user'></i> "
+						  + "<a href='#'>"+val.userId+"</a></span>"
+						+"<span class='story-miles'>"
+							+ "<img src='/resources/images/star-on.png'>x"+val.rating+""
+							+ " </span> "
+						+"<span class='story-date'><i class='fa fa-clock-o'></i>"
+						+ ""+val.regdate+"</span>"
+						+ "<span class='story-category'><i class='fa fa-tag'></i>"
+						+"<a id='modifyBtn' href='javascript:modify("+val.no+")' class='button mini'>modify</a></span>"
+						+"<button id='deletebtn' onClick='javascript:next("+val.no+")' class='button mini'>delete</button>"
+						+ "</p></div>");
+
+				if(key == 4) {
+                    $("#infiBtn").on("click",function infinityScrollFunction(){
+                    	
+                    	
+                    	//현재문서의 높이를 구함.
+                        var documentHeight  = $(document).height();
+                        //console.log("documentHeight : " + documentHeight);
+                        //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환
+                        //스크롤바가 맨 위쪽에 있을때 , 위치는 0
+                        //console.log("window의 scrollTop() : " + $(window).scrollTop());
+                        //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
+                        //console.log("window의 height() : " + $(window).height());
+                        //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
+                        //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
+                        var scrollHeight = $(window).scrollTop()+$(window).height();
+                        //console.log("scrollHeight : " + scrollHeight);
+                        
+                        
+                        if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가
+                        	currentPage++;
+                        	console.log(currentPage + " 페이지 로드");
+                        	var target = $("#feedbackcon");
+                        	$.getJSON("/bbs/feedback/list?page="+ currentPage,function(data) {
+								$.each(data,function(key, val){
+									$("#feedbackcon").append( 
+											"<div id='modm_"+val.no+"'class='media story'>"
+											+"<a href='#' class='pull-left story-avatar'><img alt='' src='/resources/images/blog/avatar-1.jpg' class='media-object img-circle'></a>"
+											+ "<div id='mod_"+val.no+"' class='media-body'>"
+											+ "<div id='title_"+val.no+"'><h2 class='media-heading'> "+val.title+"</h2></div><br>"
+											+ "<div id='content_"+val.no+"'><p class='story-text'> "+val.content+"</p></div></div>"
+											
+											+ "<p class='story-meta'>"
+											+ "<span class='story-author'>"
+											  + "<i class='fa fa-user'></i> "
+											  + "<a href='#'>"+val.userId+"</a></span>"
+											+"<span class='story-miles'>"
+												+ "<img src='/resources/images/star-on.png'>x"+val.rating+""
+												+ " </span> "
+											+"<span class='story-date'><i class='fa fa-clock-o'></i>"
+											+ ""+val.regdate+"</span>"
+											+ "<span class='story-category'><i class='fa fa-tag'></i>"
+											+"<a id='modifyBtn' href='javascript:modify("+val.no+")' class='button mini'>modify</a></span>"
+											+"<button id='deletebtn' onClick='javascript:next("+val.no+")' class='button mini'>delete</button>"
+											+ "</p></div>");
+
+								});  $("#feedbackcon").append("<input type='hidden' name='feedbackno'>");
+
+						});
+                        }
+                    });
+                }
+			});  $("#feedbackcon").append("<input type='hidden' name='feedbackno'>");
+
+	});
+            
+                
+                
+            });
+          
+            
+  
+</script>
+
+
+
+
+
 
 </body>
 </html>

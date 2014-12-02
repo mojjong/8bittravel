@@ -333,6 +333,7 @@
 		<script type="text/javascript">
 			
 		$(document).ready(function(){
+		
 			    	var currentPage = 1;
 			    	var currentLocation = null;
 // 			    	checkForHash();

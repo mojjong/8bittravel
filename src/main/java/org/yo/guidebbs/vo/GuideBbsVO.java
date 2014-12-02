@@ -10,11 +10,130 @@ public class GuideBbsVO {
 	private int cost;
 	private int pay;
 	private Date regdate;
+	private int grno;
+	private int gpno;
+	private String place;
+	private Double lng;
+	private Double lat;
+	private String msg;
+	private int plandate;
 	
 	
 	
 	
 	
+	public int getGpno() {
+		return gpno;
+	}
+
+
+
+
+
+	public void setGpno(int gpno) {
+		this.gpno = gpno;
+	}
+
+
+
+
+
+	public int getGrno() {
+		return grno;
+	}
+
+	
+
+
+
+	public void setGrno(int grno) {
+		this.grno = grno;
+	}
+
+
+
+
+
+	public String getPlace() {
+		return place;
+	}
+
+
+
+
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+
+
+
+
+	public Double getLng() {
+		return lng;
+	}
+
+
+
+
+
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}
+
+
+
+
+
+	public Double getLat() {
+		return lat;
+	}
+
+
+
+
+
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
+
+
+
+
+	public String getMsg() {
+		return msg;
+	}
+
+
+
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+
+
+
+
+	public int getPlandate() {
+		return plandate;
+	}
+
+
+
+
+
+	public void setPlandate(int plandate) {
+		this.plandate = plandate;
+	}
+
+
+
+
+
 	public int getNo() {
 		return no;
 	}
@@ -115,7 +234,9 @@ public class GuideBbsVO {
 	public String toString() {
 		return "GuideBbsVO [no=" + no + ", travelno=" + travelno + ", userid="
 				+ userid + ", cost=" + cost + ", pay=" + pay + ", regdate="
-				+ regdate + "]";
+				+ regdate + ", grno=" + grno + ", place=" + place + ", lng="
+				+ lng + ", lat=" + lat + ", msg=" + msg + ", plandate="
+				+ plandate + "]";
 	}
 	
 	

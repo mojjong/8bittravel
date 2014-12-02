@@ -28,6 +28,7 @@ public class GuideBbsController {
 	@Inject
 	GuideBbsService service;
 
+
 	//±Û ¸®½ºÆ® »Ñ¸®±â(¹«ÇÑ½ºÅ©·Ñ)
 	/*@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String scrollList1(){
@@ -36,6 +37,17 @@ public class GuideBbsController {
 	}*/
 		
 	/*//±Û ¸®½ºÆ® »Ñ¸®±â
+
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ¸ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ñ½ï¿½Å©ï¿½ï¿½)
+		@RequestMapping(value="/list", method = RequestMethod.GET)
+		public String scrollList1(){
+			System.out.println("ï¿½ï¿½Å©ï¿½ï¿½");
+			return "/bbs/guidebbs/guideboard";
+		}
+		
+		
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ¸ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ñ½ï¿½Å©ï¿½ï¿½)
+
 		@RequestMapping(value="/list", method = RequestMethod.POST,produces = "application/json")
 		public @ResponseBody List<GuideBbsVO> scrollList2(GuideBbsVO vo, Integer gpno, Model model){
 			//vo.setTravelno(no);

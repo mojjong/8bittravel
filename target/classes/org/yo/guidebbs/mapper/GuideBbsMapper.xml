@@ -4,14 +4,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yo.guidebbs.mapper.GuideBbsMapper">
 
- <select id="glist"  resultType="org.yo.guidebbs.vo.GuideBbsVO">
+ <!-- <select id="glist"  resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	select 
 		no, userid, cost,pay, regdate 
 	from 
 		tbl_guidebbs  
-<!-- 		gb, tbl_travelbbs tb
+		gb, tbl_travelbbs tb
 	where  
-		gb.travelno= tb.no and tb.no= #{no} -->
-</select> 
+		gb.travelno= tb.no and tb.no= #{no}
+</select>  -->
+<select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+	 select  no,place, msg 
+	 from tbl_guideregion 
+	 where gpno=#{gpno} order by no asc
 
+</select>
+
+ <!-- <delete id="placeDel" parameterType="int" >
+	delete from tbl_guideregion 
+	where no=#{No}
+</delete>  -->
+
+
+<!-- <update id="placModify" parameterType="int" >
+	update tbl_guideregion set place =#{place} ,msg= #{msg} where no={no};"
+
+</update> -->
+
+
+<!-- <update id="update" parameterType="org.yo.vo.GuideBbsVO ">
+	UPDATE tbl_guideregion
+	<set>
+		<if test="place !=null">place=#{place},</if>
+		<if test="msg !=null">msg=#{msg}</if>
+		
+	</set>
+	where no=#{no}
+</update> -->
 </mapper>

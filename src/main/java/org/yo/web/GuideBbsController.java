@@ -28,39 +28,63 @@ public class GuideBbsController {
 	@Inject
 	GuideBbsService service;
 
-
 	//글 리스트 뿌리기(무한스크롤)
-	@RequestMapping(value="/list", method = RequestMethod.GET)
+	/*@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String scrollList1(){
 		System.out.println("스크롤");
 		return "/bbs/guidebbs/guideboard";
-	}
-	
+	}*/
 		
-	//글 리스트 뿌리기(무한스크롤)
+	/*//글 리스트 뿌리기
 		@RequestMapping(value="/list", method = RequestMethod.POST,produces = "application/json")
-		public @ResponseBody List<GuideBbsVO> scrollList2(GuideBbsVO vo, Integer no, Model model){
-			
+		public @ResponseBody List<GuideBbsVO> scrollList2(GuideBbsVO vo, Integer gpno, Model model){
 			//vo.setTravelno(no);
 			System.out.println(vo.toString());
-			List<GuideBbsVO> list = service.glist();
+			List<GuideBbsVO> list = service.glist(gpno);
+			//model.addAttribute("placeList", service.glist(gpno)(gpno)); 
 		
 			return list;
-		}
-		
+		}*/
+	
+		//장소 추가하기 & 그 글에 해당하는 리스트 보이기-get
 		@RequestMapping(value="/place", method = RequestMethod.GET)
-		public String placeAdd(){
-			System.out.println("스크롤");
+		public String placeAdd2(GuideBbsVO vo, Model model){
+			vo.setGpno(61);
+			int gpno = vo.getGpno();
+			System.out.println(gpno);
+			
+			model.addAttribute("placeList", service.glist(gpno)); 
+		
 			return "/bbs/guidebbs/guideboard";
 		}
-		//장소 추가하기
+		
+		//장소 추가하기-post
 		@RequestMapping(value = "/place", method = RequestMethod.POST)
-			public void placeAdd(GuideBbsVO vo){
+			public void placeAdd(GuideBbsVO vo, Model model){
 			System.out.println("aaaa");
 				service.placeAdd(vo);
+				
 				logger.info("컨트롤 : " + vo.toString());
-		
+				
 			}
+		
+		//장소 수정
+		@RequestMapping(value = "/placeModify", method =RequestMethod.POST )
+		public void placeModi(GuideBbsVO vo){
+			System.out.println("수정:"+vo.toString());
+			service.placeModi(vo);	
+			logger.info("컨트롤 장소수정 : " );
+			
+		}
+		
+		//장소삭제
+		@RequestMapping(value = "/placeDel", method =RequestMethod.GET )
+		public String placeDel(Integer no){
+			System.out.println(no);
+			service.placeDel(no);	
+			logger.info("컨트롤 장소삭제 : " );
+			return "redirect:/bbs/guide/place";
+		}
 			
 
 

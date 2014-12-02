@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../../include/header.jsp" %>
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=e0e69ff3e4c9fb550cdd83e5db85f04c"></script>
 
                   <section id="contact" class="section wide-fat">
-                        
-  
-
+                   
                 <div class="container">
                     <div class="row">          
    <div class="widget widget-tabs">
@@ -35,7 +34,8 @@
                                 <div class="widget no-margin-bottom">
                                 
                                 <form  name="formPlace" id="placeFormId" >
-                                <input type="hidden" name="gpno" value=40>
+                                	
+                                	<input type="hidden" name="gpno" value="40">
 									<input type="hidden" name="lat">
 									<input type="hidden" name="lng">
                                     <div class="row">
@@ -48,25 +48,48 @@
 									</div>
                                     <!-- <input class="button" type="submit" value="장소 추가" /> -->
                                     <li class="button"><a href='javascript:placeAdd()'>장소추가</a>&nbsp;&nbsp;</li>
-                                </form>
+                                </form><!--formPlace 끝  -->
                                 
 								</div>
-						<!--장소 리스트 append 되는 form  -->		
-						
-								                                
+								
+						<!--장소 리스트 append 되는 form  -->				                      
                                 <hr>
-                        <form >        
-                        <div class="widget no-margin-bottom">
-                                <h3 class="widget-title">추가된 장소</h3>
-                                <!--리스트 추가되는 form  -->
-                                <div id="placeDiv"></div>
-                               
-                            </div> 
-                          </form>      
-                                <hr>
+                        <form name = "placeList" id = "placeListId" action = "/bbs/guide/place" >    
+	                        <input type="hidden" name="gpno" value="61">  
+	                        <input type="hidden" name = "no">  
+	                        <input type="hidden" name="place"  >
+	                        <input type="hidden" name="msg"  >
+	                        
+	                        <div class="widget no-margin-bottom">
+	                                <h3 class="widget-title">추가된 장소</h3>
+	                                
+	                        <c:forEach var="placevo" items="${placeList}">
+	                        <div id= "place_${placevo.getNo()}">
+	                           <address >
+		       					<ul class='address-ul fa-ul'>
+				       				<li id="placeId_${placevo.getNo() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getNo() }</span></li>
+		       						<li id="msgId_${placevo.getNo() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
+		       						<li><a href='javascript:placeModify(${placevo.getNo()})'>수정</a>&nbsp;&nbsp;</li>
+	       							<li><a href='/bbs/guide/placeDel?no=${placevo.getNo()}'>삭제</a></li>
+		       					</ul>
+		       					</address>
+		       					</div>
+		       					<hr>
+	                                <!--리스트 추가되는 DIV  -->
+	                                <div id="placeDiv">                        
+	                                </div>
+	                                
+	                               
+	                                
+		       				</c:forEach>              
+		       					<hr>
+	                               
+	                            </div> 
+                          </form>   
+                             
+                                
                              <div class="main-contact-form">
-                                <form  method="post">
-
+                                <form  name = "costForm" method="post">
                                     <div class="row">
                                         <div class="col-sm-4">
                                         <label for="check-in-date2">가이드 비용</label>
@@ -75,22 +98,13 @@
                                         <label for="check-in-date2">가이드 내용</label>
                                         <input class="form-control" type="text" name="email" placeholder="추가 사항" /></div>    
 									</div>
-
-                                </form>
+                                </form><!-- costForm 끝 -->
                                 <hr>
-                            </div>
-                                    
-                                                                </div>
-                                                                
-                        </div>
-                                                                
-                        </div>
-                            
-
-                            
-                            
-                            
-                  </div>
+                            </div>                                    
+                   		 </div>                                                                
+                	</div>
+           		</div>
+	  		</div>
                                 <div class="tab-pane fade featured-posts" id="popular">
                                     <div class="media">
                                         <a class="pull-left" href="#">
@@ -330,7 +344,7 @@
 
         <script type="text/javascript" src="/resources/inc/js/custom.js"></script>  
         
-        <script>
+    <!--     <script>
         var scroll = function(){
        		/* var formData = $("#guideForm").serialize();
  */        /* 	console.info("폼테이터" + formData); */
@@ -358,90 +372,101 @@
     	}
         scroll();
                    
-        </script>
+        </script> -->
         
        <script>
         function placeAdd(){
-        	 //alert(document.formPlace.name.value);
-        	 /* var li1 =  $("#li1");
-        	 var li2 =  $("#li2"); */
-        	var a =$('#placeFormId').serialize();
         	 
-
-       	  $.post( "/bbs/guide/place",a, function( data ) {
-    		}, "json");
-        	 alert(a);
+        	var a =$('#placeFormId').serialize();
+       
+	       	$.post( "/bbs/guide/place",a, function( data ) {
+	    		}, "json");
+	 		 //var no = document.formList.no.value;
+	 		
         	 var place = document.formPlace.place.value;
         	 var msg = document.formPlace.msg.value;
         	 var lat = document.formPlace.lat.value;
         	 var lng = document.formPlace.lng.value;
         	 
         	 var html = "<address>"
-                 				+"<ul class='address-ul fa-ul'>"
-                 				+"<li>"
-                 				+"<span>"
-                 				+"<i class='fa-li fa fa-home'></i>"+place
-                 				+"</span> "   
-                 				+"</li>"
-                 				+"<li>"
-                 				+"<span >"
-                 				+"<i class='fa-li fa fa-map-marker'></i>"+msg+','+lat+','+lng
-                 				+"</span></li>"
-                 				+"<li><a href='javascript:placeModify(${revo.getReplyNo()})'>수정</a>&nbsp;&nbsp;</li>"
-                 				+"<li><a href='/bbs/reply/replyDelete?replyno=${revo.getReplyNo() }'>삭제</a></li>"
-                 				+"</ul>"
-                 				+"</address><hr>";
+	       				+"<ul class='address-ul fa-ul'>"
+	       				+"<li>"
+	       				+"<span>"
+	       				+"<i class='fa-li fa fa-home'></i>"+place
+	       				+"</span> "   
+	       				+"</li>"
+	       				+"<li>"
+	       				+"<span >"
+	       				+"<i class='fa-li fa fa-map-marker'></i>"+msg+','+lat+','+lng
+	       				+"</span></li>"
+	       				+"<li><a href='javascript:placeModify(${placevo.getNo()})'>수정</a>&nbsp;&nbsp;</li>"
+	       				+"<li><a href='/bbs/guide/placeDel?no=${placevo.getNo() }'>삭제</a></li>"
+	       				+"</ul>"
+	       				+"</address><hr>";
         	 $("#placeDiv").append(html);
-        	 alert("AAA");
-        	 
-         
-        	  
+        	         	 
         	 document.formPlace.place.value="";
-        	 document.formPlace.msg.value="";        		
+        	 document.formPlace.msg.value=""; 
+        	 location.reload();
+        	 //top.document.프레임이름.location.reload();
         }              
         </script>
-         <!-- <script>
-        var scroll = function(){
-        	var place = document.formPlace.place.value;
-       	 	var msg = document.formPlace.msg.value;
-       		 var formData = $('#placeFormId').serialize()
- console.log(formData)
-        $.ajax({
-                url:"/bbs/guide/place",
-                dataType:'json',
-                data : formData,
-                type:"post",
-                success: function (data) {
-                	//데이터의 갯수만큼 알아서 반복!(each)
-                    $.each(data, function(k,v){
-                        $("#placeDiv").append(
-                        		   "<address>"
-                     				+"<ul class='address-ul fa-ul'>"
-                     				+"<li>"
-                     				+"<span>"
-                     				+"<i class='fa-li fa fa-home'></i>"+v.place
-                     				+"</span> "   
-                     				+"</li>"
-                     				+"<li>"
-                     				+"<span >"
-                     				+"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng
-                     				+"</span></li>"
-                     				+"<li><a href='javascript:placeModify(${revo.getReplyNo()})'>수정</a>&nbsp;&nbsp;</li>"
-                     				+"<li><a href='/bbs/reply/replyDelete?replyno=${revo.getReplyNo() }'>삭제</a></li>"
-                     				+"</ul>"
-                     				+"</address><hr>")
-            	 
-                        })
-                }
-        		,error:function(){
-                	alert("history load error!");
-                }
-            });
-    	}
-        scroll();
-                   
-        </script> -->
         
+        <script>
+        function placeModify(placeNo){
+        	
+        	var div = document.getElementById("place_"+placeNo);
+        	
+        	var modiPlace=$("#placeId_"+placeNo).text();
+        	var modiMsg = $("#msgId_"+placeNo).text();
+        	alert(modiMsg);
+        	if(modiPlace !==null && modiMsg!== null){
+        		div.innerHTML =  "<address>"
+					+"<ul class='address-ul fa-ul'>"
+					+"<input id='modi_placeNo' type='hidden'  value='"+placeNo+"'>" 
+					+"<li >"
+						+"<i class='fa-li fa fa-home'></i>"
+						+"<input id='modi_place' type = 'text' value='"+modiPlace+"'/>"
+					+"</li>"
+					+"<li>"
+						+"<i class='fa-li fa fa-map-marker'></i>"
+						+"<input id='modi_msg' type = 'text' value='"+modiMsg+"'/>"
+					+"</li>"
+					+"<li><a href='javascript:placeUpdate()'>Complete</a>&nbsp;&nbsp;</li>"
+					+"</ul>"
+					+"</address>"
+					
+					
+        	}
+        	
+        }
+        
+        </script>
+        
+        <script>
+        function placeUpdate(){
+        	
+        	var placeNo = document.getElementById('modi_placeNo').value;
+        	var place = document.getElementById('modi_place').value;
+        	var placeMsg = document.getElementById('modi_msg').value;
+        	
+        	document.placeList.no.value = placeNo;
+    	    
+    	    document.placeList.place.value = place;
+    	   
+    	    document.placeList.msg.value = placeMsg;
+    	    
+    	    var a= $('#placeListId').serialize();
+    	    alert(a);
+    	    $.post( "/bbs/guide/placeModify", a, function( data ) {
+    		}, "json");
+    	    
+    	    
+    	    location.reload();
+        }
+        
+        </script>
+         
     </body>
 
 </html>

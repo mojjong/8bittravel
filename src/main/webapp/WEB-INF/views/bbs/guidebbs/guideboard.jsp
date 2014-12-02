@@ -33,49 +33,38 @@
                                 <p>&nbsp;</p>
                             <div class="main-contact-form">
                                 <div class="widget no-margin-bottom">
-                                <form  method="post" name="formPlace">
+                                
+                                <form  name="formPlace" id="placeFormId" >
+                                <input type="hidden" name="gpno" value=40>
 									<input type="hidden" name="lat">
 									<input type="hidden" name="lng">
                                     <div class="row">
                                         <div class="col-sm-6">
                                         <label for="check-in-date2">장소 이름</label>
-                                        <input class="form-control" type="text" name="name" placeholder="장소 이름" /></div>
+                                        <input class="form-control" type="text" name="place" placeholder="장소 이름" /></div>
                                         <div class="col-sm-6">
                                         <label for="check-in-date2">상세 설명</label>
-                                        <input class="form-control" type="text" name="email" placeholder="상세 설명" /></div>     
+                                        <input class="form-control" type="text" name="msg" placeholder="상세 설명" /></div>     
 									</div>
-                                    <input class="button" type="submit" value="장소 추가" />
-
+                                    <!-- <input class="button" type="submit" value="장소 추가" /> -->
+                                    <li class="button"><a href='javascript:placeAdd()'>장소추가</a>&nbsp;&nbsp;</li>
                                 </form>
-								</div>                                
+                                
+								</div>
+						<!--장소 리스트 append 되는 form  -->		
+						
+								                                
                                 <hr>
+                        <form >        
                         <div class="widget no-margin-bottom">
                                 <h3 class="widget-title">추가된 장소</h3>
-                                <address>
-                                    <ul class="address-ul fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-home"></i>Company, Inc. 
-                                            795 Folsom Ave, Suite 600 
-                                            San Francisco, CA 94107
-                                        </li>
-                                        <li><i class="fa-li fa fa-map-marker"></i><a href="#">View large map</a></li>
-                                    </ul>
-                                </address>
+                                <!--리스트 추가되는 form  -->
+                                <div id="placeDiv"></div>
+                               
+                            </div> 
+                          </form>      
                                 <hr>
-                                <address>
-                                    <ul class="address-ul fa-ul">
-                                        <li>
-                                            <i class="fa-li fa fa-home"></i>Company, Inc. 
-                                            795 Folsom Ave, Suite 600 
-                                            San Francisco, CA 94107
-                                        </li>
-                                        <li><i class="fa-li fa fa-map-marker"></i><a href="#">View large map</a></li>
-                                    </ul>
-                                </address>
-                            </div>
-                                
-                                <hr>
-                                                           <div class="main-contact-form">
+                             <div class="main-contact-form">
                                 <form  method="post">
 
                                     <div class="row">
@@ -134,66 +123,6 @@
                 </div>
                 </section><!--지도 섹션끝  -->
                 
-
-
-                        
-                        <!-- Scripts -->
-        <!-- jQuery -->
-        <script src="../resources/inc/js/jquery-1.10.2.min.js"></script>
-        <script src="../resources/inc/js/jquery-migrate-1.2.1.js"></script>
-
-        <!-- modernizer -->
-        <script src="../resources/inc/js/modernizr.custom.63321.js"></script>
-
-        <!-- FlexSlider -->
-        <script type="text/javascript" src="../resources/inc/js/jquery.flexslider-min.js"></script>   
-
-        <!-- CatSlider -->
-        <script type="text/javascript" src="../resources/inc/js/jquery.catslider.js"></script>    
-
-        <!-- Datepicker -->
-        <script type="text/javascript" src="../resources/inc/js/jquery.ui.datepicker.min.js"></script>    
-
-        <!-- Masonry -->
-        <script type="text/javascript" src="../resources/inc/js/masonry.min.js"></script> 
-
-        <!-- Increase/decrease quantity -->
-        <script type="text/javascript" src="../resources/inc/js/increase-decrease-qty.js"></script>   
-        
-        <!-- Mixitup (filterable item) -->
-        <script type="text/javascript" src="../resources/inc/js/jquery.mixitup.min.js"></script>  
-
-        <!-- Google Map JS -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
-        <script type="text/javascript" src="../resources/inc/js/google-map-infobox.js"></script>      
-
-        <!-- Responsive Google Map (Fitmaps) JS -->
-        <script type="text/javascript" src="../resources/inc/js/jquery.fitmaps.js"></script>  
-
-        <!-- Chozen UI JS -->
-        <script type="text/javascript" src="../resources/inc/js/chosen.jquery.js"></script>   
-
-        <!-- Checkbox/Radio UI JS -->
-        <script type="text/javascript" src="../resources/inc/js/jquery.screwdefaultbuttonsV2.js"></script>    
-
-        <!-- Range Slider UI JS #2 -->
-
-        <script type="text/javascript" src="../resources/inc/js/jquery.mousewheel.min.js"></script>   
-
-        <script type="text/javascript" src="../resources/inc/js/jQRangeSlider-min.js"></script>   
-
-        <!-- bootstrap JS -->
-
-        <script type="text/javascript" src="../resources/inc/bootstrap/js/bootstrap.min.js"></script>     
-
-        <!-- raty JS -->
-
-        <script type="text/javascript" src="../resources/inc/js/jquery.raty.min.js"></script> 
-
-        <!-- Custom JS -->
-
-        <script type="text/javascript" src="../resources/inc/js/custom.js"></script>  
-        
         
         <!-- 네이버 지도 api 관련 스크립트 -->
         <script type="text/javascript">
@@ -430,6 +359,89 @@
         scroll();
                    
         </script>
+        
+       <script>
+        function placeAdd(){
+        	 //alert(document.formPlace.name.value);
+        	 /* var li1 =  $("#li1");
+        	 var li2 =  $("#li2"); */
+        	var a =$('#placeFormId').serialize();
+        	 
+
+       	  $.post( "/bbs/guide/place",a, function( data ) {
+    		}, "json");
+        	 alert(a);
+        	 var place = document.formPlace.place.value;
+        	 var msg = document.formPlace.msg.value;
+        	 var lat = document.formPlace.lat.value;
+        	 var lng = document.formPlace.lng.value;
+        	 
+        	 var html = "<address>"
+                 				+"<ul class='address-ul fa-ul'>"
+                 				+"<li>"
+                 				+"<span>"
+                 				+"<i class='fa-li fa fa-home'></i>"+place
+                 				+"</span> "   
+                 				+"</li>"
+                 				+"<li>"
+                 				+"<span >"
+                 				+"<i class='fa-li fa fa-map-marker'></i>"+msg+','+lat+','+lng
+                 				+"</span></li>"
+                 				+"<li><a href='javascript:placeModify(${revo.getReplyNo()})'>수정</a>&nbsp;&nbsp;</li>"
+                 				+"<li><a href='/bbs/reply/replyDelete?replyno=${revo.getReplyNo() }'>삭제</a></li>"
+                 				+"</ul>"
+                 				+"</address><hr>";
+        	 $("#placeDiv").append(html);
+        	 alert("AAA");
+        	 
+         
+        	  
+        	 document.formPlace.place.value="";
+        	 document.formPlace.msg.value="";        		
+        }              
+        </script>
+         <!-- <script>
+        var scroll = function(){
+        	var place = document.formPlace.place.value;
+       	 	var msg = document.formPlace.msg.value;
+       		 var formData = $('#placeFormId').serialize()
+ console.log(formData)
+        $.ajax({
+                url:"/bbs/guide/place",
+                dataType:'json',
+                data : formData,
+                type:"post",
+                success: function (data) {
+                	//데이터의 갯수만큼 알아서 반복!(each)
+                    $.each(data, function(k,v){
+                        $("#placeDiv").append(
+                        		   "<address>"
+                     				+"<ul class='address-ul fa-ul'>"
+                     				+"<li>"
+                     				+"<span>"
+                     				+"<i class='fa-li fa fa-home'></i>"+v.place
+                     				+"</span> "   
+                     				+"</li>"
+                     				+"<li>"
+                     				+"<span >"
+                     				+"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng
+                     				+"</span></li>"
+                     				+"<li><a href='javascript:placeModify(${revo.getReplyNo()})'>수정</a>&nbsp;&nbsp;</li>"
+                     				+"<li><a href='/bbs/reply/replyDelete?replyno=${revo.getReplyNo() }'>삭제</a></li>"
+                     				+"</ul>"
+                     				+"</address><hr>")
+            	 
+                        })
+                }
+        		,error:function(){
+                	alert("history load error!");
+                }
+            });
+    	}
+        scroll();
+                   
+        </script> -->
+        
     </body>
 
 </html>

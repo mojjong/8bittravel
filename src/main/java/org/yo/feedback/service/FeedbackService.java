@@ -32,8 +32,8 @@ public class FeedbackService {
 	
 	public void update(FeedbackVO vo){
 		
-		
 		mapper.update(vo);
+	
 	}
 	
 	public void delete(int no){

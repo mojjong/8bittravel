@@ -34,24 +34,58 @@
 						남겨주세요!</small>
 				</h1>
 			</div>
-			<div class="div-cell text-center">
-				<a class="button green" href="#">Write your story</a>
-			</div>
 		</div>
-
-				<form name="writeForm">
+		
+		<div class="panel-group" id="accordion1">
+   
+       
+            <h4 class="panel-title">
+   
+     <a data-toggle="collapse" data-parent="#accordion1" href="#collapse11" class="button green">
+                 PUSH!!    
+               
+               </a>
+            
+                
+            </h4>
+        </div>
+        <form name="writeForm">
+        <div id="collapse11" class="panel-collapse collapse" style="height: 0px;">
+            <div class="panel-body">
+                 
+                
+           
+           			<div class="row field-row">
+           				<div class="col-xs-12 col-sm-6">
+                 			<input type="text" name="title" class="required " placeholder="Title">
+           				</div>
+           			</div>
+           <br>
+           			<div class="row field-row">
+           				<div class="col-xs-12 col-sm-6">
+                 			<textarea class="col-xs-12 col-sm-13" name="content" placeholder="Content" rows="3"></textarea>
+           				</div>
+           			</div>
+           			
+           			<div class="row field-row">
+           				<div class="col-xs-12 col-sm-6">
+                 			<input type="text" name="rating" class="col-xs-12 col-sm-2 " placeholder="Rating">
+           				</div>
+           			</div>
 				
-				<input type="text" name="userId" size="20" placeholder="userId"> 
-				<input type="text" name="title" size="100" placeholder="title">
-			   <input type="text" name="content" size="20" placeholder="content">
-			   <input type="text" name="guideId" size="20" placeholder="guideId">
-			   <input type="text" name="rating" size="20" placeholder="rating">
+				<br>
 				
-				<button id="writebtn">확인</button>
-				</form>
+				<div class="div-cell text-center">
+				<button id="wrtiebtn" class="button green" >등록</button>
+			</div>
+				
+            </div>
+        </div>
+        </form>
+    </div>
 
 
-	</div>
+	
 </section>
 
 <hr style="border-color: pink;">
@@ -59,27 +93,26 @@
 
 
 <section id="more-pages" class="section wide-fat">
+	
 	<div class="container" >
-
+	<form name="viewForm" id="viewID">
+		<input type="hidden" name="no" >
+		<input type="hidden" name="title">
+		<input type="hidden" name="content">
+			
+		
 		 <div class="row">
 			<div class="contents col-sm-8 col-md-9">
 
 
 				<div class="stories" >
 
-					<div class="media story" id="feedbackcon">
+					<div class="media story" id="feedbackcon"> </div>
+                 </div>
+              </div>
+         </div>
 					
-					
-					
-
-                                                        
-
-                                                    </div>
-                                                    </div>
-                                                    </div>
-                                                    
-						
-					</div>
+		</form>			
 				</div>
 		
 		
@@ -90,7 +123,6 @@
 	
 
 	
-
 
 </section>
 
@@ -332,7 +364,7 @@
 <!-- Custom JS -->
 
 <script type="text/javascript" src="/resources/inc/js/custom.js"></script>
-
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
 						var currentPage = 1;
@@ -344,10 +376,11 @@
 						$.getJSON("/bbs/feedback/list?page="+ currentPage,function(data) {
 								$.each(data,function(key, val){
 									$("#feedbackcon").append( 
-											"<a href='#' class='pull-left story-avatar'><img alt='' src='/resources/images/blog/avatar-1.jpg' class='media-object img-circle'></a>"
-											+ "<div class='media-body'>"
-											+ "<h2 class='media-heading'> "+val.title+"</h2><br>"
-											+ "<p class='story-text'> "+val.content+"</p></div>"
+											"<div id='modm_"+val.no+"'class='media story'>"
+											+"<a href='#' class='pull-left story-avatar'><img alt='' src='/resources/images/blog/avatar-1.jpg' class='media-object img-circle'></a>"
+											+ "<div id='mod_"+val.no+"' class='media-body'>"
+											+ "<div id='title_"+val.no+"'><h2 class='media-heading'> "+val.title+"</h2></div><br>"
+											+ "<div id='content_"+val.no+"'><p class='story-text'> "+val.content+"</p></div></div>"
 											
 											+ "<p class='story-meta'>"
 											+ "<span class='story-author'>"
@@ -358,10 +391,12 @@
 												+ " </span> "
 											+"<span class='story-date'><i class='fa fa-clock-o'></i>"
 											+ ""+val.regdate+"</span>"
-											+ "<span class='story-category'><i class='fa fa-tag'></i><a href='#'>Single Travel</a></span>"
-											+ "</p>");
+											+ "<span class='story-category'><i class='fa fa-tag'></i>"
+											+"<a id='modifyBtn' href='javascript:modify("+val.no+")' class='button mini'>modify</a></span>"
+											+"<button id='deletebtn' onClick='javascript:next("+val.no+")' class='button mini'>delete</button>"
+											+ "</p></div>");
 
-								});
+								});  $("#feedbackcon").append("<input type='hidden' name='feedbackno'>");
 
 						});
 				});
@@ -371,11 +406,10 @@
 				element.addEventListener(type, handler, false);
 			}
 	}	
-	
-	
+
 	EventUtil.addHandler(document, "DOMContentLoaded", function(
 			event) {
-		EventUtil.addHandler(writebtn, "click", function() {
+		EventUtil.addHandler(wrtiebtn, "click", function() {
 			write();
 		});
 	});
@@ -385,6 +419,80 @@
 		document.writeForm.method = "post"
 		document.writeForm.action = "/bbs/feedback/write"
 		document.writeForm.submit();
+	}
+	
+	function next(no){
+	 if(confirm("글 삭제 하시겠습니까??") == true)
+	 {
+	  alert(no);
+	  del(no);
+	 }
+	 
+	 else
+	 {
+	 alert('삭제안함');
+	 
+	 return "/bbs/feedback/board";
+	 }
+	}
+	
+	
+	function del(no) {
+		
+		alert("글삭제");
+		document.viewForm.method = "get"
+		document.viewForm.action = "/bbs/feedback/delete"
+		document.viewForm.no.value = no;
+		document.viewForm.submit();
+	}
+	
+	
+	function modify(no){
+		
+		var div = document.getElementById("mod_"+no);
+		
+		var title =  document.getElementById("title_"+no);
+		var content = document.getElementById("content_"+no);
+		
+		console.dir(content);
+		
+		var modTitle = title.firstElementChild.innerText;
+		var modContent = content.firstElementChild.innerText;
+		
+		div.innerHTML =  "<input id='mod_no' type='hidden'  value='"+no+"'>" +
+                         "<input id='mod_title' type='text' class='media-heading' value='"+modTitle+"' />"+  
+                         "<br>" +
+                         "<textarea id='mod_content' class='story-text col-sm-12 col-md-14' rows='5'>"+modContent+"</textarea>" +
+                         "<a  class='button mini' href='javascript:modiComplete("+no+")'>Complete</a>";
+                       /*  var head = document.getElementsByTagName('head')[0];
+                 		var script = document.createElement('script');
+                 		script.type = 'text/javascript';
+
+                 		script.innerHTML = "EventUtil.addHandler(modiCompleteBtn,'click',function(event){ "
+                 				+ "modiComplete();" + "});";
+
+                 		head.appendChild(script);
+              */
+              
+	}
+	
+	function modiComplete(no){
+		   var modiNo = document.getElementById("mod_no").value;
+	       var modiTitle = document.getElementById("mod_title").value;
+	       var modiContent = document.getElementById("mod_content").value;
+	    	alert(modiNo);
+	       document.viewForm.no.value = modiNo;
+	       document.viewForm.title.value = modiTitle;
+	       document.viewForm.content.value = modiContent;
+	       
+	       alert(document.viewForm.no.value);
+	       
+	    
+	       //form에 대한 값들을 jquery로 한꺼번에 submit 한다
+	       $.post( "/bbs/feedback/update", $("#viewID").serialize(), function( data ) {
+	      }, "json");
+	    
+	       location.reload(true);
 	}
 	
 				

@@ -516,7 +516,6 @@ function change_thememode(obj)
           success: function(data){
         	  var str = new Array();
         	  str.push("<select class='form-control' name='themeno'>");
-        	  str.push("<option value='0'>전체</option>");
         	  $.each(data, function(idx, item){
         		  if(item.thememode == obj.value){
                 		str.push("<option value='"+item.no+"'>"+ item.name +"</option>");

@@ -1,22 +1,16 @@
 package org.yo.web;
 
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.guidebbs.service.GuideBbsService;
 import org.yo.guidebbs.vo.GuideBbsVO;
-import org.yo.travelbbs.vo.TravelbbsVO;
 
 
 @Controller
@@ -29,12 +23,38 @@ public class GuideBbsController {
 	GuideBbsService service;
 
 
-	//글 리스트 뿌리기(무한스크롤)
-	/*@RequestMapping(value="/list", method = RequestMethod.GET)
-	public String scrollList1(){
-		System.out.println("스크롤");
-		return "/bbs/guidebbs/guideboard";
-	}*/
+	//사용자가 보는 뷰화면
+	@RequestMapping(value="/guideview", method = RequestMethod.GET)
+	public String scrollList1(GuideBbsVO vo, Model model){
+		System.out.println("리스트 보여주기");
+		vo.setGpno(61);
+		int gpno = vo.getGpno();
+		System.out.println(gpno);
+		
+		model.addAttribute("placeList", service.glist(gpno)); 
+		return "/bbs/guidebbs/view";
+	}
+	
+	//사용자가 보는 가이드 리스트 화면
+		@RequestMapping(value="/guidelist", method = RequestMethod.GET)
+		public String guidelist(GuideBbsVO vo, Model model){
+			System.out.println("리스트 보여주기");
+			vo.setTravelno(158);
+			int travelno = vo.getTravelno();
+			System.out.println(travelno);
+			
+			model.addAttribute("guList", service.gulist(travelno)); 
+			return "/bbs/guidebbs/list";
+		}
+
+	/*@RequestMapping(value="/list", method = RequestMethod.POST,produces = "application/json")
+	public @ResponseBody List<GuideBbsVO> scrollList2(GuideBbsVO vo, Integer gpno, Model model){
+		//vo.setTravelno(no);
+		System.out.println(vo.toString());
+		List<GuideBbsVO> list = service.glist(gpno);
+		//model.addAttribute("placeList", service.glist(gpno)(gpno)); 
+	
+		return list;*/
 		
 	/*//글 리스트 뿌리기
 
@@ -73,10 +93,12 @@ public class GuideBbsController {
 		//장소 추가하기-post
 		@RequestMapping(value = "/place", method = RequestMethod.POST)
 			public void placeAdd(GuideBbsVO vo, Model model){
-			System.out.println("aaaa");
+			
 				service.placeAdd(vo);
 				
 				logger.info("컨트롤 : " + vo.toString());
+				
+				//return "redirect:/bbs/guide/place";
 				
 			}
 		
@@ -97,8 +119,22 @@ public class GuideBbsController {
 			logger.info("컨트롤 장소삭제 : " );
 			return "redirect:/bbs/guide/place";
 		}
-			
-
+		
+		//GuideBbsInsert -get
+		@RequestMapping(value="/gWrite", method = RequestMethod.GET)
+		public String guideBbsInsert1(GuideBbsVO vo, Model model){
+			System.out.println("여기는 가이드 비비에스 insert");
+			return "/bbs/guidebbs/guideboard";
+		}
+		//GuideBbsInsert-post 
+		@RequestMapping(value="/gWrite", method = RequestMethod.POST)
+		public String guideBbsInsert2(GuideBbsVO vo, Model model){
+			System.out.println("하하하");
+			String a = vo.getGuideid();
+			logger.info(a);
+			service.guideBbsinsert(vo); 
+			return "redirect:/bbs/travelbbs/read";
+		}
 
 }
 

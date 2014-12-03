@@ -18,6 +18,9 @@ public interface GuideBbsMapper {
 	/*@Select(" select  place, msg from tbl_guideregion where gpno=#{gpno} order by no asc; ")*/
 	public List<GuideBbsVO> glist(Integer gpno);
 	
+	@Select(" select no, guideid from tbl_guidebbs where travelno=#{travelno}")
+	public List<GuideBbsVO> gulist(Integer travelno);
+	
 	//장소 추가할때마다 insert
 	@Insert(" insert into tbl_guideregion (no,gpno,place, lng, lat,msg) "
 			+ "values(seq_guideregion.nextval, #{gpno},#{place},#{lng},#{lat},#{msg})")
@@ -30,4 +33,9 @@ public interface GuideBbsMapper {
 	//장소 delete
 	@Delete(" delete from tbl_guideregion where no=#{no}")
 	public void placeDel(Integer no);
+	
+	//GuideBbs Insert
+	@Insert(" insert into tbl_guidebbs (no, guideid, travelno, cost, pay, regdate) "
+			+ "values (seq_guidebbs.nextval, #{guideid},#{travelno},#{cost},#{pay},sysdate)")
+	public void guideBbsInsert( GuideBbsVO vo);
 }

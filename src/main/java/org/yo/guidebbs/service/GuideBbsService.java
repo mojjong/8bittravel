@@ -17,24 +17,35 @@ public class GuideBbsService {
 	
 	@Inject
 	GuideBbsMapper mapper;
-	
+	//일차별 Guideregion 목록
 	public List<GuideBbsVO> glist(int gpno){
 		return mapper.glist(gpno);
 	}
-	//장소추가
+	//사용자글에 달릴 가이드 제목
+	public List<GuideBbsVO> gulist(int travelno){
+		return mapper.gulist(travelno);
+	}
+	
+	//Guideregion 추가
 	public void placeAdd(GuideBbsVO vo){
 		 mapper.placeAdd(vo);		  
 	}
 	
-	//장소 삭제
+	//Guideregion 삭제
 	public void placeDel(Integer no){
 		System.out.println("service : " + no);
 		mapper.placeDel(no);
 	}
 	
+	//Guideregion 수정
 	public void placeModi(GuideBbsVO vo){
 		logger.info("여기와? " + vo.toString());
 		System.out.println("여기와??");
 		mapper.placeModi(vo);
+	}
+	
+	//GuideBbs 입력
+	public void guideBbsinsert(GuideBbsVO vo){
+		mapper.guideBbsInsert(vo);
 	}
 }

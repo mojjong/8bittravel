@@ -11,8 +11,8 @@
    <div class="widget widget-tabs">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#recent" data-toggle="tab">Map</a></li>
-                                <li><a href="#popular" data-toggle="tab">Day1</a></li>
-                                <li><a href="#popular" data-toggle="tab">Day2</a></li>
+                                <li><a href="#recent" data-toggle="tab">Day1</a></li>
+                                <li><a href="#recent" data-toggle="tab">Day2</a></li>
                                 <li><a href="#popular" data-toggle="tab">Day3</a></li>
                             </ul>
                             <div class="tab-content">
@@ -35,7 +35,7 @@
                                 
                                 <form  name="formPlace" id="placeFormId" >
                                 	
-                                	<input type="hidden" name="gpno" value="40">
+                                	<input type="hidden" name="gpno" value="61">
 									<input type="hidden" name="lat">
 									<input type="hidden" name="lng">
                                     <div class="row">
@@ -89,16 +89,21 @@
                              
                                 
                              <div class="main-contact-form">
-                                <form  name = "costForm" method="post">
+                                <form  name = "guideBbsForm" method="post" action="/bbs/guide/gWrite">
+                                	
+                                	<input type = "hidden" name="guideid" value="user03">
+                                	<input type = "hidden" name="travelno" value = "152"> 
+                                	
                                     <div class="row">
                                         <div class="col-sm-4">
-                                        <label for="check-in-date2">가이드 비용</label>
-                                        <input class="form-control" type="text" name="name" placeholder="가이드 비용" /></div>
+                                        <label for="check-in-date2">총 예상비용</label>
+                                        <input class="form-control" type="text" name="cost" placeholder="총 예상비용" /></div>
                                         <div class="col-sm-8">
-                                        <label for="check-in-date2">가이드 내용</label>
-                                        <input class="form-control" type="text" name="email" placeholder="추가 사항" /></div>    
+                                        <label for="check-in-date2">가이드 비용</label>
+                                        <input class="form-control" type="text" name="pay" placeholder="가이드 비용" /></div>  
 									</div>
-                                </form><!-- costForm 끝 -->
+                                        <button class="button"  type ="submit" >글쓰기&nbsp;&nbsp;</button>  
+                                </form><!-- guideBbsForm 끝 -->
                                 <hr>
                             </div>                                    
                    		 </div>                                                                

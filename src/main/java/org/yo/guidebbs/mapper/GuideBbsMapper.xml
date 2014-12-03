@@ -20,6 +20,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 
+
+<!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+	<![CDATA[ 
+	select 
+		guideno, plandate, cost, pay, regdate, place, msg
+	from 
+		(select 
+	  		plan.no, rno, guideno, plandate, travelno, guideid, cost, pay, regdate
+		from
+			(select /*INDEX_DESC (tbl_guideplan PK_guideplan) */
+	  			no, rno, guideno, content, plandate
+			from
+	  			tbl_guideplan
+			where 
+	 			 no > 0 and
+	  	guideno = #{guideno}) plan, tbl_guidebbs guide
+		where
+	  		guide.no = plan.guideno) gp, tbl_guideregion gr, tbl_region region
+	where 
+		gp.no = gr.gpno and region.no = gp.rno]]>
+	 
+
+</select> -->
  <!-- <delete id="placeDel" parameterType="int" >
 	delete from tbl_guideregion 
 	where no=#{No}

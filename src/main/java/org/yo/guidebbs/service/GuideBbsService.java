@@ -24,7 +24,7 @@ public class GuideBbsService {
 	//����ڱۿ� �޸� ���̵� ����
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){
 		logger.info("service : " + vo.toString());
-		return mapper.gulist(vo);
+		return mapper.gulist(vo.getTravelno());
 	}
 	
 	//Guideregion �߰�

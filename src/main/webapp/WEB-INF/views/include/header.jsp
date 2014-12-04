@@ -11,6 +11,7 @@
         <title>8 Bit Travel</title>
 
 
+	
 
         <link rel="stylesheet" href="/resources/inc/bootstrap/css/bootstrap.min.css" />
 
@@ -109,6 +110,9 @@
 
 
      <link rel="stylesheet" href="/resources/demo/switcher.css" />
+
+
+
 
     </head>
 

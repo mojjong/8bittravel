@@ -4751,7 +4751,9 @@ img[class*="col-"] {
   display: table-cell !important;
   height: 100% !important;
   vertical-align: middle !important;
-  float: none !important;
+  float: right !important;
+  margin-right : 3.7% !important;
+
 }
 .row.div-table {
   margin: 0;

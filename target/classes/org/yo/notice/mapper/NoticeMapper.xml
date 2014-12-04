@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yo.notice.mapper.NoticeMapper">
+
+
+
+<select id="list" parameterType="int" resultType="org.yo.notice.vo.NoticeVO">
+
+
+ <![CDATA[
+      select rn, no, title, content, sysdate, cnt
+      from (select /*+INDEX_DESC(tbl_notice pk_notice)*/ 
+      rownum rn, no, title, content, sysdate ,  count(no) over() cnt
+      from tbl_notice
+   where no > 0 and rownum <= ((CEIl(#{currentPage})*50)+1)
+   ]]>     ${sql}
+   <![CDATA[   ) where rn>((#{currentPage}-1)*10) and rn<=(#{currentPage}*10)
+    ]]>
+    
+	</select>
+	</mapper>

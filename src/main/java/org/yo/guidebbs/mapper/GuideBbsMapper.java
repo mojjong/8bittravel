@@ -22,7 +22,7 @@ public interface GuideBbsMapper {
 	public List<GuideBbsVO> gulist(Integer travelno);
 	
 	//장소 추가할때마다 insert
-	@Insert(" insert into tbl_guideregion (no,gpno,place, lng, lat,msg) "
+	@Insert(" insert into tbl_guideregion (no, gpno,place, lng, lat,msg) "
 			+ "values(seq_guideregion.nextval, #{gpno},#{place},#{lng},#{lat},#{msg})")
 	public void placeAdd(GuideBbsVO vo);
 	

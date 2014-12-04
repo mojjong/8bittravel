@@ -25,10 +25,8 @@ public class GuideBbsController {
 
 	//사용자가 보는 뷰화면
 	@RequestMapping(value="/guideview", method = RequestMethod.GET)
-	public String scrollList1(GuideBbsVO vo, Model model){
-		System.out.println("리스트 보여주기");
-		vo.setGpno(61);
-		int gpno = vo.getGpno();
+	public String scrollList1(GuideBbsVO vo, Integer gpno,Model model){
+		logger.info("리스트 보여주기");
 		System.out.println(gpno);
 		
 		model.addAttribute("placeList", service.glist(gpno)); 
@@ -97,8 +95,6 @@ public class GuideBbsController {
 				service.placeAdd(vo);
 				
 				logger.info("컨트롤 : " + vo.toString());
-				
-				//return "redirect:/bbs/guide/place";
 				
 			}
 		

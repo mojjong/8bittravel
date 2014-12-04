@@ -151,12 +151,22 @@
 
                     </div>
 
-					<form name="guideForm">
-						<input type="hidden" name="no" value="${vo.no}">
-					</form>
-
                 </div>
+                <hr>
+                <div class="container">	
+	                <div class="col-xs-12 col-sm-8">
+	
+	                	<div class="guide-page">
+	                		<h1>Guide List</h1>
 
+                            <hr>
+							<form name="guideForm" id="guideForm">
+								<input type="hidden" name="travelno" value="${vo.no}">
+							</form>
+							<div id="guideList"></div>
+						</div>
+					</div>
+				</div>
             </section>
 
 
@@ -223,6 +233,28 @@
         <script type="text/javascript" src="/resources/js/travelbbs.js"></script>
         
         <script>
+        
+        $(document).ready(function(){
+        	
+        	
+        	var formData = $("#guideForm").serialize();
+        	var target = $("#guideList");
+        	
+        	console.log(target);
+        	console.log(formData);
+        	
+        	$.ajax({
+				type : "GET",
+				url : "/bbs/guide/guidelist",
+				data : formData, //변환된 formData를 요청
+				success : function(data) {
+					$.each(data, function(key, val) {
+						target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/guideview?no="+val.no+"'>"+val.guideid+"님의 Guide</a></h3>");
+					});
+				}
+        	});
+        });
+        
         EventUtil.addHandler(document, "DOMContentLoaded", function(event) {
 			EventUtil.addHandler(updateBtn, "click", function(event) {
 				update();

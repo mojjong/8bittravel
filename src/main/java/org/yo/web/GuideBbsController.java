@@ -1,6 +1,8 @@
 package org.yo.web;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.guidebbs.service.GuideBbsService;
 import org.yo.guidebbs.vo.GuideBbsVO;
 
@@ -23,26 +26,29 @@ public class GuideBbsController {
 	GuideBbsService service;
 
 
-	//»ç¿ëÀÚ°¡ º¸´Â ºäÈ­¸é
+	//ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½
 	@RequestMapping(value="/guideview", method = RequestMethod.GET)
-	public String scrollList1(GuideBbsVO vo, Integer gpno,Model model){
-		logger.info("¸®½ºÆ® º¸¿©ÁÖ±â");
+	public String scrollList1(GuideBbsVO vo, Model model){
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½");
+		vo.setGpno(61);
+		int gpno = vo.getGpno();
 		System.out.println(gpno);
 		
 		model.addAttribute("placeList", service.glist(gpno)); 
 		return "/bbs/guidebbs/view";
 	}
 	
-	//»ç¿ëÀÚ°¡ º¸´Â °¡ÀÌµå ¸®½ºÆ® È­¸é
+	//ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½Æ® È­ï¿½ï¿½
 		@RequestMapping(value="/guidelist", method = RequestMethod.GET)
-		public String guidelist(GuideBbsVO vo, Model model){
-			System.out.println("¸®½ºÆ® º¸¿©ÁÖ±â");
-			vo.setTravelno(158);
-			int travelno = vo.getTravelno();
-			System.out.println(travelno);
+		@ResponseBody
+		public List<GuideBbsVO> guidelist(GuideBbsVO vo, Model model){
+			//vo.setTravelno(158);
+			//int travelno = vo.getTravelno();
+			//System.out.println(travelno);
 			
-			model.addAttribute("guList", service.gulist(travelno)); 
-			return "/bbs/guidebbs/list";
+			logger.info("guideList : " + vo.toString());
+			//model.addAttribute("guList", service.gulist(vo.getTravelno())); 
+			return service.gulist(vo);
 		}
 
 	/*@RequestMapping(value="/list", method = RequestMethod.POST,produces = "application/json")
@@ -54,7 +60,7 @@ public class GuideBbsController {
 	
 		return list;*/
 		
-	/*//±Û ¸®½ºÆ® »Ñ¸®±â
+	/*//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ¸ï¿½ï¿½ï¿½
 
 	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ñ¸ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ñ½ï¿½Å©ï¿½ï¿½)
 		@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -76,7 +82,7 @@ public class GuideBbsController {
 			return list;
 		}*/
 	
-		//Àå¼Ò Ãß°¡ÇÏ±â & ±× ±Û¿¡ ÇØ´çÇÏ´Â ¸®½ºÆ® º¸ÀÌ±â-get
+		//ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï±ï¿½ & ï¿½ï¿½ ï¿½Û¿ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ì±ï¿½-get
 		@RequestMapping(value="/place", method = RequestMethod.GET)
 		public String placeAdd2(GuideBbsVO vo, Model model){
 			vo.setGpno(61);
@@ -88,44 +94,46 @@ public class GuideBbsController {
 			return "/bbs/guidebbs/guideboard";
 		}
 		
-		//Àå¼Ò Ãß°¡ÇÏ±â-post
+		//ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï±ï¿½-post
 		@RequestMapping(value = "/place", method = RequestMethod.POST)
 			public void placeAdd(GuideBbsVO vo, Model model){
 			
 				service.placeAdd(vo);
 				
-				logger.info("ÄÁÆ®·Ñ : " + vo.toString());
+				logger.info("ï¿½ï¿½Æ®ï¿½ï¿½ : " + vo.toString());
+				
+				//return "redirect:/bbs/guide/place";
 				
 			}
 		
-		//Àå¼Ò ¼öÁ¤
+		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		@RequestMapping(value = "/placeModify", method =RequestMethod.POST )
 		public void placeModi(GuideBbsVO vo){
-			System.out.println("¼öÁ¤:"+vo.toString());
+			System.out.println("ï¿½ï¿½ï¿½ï¿½:"+vo.toString());
 			service.placeModi(vo);	
-			logger.info("ÄÁÆ®·Ñ Àå¼Ò¼öÁ¤ : " );
+			logger.info("ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ : " );
 			
 		}
 		
-		//Àå¼Ò»èÁ¦
+		//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½
 		@RequestMapping(value = "/placeDel", method =RequestMethod.GET )
 		public String placeDel(Integer no){
 			System.out.println(no);
 			service.placeDel(no);	
-			logger.info("ÄÁÆ®·Ñ Àå¼Ò»èÁ¦ : " );
+			logger.info("ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ : " );
 			return "redirect:/bbs/guide/place";
 		}
 		
 		//GuideBbsInsert -get
 		@RequestMapping(value="/gWrite", method = RequestMethod.GET)
 		public String guideBbsInsert1(GuideBbsVO vo, Model model){
-			System.out.println("¿©±â´Â °¡ÀÌµå ºñºñ¿¡½º insert");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ñ¿¡½ï¿½ insert");
 			return "/bbs/guidebbs/guideboard";
 		}
 		//GuideBbsInsert-post 
 		@RequestMapping(value="/gWrite", method = RequestMethod.POST)
 		public String guideBbsInsert2(GuideBbsVO vo, Model model){
-			System.out.println("ÇÏÇÏÇÏ");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			String a = vo.getGuideid();
 			logger.info(a);
 			service.guideBbsinsert(vo); 

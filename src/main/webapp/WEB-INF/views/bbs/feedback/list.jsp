@@ -418,8 +418,8 @@
    
    function write() {
       alert("글작성");
-      document.writeForm.method = "post"
-      document.writeForm.action = "/bbs/feedback/write"
+      document.writeForm.method = "post";
+      document.writeForm.action = "/bbs/feedback/write";
       document.writeForm.submit();
    }
    

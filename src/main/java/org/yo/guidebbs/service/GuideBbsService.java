@@ -17,34 +17,35 @@ public class GuideBbsService {
 	
 	@Inject
 	GuideBbsMapper mapper;
-	//ÀÏÂ÷º° Guideregion ¸ñ·Ï
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Guideregion ï¿½ï¿½ï¿½
 	public List<GuideBbsVO> glist(int gpno){
 		return mapper.glist(gpno);
 	}
-	//»ç¿ëÀÚ±Û¿¡ ´Þ¸± °¡ÀÌµå Á¦¸ñ
-	public List<GuideBbsVO> gulist(int travelno){
-		return mapper.gulist(travelno);
+	//ï¿½ï¿½ï¿½ï¿½Ú±Û¿ï¿½ ï¿½Þ¸ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+	public List<GuideBbsVO> gulist(GuideBbsVO vo){
+		logger.info("service : " + vo.toString());
+		return mapper.gulist(vo);
 	}
 	
-	//Guideregion Ãß°¡
+	//Guideregion ï¿½ß°ï¿½
 	public void placeAdd(GuideBbsVO vo){
 		 mapper.placeAdd(vo);		  
 	}
 	
-	//Guideregion »èÁ¦
+	//Guideregion ï¿½ï¿½ï¿½ï¿½
 	public void placeDel(Integer no){
 		System.out.println("service : " + no);
 		mapper.placeDel(no);
 	}
 	
-	//Guideregion ¼öÁ¤
+	//Guideregion ï¿½ï¿½ï¿½ï¿½
 	public void placeModi(GuideBbsVO vo){
-		logger.info("¿©±â¿Í? " + vo.toString());
-		System.out.println("¿©±â¿Í??");
+		logger.info("ï¿½ï¿½ï¿½ï¿½ï¿½? " + vo.toString());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½??");
 		mapper.placeModi(vo);
 	}
 	
-	//GuideBbs ÀÔ·Â
+	//GuideBbs ï¿½Ô·ï¿½
 	public void guideBbsinsert(GuideBbsVO vo){
 		mapper.guideBbsInsert(vo);
 	}

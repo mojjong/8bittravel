@@ -21,4 +21,8 @@ public class UserService {
 		return mapper.checkid(id);
 	}
 	
+	public String login(UserVO vo){
+		return mapper.login(vo);
+	}
+	
 }

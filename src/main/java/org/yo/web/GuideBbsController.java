@@ -26,10 +26,8 @@ public class GuideBbsController {
 	GuideBbsService service;
 
 
-	//占쏙옙占쏙옙微占� 占쏙옙占쏙옙 占쏙옙화占쏙옙
 	@RequestMapping(value="/guideview", method = RequestMethod.GET)
 	public String scrollList1(GuideBbsVO vo, Model model){
-		System.out.println("占쏙옙占쏙옙트 占쏙옙占쏙옙占쌍깍옙");
 		vo.setGpno(61);
 		int gpno = vo.getGpno();
 		System.out.println(gpno);
@@ -50,7 +48,6 @@ public class GuideBbsController {
 		return "/bbs/guidebbs/guidetab";
 	}
 	
-	//占쏙옙占쏙옙微占� 占쏙옙占쏙옙 占쏙옙占싱듸옙 占쏙옙占쏙옙트 화占쏙옙
 		@RequestMapping(value="/guidelist", method = RequestMethod.GET)
 		@ResponseBody
 		public List<GuideBbsVO> guidelist(GuideBbsVO vo, Model model){
@@ -94,7 +91,6 @@ public class GuideBbsController {
 			return list;
 		}*/
 	
-		//占쏙옙占� 占쌩곤옙占싹깍옙 & 占쏙옙 占쌜울옙 占쌔댐옙占싹댐옙 占쏙옙占쏙옙트 占쏙옙占싱깍옙-get
 		@RequestMapping(value="/place", method = RequestMethod.GET)
 		public String placeAdd2(GuideBbsVO vo, Model model){
 			vo.setGpno(61);
@@ -106,7 +102,6 @@ public class GuideBbsController {
 			return "/bbs/guidebbs/guideboard";
 		}
 		
-		//占쏙옙占� 占쌩곤옙占싹깍옙-post
 		@RequestMapping(value = "/place", method = RequestMethod.POST)
 			public void placeAdd(GuideBbsVO vo, Model model){
 			
@@ -118,7 +113,6 @@ public class GuideBbsController {
 				
 			}
 		
-		//占쏙옙占� 占쏙옙占쏙옙
 		@RequestMapping(value = "/placeModify", method =RequestMethod.POST )
 		public void placeModi(GuideBbsVO vo){
 			System.out.println("占쏙옙占쏙옙:"+vo.toString());
@@ -127,7 +121,6 @@ public class GuideBbsController {
 			
 		}
 		
-		//占쏙옙寧占쏙옙占�
 		@RequestMapping(value = "/placeDel", method =RequestMethod.GET )
 		public String placeDel(Integer no){
 			System.out.println(no);

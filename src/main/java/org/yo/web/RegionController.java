@@ -16,7 +16,6 @@ import org.yo.region.service.RegionService;
 import org.yo.region.vo.RegionVO;
 import org.yo.region.vo.ThemeVO;
 
-//�׸��� ������ ���� �������� �ѷ��ִ� ��Ʈ�ѷ�
 @Controller
 @RequestMapping("/main/region/*")
 public class RegionController {

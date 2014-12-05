@@ -32,7 +32,6 @@ public class FileController {
 	private final static String DEFAULT_DIR = "c:\\zzz\\8bitTravel";
 	
 	
-	//�ٿ�ε��� ������ jpg��� �����Ͽ�...
 	@RequestMapping(value = "/download", method= RequestMethod.GET, produces="application/octet-stream")
 	public @ResponseBody byte[] downFile(@RequestParam(value="filename", defaultValue="")String path, HttpServletResponse response) throws Exception{
 		if(path.equals(""))
@@ -41,11 +40,8 @@ public class FileController {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		File downFile = new File(DEFAULT_DIR, path);
-		//����ó��
-		//������ filename���� ������ �Ѿ��.
 		OutputStream os = response.getOutputStream();
 		FileInputStream fi = new FileInputStream(downFile);
-		//fi.read()�� ���� os.write�� ȿ���� ����. Ŭ���̾�Ʈ���� ������ ���ư���.
 		response.setHeader("Content-Disposition", "attachment; filename="+new String(path.getBytes("UTF-8"), "8859_1"));
 		byte[] bytes = FileCopyUtils.copyToByteArray(fi);
 		
@@ -55,7 +51,6 @@ public class FileController {
 		
 	}
 	
-	//������ �̸��� �Ķ���ͷ� �޴´�.(������ ����?)
 	@RequestMapping(value="/view/{path}", produces="images/jpeg")
 	public @ResponseBody byte[] viewFile(@PathVariable("path") String path) throws Exception{
 		
@@ -76,10 +71,8 @@ public class FileController {
 		
 	}
 	
-	//ImageMagicK �̿��� ����� ���� �Լ�
 	private void createThumbnail(File origin) throws Exception {
 		
-		//���������� ImageMagicK �н� ������.
 		//String myPath="C:\\Program Files\\ImageMagick";
 		//ProcessStarter.setGlobalSearchPath(myPath);
 		
@@ -93,8 +86,8 @@ public class FileController {
 			if(!thumbNailFile.exists()) {
 				IMOperation op = new IMOperation();
 				op.addImage(origin.getPath());
-				op.thumbnail(100); //����� ������ �����ϰ� ��������
-				op.blur(20.0); //bluró�� ��� �پ��Ѱ� ������.
+				op.thumbnail(100); 
+				op.blur(20.0); 
 				op.addImage(destinationFileName);
 				cmd.run(op);
 			}
@@ -102,7 +95,6 @@ public class FileController {
 	}
 	
 	
-	//JAVASCRIPT�ڵ带 RETURN�� �� �ִ�.
 	@RequestMapping(value="/upload", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String uploadFile(MultipartFile file) throws Exception {
@@ -138,17 +130,13 @@ public class FileController {
 		logger.info(fileName);
 		logger.info("-------------------");
 		
-		//�̹������ ����� �̹����� �����. �������� �Լ���.
 		boolean isImage = isImage(fileName, suffix);
 		if(isImage){
-			//.jpg�̸� ����� Make.
 			createThumbnail(uploadedFile);
 		}
 		
-		//��ü ���ͷ� ����
 		String jsObjStr = "{fileName:'"+fileName+"', isImage:"+isImage+", suffix:'"+ suffix+"'}";
 
-		//�ڹٽ�ũ��Ʈ�� ȣ���ϴµ� ��ü�� �����ϴ� �����̴�.
 		String str = "<script>parent.updateResult("+jsObjStr+");</script>";
 		
 		

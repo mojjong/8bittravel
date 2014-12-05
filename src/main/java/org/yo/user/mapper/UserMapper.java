@@ -9,5 +9,8 @@ public interface UserMapper {
 	
 	@Select("SELECT COUNT(*) CNT FROM TBL_USER WHERE ID=#{id}")
 	public String checkid(String id);
+	
+	@Select("SELECT COUNT(*) CNT FROM TBL_USER WHERE ID=#{id} AND PW=#{pw}")
+	public String login(UserVO vo);
 
 }

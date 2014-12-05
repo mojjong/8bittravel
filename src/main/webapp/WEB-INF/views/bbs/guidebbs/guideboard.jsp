@@ -5,40 +5,36 @@
 
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=8dc3f50341e3abc71540971185f76729"></script>
 
-             <section id="contact" class="section wide-fat">
-                   
+             <section id="contact" class="section wide-fat">        
                 <div class="container">
                     <div class="row">          
                      <div class="widget widget-tabs">
                            <div id="messagesAlert"></div>
-                              <!--  <a href="javascript:;" id="btnAddPage" role="button">Add Page</a> -->
-                                                     
+                              
+                              
+                             <!--탭 DIv  -->                        
                             <ul  id = "myTab" class="nav nav-tabs" role="tablist">
-                                <li id="li1" class="active"><a href="#tab1" role="tab" data-toggle="tab">Tab 1</a></li>
+                                <li id="li1" class="active"><a href="#plandate1" role="tab" data-toggle="tab">plandate 1</a></li>
                                 <li id="last"><a href="#addTab"><span class="glyphicon glyphicon-plus"></span> Add Tab</a></li>
                                 <!-- <li><a href="#recent" data-toggle="tab" >Day1</a></li> -->
                             </ul>
                             
-                 <div id = "content" class="tab-content">           
-                   <!--1DAY DIV  -->
-                   <div class="tab-pane fade in active" id="tab1"><p>탭 1</p></div>
+                            <!--day별 내용  -->
+                 			<div id = "content" class="tab-content">           
                    
-                 </div> 
-                             <hr></hr>Number of tabs: <span class="badge alert-success" id="displayElem"></span>
-
-
-                   
-
-        <!-- </div>TAB content DIV 끝  -->
+                   				<div class="tab-pane fade in active" id="plandate1"><p>Region</p></div>
+                   				<!--append 되는 곳  -->
+                 			</div> 
+        
                         </div><!-- /.widget -->
                     </div><!--row  -->
                 </div><!--contaier  -->
             </section><!--지도 섹션끝  -->
                 
     
-<!--       네이버 지도 api 관련 스크립트 -->
+<!-- 네이버 지도 api 관련 스크립트 -->
 <script type="text/javascript">
-   var mapObj= (function (div, tab){
+   var mapObj= (function (div, plandate){
     var oSeoulCityPoint = new nhn.api.map.LatLng(37.5675451, 126.9773356);
     var defaultLevel = 11;
     var oMap = new nhn.api.map.Map(div, {
@@ -179,8 +175,8 @@
     oMap.attach("click", function(pos){
        
        
-       var form1 = document.getElementById('placeFormId'+tab);
-       alert(form1);
+       var form1 = document.getElementById('placeFormId'+plandate);
+      
        
        form1.lat.value = pos.point.getX();
        form1.lng.value = pos.point.getY();
@@ -278,15 +274,14 @@
         </script> -->
         
        <script>
-        function placeAdd(tab){
+        function placeAdd(plandate){
         	
-           var a =$('#placeFormId'+tab).serialize();
+          	var a =$('#placeFormId'+plandate).serialize();
        
-             $.post( "/bbs/guide/place",a, function( data ) {
-             }, "json");
+           $.post( "/bbs/guide/place",a, function( data ) { }, "json");
            //var no = document.formList.no.value;
-          var form = document.getElementById('placeFormId'+tab);
-          console.dir(form);
+          	var form = document.getElementById('placeFormId'+plandate);
+          	
             var place = form.place.value;
             var msg = form.msg.value;
             var lat = form.lat.value;
@@ -309,7 +304,7 @@
                       +"<li><a href='/bbs/guide/placeDel?no=${placevo.getNo() }'>삭제</a></li>"
                       +"</ul>"
                       +"</address><hr>";
-            $("#placeDiv"+tab).append(html);
+            $("#placeDiv"+plandate).append(html);
                         
             form.place.value="";
             form.msg.value=""; 
@@ -372,84 +367,50 @@
         }
         
         </script>
-   
-       <!--  <script>
-        
-        $(function(){ 
-            $('.nav-tabs a').on('click', function (e) {
-                
-                console.log("AAAAAA");
-               
-                   //alert($('#placeListId').html());
-                $('#placeListId').each(function(){
-                      
-                      //var a =$(this).find('input')[0].value="";
-                      alert( $(this).find('input')[0].value="");
-                    
-                  });
-                    $(this).tab('show');
-            });  
-        });
- 
-        
-        </script> -->
-        
-        <script>
+	     <script>
         $(document).ready(function(){
            $(function () {
+        	  
+        	   
+        	   
                // This line is not required (I just up the system and say there is 1 tab in the <div id="messagesAlert"></div> markup)
                $('#displayElem').html('1');
 
                // add버튼 누를때 연결되는 이벤트.
                $('#myTab a[href="#addTab"]').on('click', function () { 
                    // li가 얼마나 추가되었는지 (-1하는 것은 AddTab이라는 버튼을 빼기 위해서.)
-                   var nbrLiElem = ($('ul#myTab li').length) - 1; 
+                   var nbrLiElem = ($('ul#myTab li').length) - 2; 
 
                    nbrLiElem = nbrLiElem + 1; 
                    
+                   
                    // last-child앞에 새로운 tab li가 추가된다.
                    // li ID랑 그 li가 눌렸을때 어떻게 동작하는지 완전한 구조로 append된다.
-                   $('ul#myTab li:last-child').before('<li id="li' + (nbrLiElem) + '"><a href="#tab' + (nbrLiElem) + '" role="tab" data-toggle="tab">Tab ' + (nbrLiElem) + ' <button type="button" class="btn btn-warning btn-xs" onclick="removeTab(' + (nbrLiElem) + ');"><span class="glyphicon glyphicon-remove"></span></button></a>');
+                   $('ul#myTab li:last-child').before('<li id="li' + (nbrLiElem) + '"><a href="#plandate' + (nbrLiElem) + '" role="tab" data-toggle="tab">plandate ' + (nbrLiElem) + ' <button type="button" class="btn btn-warning btn-xs" onclick="removeTab(' + (nbrLiElem) + ');"><span class="glyphicon glyphicon-remove"></span></button></a>');
                    
                    // <div class="tab-content">의 last-child 뒤에 새로운 div요소가 추가된다.
                    //$('div.tab-content div:last-child').after('<div class="tab-pane fade" id="tab'+(nbrLiElem)+'"></div>');
                    // 탭시스템 안에 하나 이상의 element를 추가한다.
-                    $('div.tab-content').append('<div class="tab-pane fade" id="tab'+(nbrLiElem)+'"></div>');
+                    $('div.tab-content').append('<div class="tab-pane fade" id="plandate'+(nbrLiElem)+'"></div>');
                    
-                   //console.dir($('div.tab-pane fade div:last-child'));
-                   
-                   //nbrLiElem = nbrLiElem + 1; 
-                   
-                   $.get("/bbs/guide/guidetab?tab="+nbrLiElem, function(data) {
-                      alert(nbrLiElem);
-                      var tab = document.getElementById('tab'+nbrLiElem);
-                  
+                  	//get방식으로 컨트롤러에게 안에 내용을 가져와 달라고 요청한다.
+                   $.get("/bbs/guide/guidetab?plandate="+nbrLiElem+" &travelno=159", function(data) {
+                     
+                      var tab = document.getElementById('plandate'+nbrLiElem);
+                      var no = document.getElementById('placeListId'+nbrLiElem);
+                      alert(no);
                       tab.innerHTML = data;
                       
-                      
-                      
-                      var q=$('div#tab'+nbrLiElem+' div#map');
-                      
+					  //jquery로 추가한탭의 아이디로 map div를 이용해 지도를 붙여넣는다,
+                      var q=$('div#plandate'+nbrLiElem+' div#map');
                       alert("AAAA"+q); 
-                      console.dir(q);
-                      
-                    
-                      
-                      //console.dir(tab)
                       mapObj(q[0], nbrLiElem);
-                     
-                   
-                      
                      });
-                  
-            
-                 
+
                    // This line is not required (I just display, inside the <div id="messagesAlert"></div> markup, how many tabs there is)
                    $('#displayElem').html(nbrLiElem); 
                });
-           });
-            
-           
+           }); 
         });
         </script>
         <script>

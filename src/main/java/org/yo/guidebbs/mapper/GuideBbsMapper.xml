@@ -20,6 +20,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 
+<!--★DAY별 가이드 장소 리스트  -->
+<select id="daylist" parameterType="org.yo.guidebbs.vo.GuideBbsVO" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+<![CDATA[ 
+select 
+	gp.gpno, travelno,gp.guideno, gr.no grno, gp.rno, guideid, plandate, place, lat, lng, msg
+	
+	from 
+		(select gp.no gpno, travelno,guideid, gp.plandate, guideno, rno 
+			from 
+				(select no, guideid from tbl_guidebbs 
+					where 
+						travelno = #{travelno}) gb, tbl_guideplan gp
+			where 
+				gb.no = gp.guideno and plandate = #{plandate}) gp, tbl_guideregion gr
+	where gp.gpno = gr.gpno
+						order by no asc]]>
+
+
+</select>
 
 <!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	<![CDATA[ 

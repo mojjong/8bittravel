@@ -14,23 +14,28 @@ public interface GuideBbsMapper {
 	@Select(" select sysdate from dual")
 	public String getTime();
 	
-	//Àå¼Ò ¸®½ºÆ® º¸¿©ÁÖ±â
+	//ê°€ì´ë“œê°€ ì¼ì°¨ë³„ë¡œ ë³´ëŠ” view
 	/*@Select(" select  place, msg from tbl_guideregion where gpno=#{gpno} order by no asc; ")*/
 	public List<GuideBbsVO> glist(Integer gpno);
 	
+	//ì‚¬ìš©ìê°€ ê¸€ì„ í´ë¦­í–ˆì„ë•Œ ë³´ëŠ” view
 	@Select(" select no, guideid from tbl_guidebbs where travelno=#{travelno}")
 	public List<GuideBbsVO> gulist(Integer travelno);
 	
-	//Àå¼Ò Ãß°¡ÇÒ¶§¸¶´Ù insert
+	//dayë³„ë¡œ ì¥ì†Œ ë³´ì—¬ì£¼ëŠ” list
+	public List<GuideBbsVO> daylist(GuideBbsVO vo);
+	
+	
+	//ì¥ì†Œ insert
 	@Insert(" insert into tbl_guideregion (no, gpno,place, lng, lat,msg) "
 			+ "values(seq_guideregion.nextval, #{gpno},#{place},#{lng},#{lat},#{msg})")
 	public void placeAdd(GuideBbsVO vo);
 	
-	//Àå¼Ò modify
+	//ì¥ì†Œ modify
 	@Update(" update tbl_guideregion set place =#{place} ,msg= #{msg} where no=#{no}")
 	public void placeModi(GuideBbsVO vo);
 	
-	//Àå¼Ò delete
+	//ì¥ì†Œ delete
 	@Delete(" delete from tbl_guideregion where no=#{no}")
 	public void placeDel(Integer no);
 	

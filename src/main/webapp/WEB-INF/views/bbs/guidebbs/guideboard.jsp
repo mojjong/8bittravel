@@ -23,113 +23,6 @@
                    <!--1DAY DIV  -->
                    <div class="tab-pane fade in active" id="tab1"><p>탭 1</p></div>
                    
-                   
-                   
-                   
-                   
-<!--  -->
-
-
-
- <div>
-                         	 
-	 <div  class="col-sm-5 contact section-intro">
-	 <div style="width: 400px; height: 400px; margin: 0px 0px 20px 30px; padding: 0px; margin-bottom: 40px;" class="home-map no-margin-bottom">
-	 <div id="map"></div>
-	 </div>				
-							</div><!--ì§ëDIV  -->
-							
-							
-				<div class="col-sm-7 sidebar">
-					<div class="widget no-margin-bottom">
-                                <h1 class="widget-title no-margin-top no-margin-bottom">지도에서  <span class="higlight">장소</span>를 선택하세요</h1>
-                                <p>&nbsp;</p>
-                         <div class="main-contact-form">
-                           <!--ì¥ì ì¶ê° DIV  -->
-                           <div class="widget no-margin-bottom">
-                           		<!--ì¥ì ì¶ê° í¼ìì  -->
-                                <form  name="formPlace" id="placeFormId" >
-                                	
-                                	<input type="hidden" name="gpno" value="61">
-									<input type="hidden" name="lat">
-									<input type="hidden" name="lng">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                        <label for="check-in-date2">장소 이름</label>
-                                        <input class="form-control" type="text" name="place" placeholder="장소 이름" /></div>
-                                        <div class="col-sm-6">
-                                        <label for="check-in-date2">상세 설명</label>
-                                        <input class="form-control" type="text" name="msg" placeholder="상세 설명" /></div>     
-									</div>
-                                    <!-- <input class="button" type="submit" value="ì¥ì ì¶ê°" /> -->
-                                    <li class="button"><a href='javascript:placeAdd()'>장소추가</a>&nbsp;&nbsp;</li>
-                                </form><!--formPlace ë  -->                               
-							</div><!--ì¥ìì¶ê°DIV ë  -->
-								
-						<!--ì¥ì ë¦¬ì¤í¸ append ëë form  -->				                      
-                        <hr>
-		                        <form name = "placeList" id = "placeListId" action = "/bbs/guide/place" >    
-			                        <input type="hidden" name="gpno" id = "gpnoId" value="61">  
-			                        <input type="hidden" name = "no">  
-			                        <input type="hidden" name="place"  >
-			                        <input type="hidden" name="msg"  >
-			                        
-			                        <div class="widget no-margin-bottom">
-			                                <h3 class="widget-title">추가된 장소</h3>
-			                                
-			                        <c:forEach var="placevo" items="${placeList}">
-			                        <div id= "place_${placevo.getNo()}">
-			                           <address>
-				       					<ul class='address-ul fa-ul'>
-						       				<li id="placeId_${placevo.getNo() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getNo() }</span></li>
-				       						<li id="msgId_${placevo.getNo() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
-				       						<li><a href='javascript:placeModify(${placevo.getNo()})'>수정 </a>&nbsp;&nbsp;</li>
-			       							<li><a href='/bbs/guide/placeDel?no=${placevo.getNo()}'>삭제 </a></li>
-				       					</ul>
-				       					</address>
-				       					</div>
-				       					<hr>
-			                                <!--ë¦¬ì¤í¸ ì¶ê°ëë DIV  -->
-			                                <div id="placeDiv"></div>
-			                                
-				       				</c:forEach>              
-				       				
-			                            </div> 
-		                          </form>  <!--*********placeList í¼ ë  --> 
-                             
-                             <!--ê°ì´ë ë¹ì© div  -->   
-                            <div class="main-contact-form">
-	                               <form  name = "guideBbsForm" method="post" action="/bbs/guide/gWrite">
-	                               	
-	                               	<input type = "hidden" name="guideid" value="user03">
-	                               	<input type = "hidden" name="travelno" value = "152"> 
-	                               	
-	                                   <div class="row">
-	                                       <div class="col-sm-4">
-	                                       <label for="check-in-date2">총 예상비용</label>
-	                                       <input class="form-control" type="text" name="cost" placeholder="총 예상비용" /></div>
-	                                       <div class="col-sm-8">
-	                                       <label for="check-in-date2">가이드 비용</label>
-	                                       <input class="form-control" type="text" name="pay" placeholder="가이드 비용" /></div>  
-									</div>
-	                                       <button class="button"  type ="submit" >글쓰기&nbsp;&nbsp;</button>  
-	                               </form><!-- guideBbsForm ë -->
-                               <hr>
-                           </div>
-                           <!--******ê°ì´ë ë¹ì© div  ë  -->         
-                                                       
-                   		 </div><!--ì¥ì ì í, ë¦¬ì¤í¸, ë¹ì© Div ë  -->                                                                
-                	</div><!-- ì¥ìì ííë ê¸ì¨ë¥¼ ê°ì¸ë divë -->  
-           		</div><!--ì ì²´ì¬ì´ëë°  -->
-	  		 </div><!--ë´ì© ì ì²´ DiV  -->
-
-
-
-<!--  -->          
-                   
-                   
-                   
-                   
                  </div> 
                              <hr></hr>Number of tabs: <span class="badge alert-success" id="displayElem"></span>
 
@@ -144,14 +37,11 @@
                 
     
 <!--       네이버 지도 api 관련 스크립트 -->
-                        <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=8dc3f50341e3abc71540971185f76729"></script>
-
-
-
-    <script type="text/javascript">
+<script type="text/javascript">
+   var mapObj= (function (div, tab){
     var oSeoulCityPoint = new nhn.api.map.LatLng(37.5675451, 126.9773356);
     var defaultLevel = 11;
-    var oMap = new nhn.api.map.Map(document.getElementById('map'), {
+    var oMap = new nhn.api.map.Map(div, {
         point : oSeoulCityPoint,
         zoom : defaultLevel,
         enableWheelZoom : true,
@@ -288,16 +178,19 @@
 
     oMap.attach("click", function(pos){
        
-       document.formPlace.lat.value = pos.point.getX();
-       document.formPlace.lng.value = pos.point.getY();
        
-       alert(document.formPlace.lat.value+", "+document.formPlace.lng.value);
+       var form1 = document.getElementById('placeFormId'+tab);
+       alert(form1);
        
+       form1.lat.value = pos.point.getX();
+       form1.lng.value = pos.point.getY();
+       
+       alert(form1.lat.value+", "+form1.lng.value);
     }); 
-    </script>
+    });
+    </script>  		 
+                        
                         <!-- Scripts -->
-                        
-                        
         <!-- jQuery -->
         <script src="/resources/inc/js/jquery-1.10.2.min.js"></script>
         <script src="/resources/inc/js/jquery-migrate-1.2.1.js"></script>
@@ -385,19 +278,22 @@
         </script> -->
         
        <script>
-        function placeAdd(){
-            
-           var a =$('#placeFormId').serialize();
+        function placeAdd(tab){
+        	
+           var a =$('#placeFormId'+tab).serialize();
        
              $.post( "/bbs/guide/place",a, function( data ) {
              }, "json");
            //var no = document.formList.no.value;
-          
-            var place = document.formPlace.place.value;
-            var msg = document.formPlace.msg.value;
-            var lat = document.formPlace.lat.value;
-            var lng = document.formPlace.lng.value;
-            
+          var form = document.getElementById('placeFormId'+tab);
+          console.dir(form);
+            var place = form.place.value;
+            var msg = form.msg.value;
+            var lat = form.lat.value;
+            var lng = form.lng.value;
+           
+            console.log(place + " " + msg + " " + lat);
+            //alert(tab);
             var html = "<address>"
                       +"<ul class='address-ul fa-ul'>"
                       +"<li>"
@@ -413,10 +309,10 @@
                       +"<li><a href='/bbs/guide/placeDel?no=${placevo.getNo() }'>삭제</a></li>"
                       +"</ul>"
                       +"</address><hr>";
-            $("#placeDiv").append(html);
+            $("#placeDiv"+tab).append(html);
                         
-            document.formPlace.place.value="";
-            document.formPlace.msg.value=""; 
+            form.place.value="";
+            form.msg.value=""; 
             //location.reload();
             //top.document.프레임이름.location.reload();
         }              
@@ -520,33 +416,32 @@
                    // 탭시스템 안에 하나 이상의 element를 추가한다.
                     $('div.tab-content').append('<div class="tab-pane fade" id="tab'+(nbrLiElem)+'"></div>');
                    
-                   console.dir($('div.tab-pane fade div:last-child'));
+                   //console.dir($('div.tab-pane fade div:last-child'));
                    
                    //nbrLiElem = nbrLiElem + 1; 
                    
-                   $.get("/resources/guidetab.jsp", function(data) {
+                   $.get("/bbs/guide/guidetab?tab="+nbrLiElem, function(data) {
                       alert(nbrLiElem);
                       var tab = document.getElementById('tab'+nbrLiElem);
-                   
-
-                      /* tab.innerHTML = "<iframe id='zero' src='/resources/guidetab.jsp'></iframe>";
-                      var iframe = document.getElementById('zero');
-                      iframe.src = iframe.src; */
-                      
-                      
-                      //document.getElementById('zero').contentDocument.location.reload(true);
-                      
-                      
+                  
                       tab.innerHTML = data;
                       
-                      console.dir(tab);
+                      
+                      
+                      var q=$('div#tab'+nbrLiElem+' div#map');
+                      
+                      alert("AAAA"+q); 
+                      console.dir(q);
+                      
+                    
+                      
+                      //console.dir(tab)
+                      mapObj(q[0], nbrLiElem);
                      
-                    /*  document.getElementsByTagName("head")[0].appendChild(script);
-                     script.src = "naverapi.js"; */
-                     
+                   
                       
                      });
-                    
+                  
             
                  
                    // This line is not required (I just display, inside the <div id="messagesAlert"></div> markup, how many tabs there is)

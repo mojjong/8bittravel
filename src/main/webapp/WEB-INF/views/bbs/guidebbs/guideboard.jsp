@@ -320,8 +320,6 @@
            var modilat = $("#lat_"+grno).val();
            var modilng = $("#lng_"+grno).val();
            
-        
-           //console.alert($("#lat_"+grno).get(0).value);
            if(modiPlace !==null && modiMsg!== null){
               div.innerHTML =  "<div id= 'place_"+grno+"'>"
             	  			 +"<address>"

@@ -40,8 +40,9 @@ public class GuideBbsController {
 		
 		model.addAttribute("plandate", plandate); 
 		//model.addAttribute("placeList", service.glist(61)); 
+		logger.info("B : " + vo.getPlandate());
 		model.addAttribute("placeList", service.daylist(159)); 
-		logger.info("A"+ service.daylist(159));
+		logger.info("A : " + service.daylist(159));
 		return "/bbs/guidebbs/guidetab";
 	}
 	

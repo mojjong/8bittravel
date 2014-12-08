@@ -72,8 +72,8 @@
 			                        <div id="addplaceID" class="widget no-margin-bottom">
 			                                
 			                      <c:forEach var="placevo" items="${placeList}">
-			                      <c:choose>
-			                      	<c:when test="${plandate=='1'}">
+			                      	<c:if test="${placevo.getPlandate()==plandate}">
+			                     
 			                      		<div id= "place_${placevo.getGrno()}">  
 			                            <address>
 				       					<ul class='address-ul fa-ul'>
@@ -87,8 +87,10 @@
 				       					</address>
 				       				 	</div> 
 				       					<hr>	
-			                      	</c:when>
-			                      	
+			                      	</c:if>
+			                      	</c:forEach>  
+			                      	 </div> 
+			                            </form>         	
 			                       	<%-- <c:otherwise >
 			                      		<div id= "place_${placevo.getGrno()}">  
 			                           <address>
@@ -105,7 +107,7 @@
 				       					<hr>	
 			                      	</c:otherwise>  --%>
 			                      
-			                      </c:choose>
+			                      
 			                      <%-- <c:if test="${placevo.getPlandate()=='1'}">
 			                         <div id= "place_${placevo.getGrno()}">  
 			                           <address>
@@ -121,12 +123,12 @@
 				       				 	</div> 
 				       					<hr>
 				       					</c:if> --%>
-				       				</c:forEach>          
-			                            </div> 
+				       			
+			                            
 			                                <!-- <!--장소 추가 DIV  
 			                                <div id="placeDiv"></div> -->
 
-		                          </form>  <!--*********placeList í¼ ë  --> 
+		                          <!--*********placeList í¼ ë  --> 
                              
                              <!--GuideBbs div  -->   
                             <div class="main-contact-form">

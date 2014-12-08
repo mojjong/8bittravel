@@ -33,6 +33,7 @@ public class GuideBbsVO {
 
 	public void setGuideno(int guideno) {
 		this.guideno = guideno;
+		
 	}
 
 	public int getRno() {

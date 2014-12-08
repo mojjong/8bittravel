@@ -13,6 +13,7 @@
 <h1>${plandate }</h1>
 <h1>${travelno }</h1>
 
+
 <!--ë´ì© ì ì²´ DiV  -->     
    <div>
                          	 
@@ -37,6 +38,7 @@
                                 	<input type="hidden" name=plandate value = "${plandate }"  >
                                 	<input type="hidden" name="gpno" value="61">
                                 	<input type="hidden" name="travelno" value="159">
+                                
 									<input type="hidden" name="lat">
 									<input type="hidden" name="lng">
                                     <div class="row">
@@ -54,42 +56,79 @@
 								
 						<!--장소 append 폼 -->				                      
                         <hr>
-		                        <form name = "placeList${plandate }" id = "placeListId${plandate }" action = "/bbs/guide/place" >    
+		                        <form name = "placeList" id = "placeListId"  >    
 			                        <input type="hidden" name="travelno" value="159">  
-			                        	<input type = "hidden" name="guideid" value="user02">
+			                        <input type = "hidden" name="guideid" value="user02">
 			                        <input type="hidden" name = "guideno" value="30"> 
 			                        <input type="hidden" name="gpno" value="61"> 
-			                        <input type="hidden" name="grno" > 
-			                        <inout tyoe="hidden" name="rno" value="377">
-			                       
-			                        <input type="hidden" name="lat">
-									<input type="hidden" name="lng">
+			                        <input type="hidden" name="no" > 
+			                        
+			                        <input type="hidden" name="rno" value="377">
+			                       <input type="hidden" name="place">
+			                       <input type="hidden" name="msg">
 			                        <input type="hidden" name="plandate" value = "${plandate }"  >
 			                        
-			                        <div class="widget no-margin-bottom">
 			                                <h3 class="widget-title">추가된 장소</h3>
+			                        <div id="addplaceID" class="widget no-margin-bottom">
 			                                
-			                        <c:forEach var="placevo" items="${placeList}">
-			                        <div id= "place_${placevo.getNo()}">
-			                           <address>
+			                      <c:forEach var="placevo" items="${placeList}">
+			                      <c:choose>
+			                      	<c:when test="${plandate=='1'}">
+			                      		<div id= "place_${placevo.getGrno()}">  
+			                            <address>
 				       					<ul class='address-ul fa-ul'>
+				       						<li><input id="lat_${placevo.getGrno() }" type="hidden"  value="${placevo.getLat() }" ></li>
+			           						<li><input id="lng_${placevo.getGrno() }" type="hidden" value="${placevo.getLng() }" ></li>
 						       				<li id="placeId_${placevo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getGrno() }</span></li>
-				       						<li id="msgId_${placevo.getNo() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
+				       						<li id="msgId_${placevo.getGrno() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
 				       						<li><a href='javascript:placeModify(${placevo.getGrno()})'>수정 </a>&nbsp;&nbsp;</li>
-			       							<li><a href='/bbs/guide/placeDel?no=${placevo.getGrno()}'>삭제 </a></li>
+			       							<li><a href='javascript:placeDel(${placevo.getGrno()})'>삭제 </a></li>
 				       					</ul>
 				       					</address>
-				       					</div>
+				       				 	</div> 
+				       					<hr>	
+			                      	</c:when>
+			                      	
+			                       	<%-- <c:otherwise >
+			                      		<div id= "place_${placevo.getGrno()}">  
+			                           <address>
+				       					<ul class='address-ul fa-ul'>
+				       						<li><input id="lat_${placevo.getGrno() }" type="hidden"  value="${placevo.getLat() }" ></li>
+			           						<li><input id="lng_${placevo.getGrno() }" type="hidden" value="${placevo.getLng() }" ></li>
+						       				<li id="placeId_${placevo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getGrno() }</span></li>
+				       						<li id="msgId_${placevo.getGrno() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
+				       						<li><a href='javascript:placeModify(${placevo.getGrno()})'>수정 </a>&nbsp;&nbsp;</li>
+			       							<li><a href='javascript:placeDel(${placevo.getGrno()})'>삭제 </a></li>
+				       					</ul>
+				       					</address>
+				       				 	</div> 
+				       					<hr>	
+			                      	</c:otherwise>  --%>
+			                      
+			                      </c:choose>
+			                      <%-- <c:if test="${placevo.getPlandate()=='1'}">
+			                         <div id= "place_${placevo.getGrno()}">  
+			                           <address>
+				       					<ul class='address-ul fa-ul'>
+				       						<li><input id="lat_${placevo.getGrno() }" type="hidden"  value="${placevo.getLat() }" ></li>
+			           						<li><input id="lng_${placevo.getGrno() }" type="hidden" value="${placevo.getLng() }" ></li>
+						       				<li id="placeId_${placevo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getGrno() }</span></li>
+				       						<li id="msgId_${placevo.getGrno() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
+				       						<li><a href='javascript:placeModify(${placevo.getGrno()})'>수정 </a>&nbsp;&nbsp;</li>
+			       							<li><a href='javascript:placeDel(${placevo.getGrno()})'>삭제 </a></li>
+				       					</ul>
+				       					</address>
+				       				 	</div> 
 				       					<hr>
-			                                <!--장소 추가 DIV  -->
-			                                <div id="placeDiv${plandate }"></div>
-			                                
-				       				</c:forEach>              
-				       				
+				       					</c:if> --%>
+				       				</c:forEach>          
 			                            </div> 
+			                                <!-- <!--장소 추가 DIV  
+			                                <div id="placeDiv"></div> -->
+
 		                          </form>  <!--*********placeList í¼ ë  --> 
                              
-                             <!--ê°ì´ë ë¹ì© div  -->   
+                             <!--GuideBbs div  -->   
                             <div class="main-contact-form">
 	                               <form  name = "guideBbsForm" method="post" action="/bbs/guide/gWrite">
 	                               	
@@ -108,7 +147,7 @@
 	                               </form><!-- guideBbsForm ë -->
                                <hr>
                            </div>
-                           <!--******ê°ì´ë ë¹ì© div  ë  -->         
+                           <!--******GuideBbs div 끝  -->         
                                                        
                    		 </div><!--ì¥ì ì í, ë¦¬ì¤í¸, ë¹ì© Div ë  -->                                                                
                 	</div><!-- ì¥ìì ííë ê¸ì¨ë¥¼ ê°ì¸ë divë -->  

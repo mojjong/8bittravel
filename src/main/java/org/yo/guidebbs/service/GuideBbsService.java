@@ -17,14 +17,22 @@ public class GuideBbsService {
 	
 	@Inject
 	GuideBbsMapper mapper;
+	
+	
 	//������ Guideregion ���
 	public List<GuideBbsVO> glist(int gpno){
 		return mapper.glist(gpno);
 	}
+	
+	//일차별로 리스트 보는것.(사용자)
+	public List<GuideBbsVO> daylist(int travelno){
+		System.out.println("aaaaaa" + travelno);
+		return mapper.daylist(travelno);
+	}
 	//����ڱۿ� �޸� ���̵� ����
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){
-		logger.info("service : " + vo.toString());
-		return mapper.gulist(vo.getTravelno());
+		logger.info("service : 여기야 여기!!!" );
+		return mapper.gulist(vo);
 	}
 	
 	//Guideregion �߰�
@@ -33,15 +41,15 @@ public class GuideBbsService {
 	}
 	
 	//Guideregion ����
-	public void placeDel(Integer no){
-		System.out.println("service : " + no);
-		mapper.placeDel(no);
+	public void placeDel(Integer grno){
+		System.out.println("service : " + grno);
+		mapper.placeDel(grno);
 	}
 	
 	//Guideregion ����
 	public void placeModi(GuideBbsVO vo){
-		logger.info("�����? " + vo.toString());
-		System.out.println("�����??");
+		logger.info("수정 서비스? " + vo.toString());
+		System.out.println("수정?");
 		mapper.placeModi(vo);
 	}
 	

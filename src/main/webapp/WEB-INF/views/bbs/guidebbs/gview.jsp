@@ -273,165 +273,15 @@
                    
         </script> -->
         
-   <script>
+       
         
-      function placeAdd(plandate){
-          	var a =$('#placeFormId'+plandate).serialize();
-    
-           $.ajax({
-               url:"/bbs/guide/place",
-               data: a,
-               dataType:'json',
-               type:"post",
-               success: function (data) {
-            	   var str = "";
-            	   $.each(data, function(k,v){   		   
-            		   str += "<div id= 'place_"+v.grno+"'>"
-            		   +"<address >"
-                       +"<ul class='address-ul fa-ul'>"
-                       +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
-			           +"<input id='lng_"+v.grno+"' type='hidden'  value='"+v.lng+"'>"
-                       +"<li id='placeId_"+v.grno+"'>"
-                       +"<span>"
-                       +"<i class='fa-li fa fa-home'></i>"+v.place
-                       +"</span> "   
-                       +"</li>"
-                       +"<li id= 'msgId_"+v.grno+"'>"
-                       +"<span >"
-                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
-                       +"</span></li>"
-                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
-                       +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
-                       +"</ul>"
-                       +"</address><hr></div>";
-            	   });
-            	 $("#addplaceID").html(str);
-            	   
-               }
-           });
-      }
-        
-		
-        function placeModify(grno){
-           alert("grno"+grno);
-           var div = document.getElementById("place_"+grno);
-           var modiPlace=$("#placeId_"+grno).text();
-           var modiMsg = $("#msgId_"+grno).text();
-           var modilat = $("#lat_"+grno).val();
-           var modilng = $("#lng_"+grno).val();
-           
-        
-           //console.alert($("#lat_"+grno).get(0).value);
-           if(modiPlace !==null && modiMsg!== null){
-              div.innerHTML =  "<div id= 'place_"+grno+"'>"
-            	  			 +"<address>"
-               				  +"<ul class='address-ul fa-ul'>"
-				              +"<input id='modi_placeNo' type='hidden'  value='"+grno+"'>" 
-				              +"<input id='modi_lat' type='hidden'  value='"+modilat+"'>"
-				              +"<input id='modi_lng' type='hidden'  value='"+modilng+"'>"
-				              +"<li >"
-			                  +"<i class='fa-li fa fa-home'></i>"
-			                  +"<input id='modi_place' type = 'text' value='"+modiPlace+"'/>"
-				              +"</li>"
-				              +"<li>"
-			                  +"<i class='fa-li fa fa-map-marker'></i>"
-			                  +"<input id='modi_msg' type = 'text' value='"+modiMsg+"'/>"
-			                  +"</li>"
-			                  +"<li><a href='javascript:placeUpdate("+grno+")'>Complete</a>&nbsp;&nbsp;</li>"
-			                  +"</ul>"
-			                  +"</address><hr></div>"  
-           }  
-        }
-        
-        
-        function placeUpdate(grno){
 
-	        var lat = document.getElementById('modi_lat').value;
-	        var lng = document.getElementById('modi_lng').value;
-	        var place = document.getElementById('modi_place').value;
-	        var placeMsg = document.getElementById('modi_msg').value;
-           
-	        document.placeList.no.value = grno;
-	        document.placeList.lat.value = lat;
-	        document.placeList.lng.value = lng;
-	        document.placeList.place.value = place; 
-	        document.placeList.msg.value = placeMsg;
-	        
-         	var modidata= $('#placeListId').serialize();
-        
-	        $.ajax({
-	               url:"/bbs/guide/placeModify",
-	               data: modidata,
-	               dataType:'json',
-	               type:"post",
-	               success: function (data) {
-	                  var str = "";
-	                  $.each(data, function(k,v){
-	                	  str +=  "<div id= 'place_"+v.grno+"'>"
-			            		   +"<address >"
-			                       +"<ul class='address-ul fa-ul'>"
-			                       +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
-						           +"<input id='lng_"+v.grno+"' type='hidden'  value='"+v.lng+"'>"
-			                       +"<li id='placeId_"+v.grno+"'>"
-			                       +"<span>"
-			                       +"<i class='fa-li fa fa-home'></i>"+v.place
-			                       +"</span> "   
-			                       +"</li>"
-			                       +"<li id= 'msgId_"+v.grno+"'>"
-			                       +"<span >"
-			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
-			                       +"</span></li>"
-			                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
-			                       +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
-			                       +"</ul>"
-			                       +"</address><hr></div>";
-	                   });
-	                 $("#addplaceID").html(str);
-	                   
-	                }
-	            });
-          
-        }
-        
-        function placeDel(grno){
-            console.log(grno);
-	        $.ajax({
-	               url:"/bbs/guide/placeDel",
-	               data: "grno="+grno,
-	               type:"POST",
-	               success: function (data) {
-	                  var str = "";
-	                  $.each(data, function(k,v){
-	                	  str +=  "<div id= 'place_"+v.grno+"'>"
-			            		   +"<address >"
-			                       +"<ul class='address-ul fa-ul'>"
-			                       +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
-						           +"<input id='lng_"+v.grno+"' type='hidden'  value='"+v.lng+"'>"
-			                       +"<li id='placeId_"+v.grno+"'>"
-			                       +"<span>"
-			                       +"<i class='fa-li fa fa-home'></i>"+v.place
-			                       +"</span> "   
-			                       +"</li>"
-			                       +"<li id= 'msgId_"+v.grno+"'>"
-			                       +"<span >"
-			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
-			                       +"</span></li>"
-			                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
-			                       +"<li><a href='/bbs/guide/placeDel?grno="+v.grno+"'>삭제</a></li>"
-			                       +"</ul>"
-			                       +"</address><hr></div>";
-	                   });
-	                 $("#addplaceID").html(str);
-	                   
-	                }
-	            });
-        };
-        
-        
-        
+	     <script>
         $(document).ready(function(){
            $(function () {
-
+        	  
+        	   
+        	   
                // This line is not required (I just up the system and say there is 1 tab in the <div id="messagesAlert"></div> markup)
                $('#displayElem').html('1');
 
@@ -445,8 +295,7 @@
                    
                    // last-child앞에 새로운 tab li가 추가된다.
                    // li ID랑 그 li가 눌렸을때 어떻게 동작하는지 완전한 구조로 append된다.
-                   $('ul#myTab li:last-child').before('<li id="li' + (nbrLiElem) + '">'
-                   +'<a href="#plandate' + (nbrLiElem) + '" role="tab" data-toggle="tab">plandate ' + (nbrLiElem) + ' <button type="button" class="btn btn-warning btn-xs" onclick="removeTab(' + (nbrLiElem) + ');"><span class="glyphicon glyphicon-remove"></span></button></a>');
+                   $('ul#myTab li:last-child').before('<li id="li' + (nbrLiElem) + '"><a href="#plandate' + (nbrLiElem) + '" role="tab" data-toggle="tab">plandate ' + (nbrLiElem) + ' <button type="button" class="btn btn-warning btn-xs" onclick="removeTab(' + (nbrLiElem) + ');"><span class="glyphicon glyphicon-remove"></span></button></a>');
                    
                    // <div class="tab-content">의 last-child 뒤에 새로운 div요소가 추가된다.
                    //$('div.tab-content div:last-child').after('<div class="tab-pane fade" id="tab'+(nbrLiElem)+'"></div>');
@@ -454,10 +303,11 @@
                     $('div.tab-content').append('<div class="tab-pane fade" id="plandate'+(nbrLiElem)+'"></div>');
                    
                   	//get방식으로 컨트롤러에게 안에 내용을 가져와 달라고 요청한다.
-                   $.get("/bbs/guide/guidetab?plandate="+nbrLiElem+"&travelno=159", function(data) {
+                   $.get("/bbs/guide/guidetab?plandate="+nbrLiElem+" &travelno=159", function(data) {
                      
                       var tab = document.getElementById('plandate'+nbrLiElem);
-
+                      var no = document.getElementById('placeListId'+nbrLiElem);
+                      alert(no);
                       tab.innerHTML = data;
                       
 					  //jquery로 추가한탭의 아이디로 map div를 이용해 지도를 붙여넣는다,
@@ -465,29 +315,14 @@
                       alert("AAAA"+q); 
                       mapObj(q[0], nbrLiElem);
                      });
-					
-					
-					
+
                    // This line is not required (I just display, inside the <div id="messagesAlert"></div> markup, how many tabs there is)
                    $('#displayElem').html(nbrLiElem); 
                });
-               
-            /*  //for bootstrap 3 use 'shown.bs.tab' instead of 'shown' in the next line
-               $('a[data-toggle="tab"]').on('click', function (e) {
-                 //save the latest tab; use cookies if you like 'em better:
-                 localStorage.setItem('lastTab', $(e.target).attr('href'));
-               });
-
-               //go to the latest tab, if it exists:
-               var lastTab = localStorage.getItem('lastTab');
-
-               if (lastTab) {
-                   $('a[href="'+lastTab+'"]').click();
-               } */
            }); 
         });
-
-        
+        </script>
+        <!-- <script>
         // Function 삭제 tab with the <li> number
        function removeTab(liElem) {
             // Display "Are you sure message" and wait for you to press "Ok" 
@@ -528,8 +363,7 @@
            }
            return false;
        }
-      
-        </script>
+        </script> -->
     </body>
 
 </html>

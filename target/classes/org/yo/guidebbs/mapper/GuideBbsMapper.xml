@@ -13,32 +13,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where  
 		gb.travelno= tb.no and tb.no= #{no}
 </select>  -->
-<select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
-	 select  no,place, msg 
+ <!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+	 select  no grno,place, msg, lat, lng 
 	 from tbl_guideregion 
 	 where gpno=#{gpno} order by no asc
 
-</select>
-
+</select> 
+ -->
 <!--★DAY별 가이드 장소 리스트  -->
-<select id="daylist" parameterType="org.yo.guidebbs.vo.GuideBbsVO" resultType="org.yo.guidebbs.vo.GuideBbsVO">
-<![CDATA[ 
-select 
-	gp.gpno, travelno,gp.guideno, gr.no grno, gp.rno, guideid, plandate, place, lat, lng, msg
-	
+<select id="daylist" parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+select gr.no grno, place, lat, lng, msg, plandate from 
+(select gp.no gpno, travelno,guideid,  cost, pay, gp.plandate, guideno, rno 
 	from 
-		(select gp.no gpno, travelno,guideid, gp.plandate, guideno, rno 
-			from 
-				(select no, guideid from tbl_guidebbs 
-					where 
-						travelno = #{travelno}) gb, tbl_guideplan gp
-			where 
-				gb.no = gp.guideno and plandate = #{plandate}) gp, tbl_guideregion gr
-	where gp.gpno = gr.gpno
-						order by no asc]]>
+(select no, travelno, guideid, cost, pay 
+	from tbl_guidebbs 
+		where travelno = #{travelno} ) gb, tbl_guideplan gp
+	where gb.no = gp.guideno) gp, tbl_guideregion gr
+where gp.gpno = gr.gpno
+order by no asc
 
 
 </select>
+
+ <!-- <insert id="placeAdd"  parameterType="org.yo.vo.GuideBbsVO " useGeneratedKeys="true">
+	<selectKey keyProperty="grno" resultType="int" order="BEFORE">
+	            SELECT seq_guideregion.nextVal from dual
+	</selectKey>
+	insert into tbl_guideregion (no, gpno,place, lng, lat,msg) 
+		values(#{grno}, #{gpno},#{place},#{lng},#{lat},#{msg})
+
+</insert> -->
 
 <!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	<![CDATA[ 

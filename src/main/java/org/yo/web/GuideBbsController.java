@@ -36,32 +36,44 @@ public class GuideBbsController {
 	
 	//가이드가 일차별로일정짤때 보이는 view2
 	@RequestMapping(value="/guidetab", method = RequestMethod.GET)
-	public String guideTab(GuideBbsVO vo, Integer plandate, Model model){
+	public String guideTab(GuideBbsVO vo, Integer plandate , Integer travelno,Model model){
+		//탭 추가할때마다 gpno 증가/plandate 가져오기
+		if(service.daylist(vo)==null){
+			service.gplan(vo);
+			}
+		else{
+			    vo.setTravelno(travelno);
+				vo.setGuideno(33);
+				
+				int gpno = service.grList(vo).get(0).getGpno();
+				logger.info("GPNO!!!!"+ gpno);
+				vo.setGpno(service.grList(vo).get(0).getGpno());
+		}
+		
+		model.addAttribute("vo", vo); 
+		logger.info("gplanVO : "  + vo.toString());
+		logger.info("가이드지역 List : " + service.grList(vo));
 		
 		model.addAttribute("plandate", plandate); 
-		//model.addAttribute("placeList", service.glist(61)); 
-		logger.info("B : " + vo.getPlandate());
-		model.addAttribute("placeList", service.daylist(159)); 
-		logger.info("A : " + service.daylist(159));
+		model.addAttribute("placeList",service.daylist(vo)); 
+		logger.info("일차별List : " +service.daylist(vo));	
+		logger.info("plandate : " + plandate+ ", + " + vo.getTravelno());
+		
 		return "/bbs/guidebbs/guidetab";
 	}
 	
-	//가이드가 일차별로일정짤때 보이는 view1
+	//--------------------------------------가이드가 일차별로일정짤때 보이는 Place - get
 		@RequestMapping(value="/place", method = RequestMethod.GET)
 		public String placeAdd2(GuideBbsVO vo, Model model){
-			/*vo.setGpno(61);
-			int gpno = vo.getGpno();
-			 service.glist(gpno);*/
+			
+		
 			logger.info("AAA");
-			/*vo.setRno(377);
-			vo.setGpno(61);
-			vo.setGuideid("user02");
+		
 			vo.setGuideno(33);
-			vo.setCost(50000);
-			vo.setPay(20000);*/
-			vo.setTravelno(159);
-			logger.info("daylist" + service.daylist(159));
-			service.daylist(vo.getTravelno());
+			//vo.setGpno(service.grList(vo).get(0).getGpno());
+			service.daylist(vo);
+			model.addAttribute("placeList : ",service.daylist(vo));
+			logger.info("PlaceGET : " + vo.toString());
 		
 			return "/bbs/guidebbs/guideboard";
 		}
@@ -74,17 +86,22 @@ public class GuideBbsController {
 
 				logger.info("추가 : "+ vo.toString());
 				logger.info("장소 ADD: " + service.glist(vo.getGpno()));
-				
-			//return service.glist(vo.getGpno());
-			return service.daylist(vo.getTravelno());
+				vo.setTravelno(159);
+			
+			return service.daylist(vo);
 				
 			}
+		//-------------------------------------------------------------------------
+		
+		
+		
+		
 		
 		//장소 수정
 		@RequestMapping(value = "/placeModify", method =RequestMethod.POST ,produces = "application/json")
 		@ResponseBody
 		public List<GuideBbsVO> placeModi(GuideBbsVO vo){		
-			logger.info("여기는 수정 컨트롤러" + vo.toString());
+			
 			service.placeModi(vo);	
 			logger.info("수정" + vo.toString());
 		return service.glist(vo.getGpno());
@@ -122,7 +139,7 @@ public class GuideBbsController {
 	      @RequestMapping(value="/gView", method = RequestMethod.GET)
 	      public String gviewTab1(GuideBbsVO vo, Model model){
 	    	  logger.info(vo.toString());
-	         model.addAttribute("placeList", service.daylist(vo.getTravelno())); 
+	         model.addAttribute("placeList", service.daylist(vo)); 
 	         
 	         return "/bbs/guidebbs/gview";
 	      }

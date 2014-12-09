@@ -3,7 +3,7 @@ package org.yo.guidebbs.vo;
 import java.util.Date;
 
 public class GuideBbsVO {
-	
+	private int no;
 	private int guideno;
 	private int travelno;
 	private int grno;
@@ -23,7 +23,7 @@ public class GuideBbsVO {
 	private String msg;
 	private int plandate;
 	
-	
+
 	
 	
 	

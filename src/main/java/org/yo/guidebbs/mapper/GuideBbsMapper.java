@@ -22,9 +22,14 @@ public interface GuideBbsMapper {
 	@Select(" select no guideno, travelno, cost, pay, guideid from tbl_guidebbs where travelno=#{travelno}")
 	public List<GuideBbsVO> gulist(GuideBbsVO vo);
 	
-	//day별로 장소 보여주는 list
-	public List<GuideBbsVO> daylist(int travelno);
+	//가이드 region 리스트!!!
+	public List<GuideBbsVO> grList(GuideBbsVO vo);
 	
+	//day별로 장소 보여주는 list
+	public List<GuideBbsVO> daylist(GuideBbsVO vo);
+	
+	//탭글릭시 pland 테이블 insert
+	public void gplan(GuideBbsVO vo);
 	
 	//장소 insert
 	@Insert(" insert into tbl_guideregion (no, gpno,place, lng, lat,msg) "

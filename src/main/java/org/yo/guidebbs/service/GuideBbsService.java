@@ -18,6 +18,9 @@ public class GuideBbsService {
 	@Inject
 	GuideBbsMapper mapper;
 	
+	public void gplan(GuideBbsVO vo){
+		mapper.gplan(vo);
+	}
 	
 	//������ Guideregion ���
 	public List<GuideBbsVO> glist(int gpno){
@@ -25,11 +28,16 @@ public class GuideBbsService {
 	}
 	
 	//일차별로 리스트 보는것.(사용자)
-	public List<GuideBbsVO> daylist(int travelno){
-		System.out.println("aaaaaa" + travelno);
-		return mapper.daylist(travelno);
+	public List<GuideBbsVO> daylist(GuideBbsVO vo){
+		System.out.println("daylist 매퍼" + vo.toString());
+		return mapper.daylist(vo);
 	}
-	//����ڱۿ� �޸� ���̵� ����
+	
+	public List<GuideBbsVO> grList(GuideBbsVO vo){
+		System.out.println("GRList 매퍼" + vo.toString());
+		return mapper.grList(vo);
+	}
+	//
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){
 		logger.info("service : 여기야 여기!!!" );
 		return mapper.gulist(vo);

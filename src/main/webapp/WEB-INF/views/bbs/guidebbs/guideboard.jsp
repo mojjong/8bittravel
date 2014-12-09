@@ -275,8 +275,8 @@
         
    <script>
         
-      function placeAdd(plandate){
-          	var a =$('#placeFormId'+plandate).serialize();
+      function placeAdd(gpno){
+          	var a =$('#placeFormId'+gpno).serialize();
     
            $.ajax({
                url:"/bbs/guide/place",
@@ -284,9 +284,11 @@
                dataType:'json',
                type:"post",
                success: function (data) {
+            	   console.dir(data);
             	   var str = "";
-            	   $.each(data, function(k,v){   		   
-            		   str += "<div id= 'place_"+v.grno+"'>"
+            	   $.each(data, function(k,v){
+            		   if(v.gpno==gpno){
+            		   str += "<div id= 'place_"+v.grno+">"
             		   +"<address >"
                        +"<ul class='address-ul fa-ul'>"
                        +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
@@ -300,12 +302,13 @@
                        +"<span >"
                        +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
                        +"</span></li>"
-                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
+                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정"+ v.plandate+"</a>&nbsp;&nbsp;</li>"
                        +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
                        +"</ul>"
                        +"</address><hr></div>";
+            		   }
             	   });
-            	 $("#addplaceID").html(str);
+            	 $("#addplaceID"+gpno).html(str);
             	   
                }
            });

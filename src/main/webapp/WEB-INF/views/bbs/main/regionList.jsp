@@ -143,6 +143,8 @@
 			<div class="row">
 				<div class="contents grid-contents col-md-12 col-sm-6">
 					<div class="row">
+					<div id = "demo"></div>
+					<input type="button" value="위치 가져오기" onclick="javascript:getLocation();">
 					<c:forEach var="r_photo" items="${r_photoList }">
 						<div class="content col-md-3 col-sm-12">
 							<div class="inner">
@@ -538,6 +540,26 @@ function filterSubmit(){
 		document.regionfilter.action = "/bbs/travelbbs/board";
 		document.regionfilter.submit();	
 	}
+}
+
+
+
+var x = document.getElementById("demo");
+var lat;
+var lng;
+function getLocation(){
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(showPosition);
+	}else{
+		x.innerHTML="Geolocation is not supported by this browser.";
+	}
+	
+}
+
+function showPosition(position){
+	x.innerHTML="Lat : " + position.coords.latitude + " <br>Lng : " + position.coords.longitude;
+	lat = position.coords.latitude;
+	lng = position.coords.longitude;
 }
 
 </script>

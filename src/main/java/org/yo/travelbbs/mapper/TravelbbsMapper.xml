@@ -45,7 +45,7 @@ values(seq_travelbbs.nextval,#{title},#{content},to_date(#{startdate},'YY/MM/DD'
 
 <select id="read" parameterType="int" resultType="org.yo.travelbbs.vo.TravelbbsVO">
 select /*+INDEX_DESC(tbl_travelbbs pk_travelbbs) */
-no, title, content, to_char(startdate,'YY-MM-DD') startdate, to_char(enddate,'YY-MM-DD') enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid
+no , title, content, to_char(startdate,'YY-MM-DD') startdate, to_char(enddate,'YY-MM-DD') enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid
 from tbl_travelbbs where no = #{no}
 </select>
 

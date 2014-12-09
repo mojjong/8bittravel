@@ -105,6 +105,7 @@
                             <div class="contents grid-contents col-xs-12 ">
                             	<div class="row">
                             		<form name="writeForm">
+                            			<input type="hidden" name="travelno">
                             			<input type="hidden" name="page">
                             			<input type="hidden" name="region">
                             			<input type="hidden" name="theme">
@@ -366,12 +367,68 @@
 			            			"<div class='col-md-2 col-lg-2 no-margin'>"+
 			            			"<div class='right-area'><br><br><br><br>"+
 			            			"<div class='book-holder'>"+
-			            			"<a href='#' class='button mini'>가이드하기</a>"+
+			            			"<a href='javascript:doguide(" + val.no + ")'>Guide</a>"+
 			            			"</div></div></div></div></div></div>"
 			            	);
 			            
+			            	
+			            	if(key == 4) {
+			                    $(window).bind("scroll",function infinityScrollFunction(){
+			                    	
+			                    	
+			                    	//현재문서의 높이를 구함.
+			                        var documentHeight  = $(document).height();
+			                        //console.log("documentHeight : " + documentHeight);
+			                        //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환
+			                        //스크롤바가 맨 위쪽에 있을때 , 위치는 0
+			                        //console.log("window의 scrollTop() : " + $(window).scrollTop());
+			                        //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
+			                        //console.log("window의 height() : " + $(window).height());
+			                        //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
+			                        //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
+			                        var scrollHeight = $(window).scrollTop()+$(window).height();
+			                        //console.log("scrollHeight : " + scrollHeight);
+			                        
+			                        
+			                        if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가
+			                        	currentPage++;
+			                        	console.log(currentPage + " 페이지 로드");
+			                        	/* var target = $(".ul_table"); */
+			                            $.getJSON("/bbs/travelbbs/filterlist?themeno=${cri.themeno}&regionno=${regionno}&page=" + currentPage, function (data) {
+			                                
+			                                $.each(data, function (key, val) {
+			                                	target.append(
+			        			            			"<div class='row' >"+
+			                                            "<div class='content  wide col-md-8' >"+
+			        			            			"<div class='inner'>"+
+			        			            			"<div class='col-md-4 col-lg-1 no-margin'>"+
+			        			            			"<br><br><br><br><br><span class='higlight emphasize value'>가이드 가능</span>"+
+			        			            			"</div><div class=' col-md-9 col-lg-9'>"+
+			        			            			"<div class='entry' >"+
+			        			            			"<article class='entry-content'>"+
+			        			            			"<h2 class='post-title col-md-10'>"+ val.no +" <a href='/bbs/travelbbs/read?no="+ val.no +"'> "+ val.title +"</a></h2><span class='user col-md-2'><strong>U_user00</strong></span><br>"+
+			        			            			"<br><br><span class='price col-md-3'><span class='higlight emphasize value'>"+ val.cost +"원</span> / 3 Day</span>"+
+			        			            			"<span class='member col-md-offset-2'>인원 : "+ val.teammember +"명</span>"+
+			        			            			"<span class='region col-md-offset-2'>지역 : "+ val.region +"</span><br />"+
+			        			            			"<br><br><p class='text-left col-md-11'>"+ val.content +"</p></article>"+
+			        			            			"<div class='entry-meta'>"+
+			        			            			"<br><span class='go-detail'><a href='#'>More</a></span>"+
+			        			            			"<span class='review'><a href='#'>24 Reviews</a></span></div>"+
+			        			            			"</div><!-- /.entry -->"+ 
+			        			            			"</div>"+
+			        			            			"<div class='col-md-2 col-lg-2 no-margin'>"+
+			        			            			"<div class='right-area'><br><br><br><br>"+
+			        			            			"<div class='book-holder'>"+
+			        			            			"<a href='javascript:doguide(" + val.no + ")'>Guide</a>"+
+			        			            			"</div></div></div></div></div></div>"
+			        			            	);
+			                                });
+			                                
+			                            });
+			                        };
+			                    });
+			            	};
 			            });
-			            
 			        });
 		});
 		

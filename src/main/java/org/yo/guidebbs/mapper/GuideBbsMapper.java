@@ -14,25 +14,35 @@ public interface GuideBbsMapper {
 	@Select(" select sysdate from dual")
 	public String getTime();
 	
-	//Àå¼Ò ¸®½ºÆ® º¸¿©ÁÖ±â
-	/*@Select(" select  place, msg from tbl_guideregion where gpno=#{gpno} order by no asc; ")*/
+	//ê°€ì´ë“œê°€ ì¼ì°¨ë³„ë¡œ ë³´ëŠ” view
+	/*@Select(" select no, place, msg from tbl_guideregion where gpno=#{gpno} order by no asc; ")*/
 	public List<GuideBbsVO> glist(Integer gpno);
 	
-	@Select(" select no, guideid from tbl_guidebbs where travelno=#{travelno}")
-	public List<GuideBbsVO> gulist(Integer travelno);
+	//ì‚¬ìš©ìê°€ ê¸€ì„ í´ë¦­í–ˆì„ë•Œ ë³´ëŠ” view
+	@Select(" select no guideno, travelno, cost, pay, guideid from tbl_guidebbs where travelno=#{travelno}")
+	public List<GuideBbsVO> gulist(GuideBbsVO vo);
 	
-	//Àå¼Ò Ãß°¡ÇÒ¶§¸¶´Ù insert
+	//ê°€ì´ë“œ region ë¦¬ìŠ¤íŠ¸!!!
+	public List<GuideBbsVO> grList(GuideBbsVO vo);
+	
+	//dayë³„ë¡œ ì¥ì†Œ ë³´ì—¬ì£¼ëŠ” list
+	public List<GuideBbsVO> daylist(GuideBbsVO vo);
+	
+	//íƒ­ê¸€ë¦­ì‹œ pland í…Œì´ë¸” insert
+	public void gplan(GuideBbsVO vo);
+	
+	//ì¥ì†Œ insert
 	@Insert(" insert into tbl_guideregion (no, gpno,place, lng, lat,msg) "
-			+ "values(seq_guideregion.nextval, #{gpno},#{place},#{lng},#{lat},#{msg})")
+			+ "values(seq_guideregion.NEXTVAL, #{gpno},#{place},#{lng},#{lat},#{msg})")
 	public void placeAdd(GuideBbsVO vo);
 	
-	//Àå¼Ò modify
-	@Update(" update tbl_guideregion set place =#{place} ,msg= #{msg} where no=#{no}")
+	//ì¥ì†Œ modify
+	@Update(" update tbl_guideregion set place =#{place} ,msg= #{msg} ,lat=#{lat}, lng=#{lng} where no=#{no}")
 	public void placeModi(GuideBbsVO vo);
 	
-	//Àå¼Ò delete
-	@Delete(" delete from tbl_guideregion where no=#{no}")
-	public void placeDel(Integer no);
+	//ì¥ì†Œ delete
+	@Delete(" delete from tbl_guideregion where no=#{grno}")
+	public void placeDel(Integer grno);
 	
 	//GuideBbs Insert
 	@Insert(" insert into tbl_guidebbs (no, guideid, travelno, cost, pay, regdate) "

@@ -162,6 +162,7 @@
                             <hr>
 							<form name="guideForm" id="guideForm">
 								<input type="hidden" name="travelno" value="${vo.no}">
+								
 							</form>
 							<div id="guideList"></div>
 						</div>
@@ -249,7 +250,7 @@
 				data : formData, //변환된 formData를 요청
 				success : function(data) {
 					$.each(data, function(key, val) {
-						target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/guideview?no="+val.no+"'>"+val.guideid+"님의 Guide</a></h3>");
+						target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/gView?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+val.guideid+"님의 Guide</a></h3>");
 					});
 				}
         	});

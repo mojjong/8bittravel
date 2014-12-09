@@ -3,58 +3,62 @@ package org.yo.guidebbs.vo;
 import java.util.Date;
 
 public class GuideBbsVO {
-	
 	private int no;
+	private int guideno;
 	private int travelno;
+	private int grno;
+	private int gpno;
+	private int rno;
+	
 	private String userid;
 	private String guideid;
 	private int cost;
 	private int pay;
 	private Date regdate;
-	private int grno;
-	private int gpno;
+
+	
 	private String place;
 	private Double lng;
 	private Double lat;
 	private String msg;
 	private int plandate;
 	
+
 	
 	
 	
-	
+	public int getGuideno() {
+		return guideno;
+	}
+
+	public void setGuideno(int guideno) {
+		this.guideno = guideno;
+		
+	}
+
+	public int getRno() {
+		return rno;
+	}
+
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+
 	public String getGuideid() {
 		return guideid;
 	}
-
-
-
-
 
 	public void setGuideid(String guideid) {
 		this.guideid = guideid;
 	}
 
-
-
-
-
 	public int getGpno() {
 		return gpno;
 	}
 
-
-
-
-
 	public void setGpno(int gpno) {
 		this.gpno = gpno;
 	}
-
-
-
-
-
 	public int getGrno() {
 		return grno;
 	}
@@ -152,15 +156,15 @@ public class GuideBbsVO {
 
 
 	public int getNo() {
-		return no;
+		return guideno;
 	}
 
 
 
 
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setNo(int guideno) {
+		this.guideno = guideno;
 	}
 
 
@@ -249,11 +253,12 @@ public class GuideBbsVO {
 
 	@Override
 	public String toString() {
-		return "GuideBbsVO [no=" + no + ", travelno=" + travelno + ", userid="
-				+ userid + ", guideid=" + guideid + ", cost=" + cost + ", pay="
-				+ pay + ", regdate=" + regdate + ", grno=" + grno + ", gpno="
-				+ gpno + ", place=" + place + ", lng=" + lng + ", lat=" + lat
-				+ ", msg=" + msg + ", plandate=" + plandate + "]";
+		return "GuideBbsVO [guideno=" + guideno + ", travelno=" + travelno
+				+ ", grno=" + grno + ", gpno=" + gpno + ", rno=" + rno
+				+ ", userid=" + userid + ", guideid=" + guideid + ", cost="
+				+ cost + ", pay=" + pay + ", regdate=" + regdate + ", place="
+				+ place + ", lng=" + lng + ", lat=" + lat + ", msg=" + msg
+				+ ", plandate=" + plandate + "]";
 	}
 	
 	

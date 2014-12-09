@@ -19,7 +19,7 @@ public interface TravelbbsMapper {
 	
 	public void create(TravelbbsVO vo);
 	
-	public TravelbbsVO read(int no);
+	public TravelbbsVO read(int travleno);
 	
 	@Update("update tbl_travelbbs set title=#{title}, content=#{content}, startdate=to_date(${startdate},'YY/MM/DD'), enddate=to_date(${enddate},'YY/MM/DD')"
 			+ " , teammember=#{teammember}, cost=#{cost}, transport=#{transport}, memo=#{memo}, region=#{region}, userid=#{userid} where no = 91")

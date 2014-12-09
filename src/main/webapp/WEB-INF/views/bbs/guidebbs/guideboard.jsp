@@ -14,7 +14,7 @@
                               
                              <!--탭 DIv  -->                        
                             <ul  id = "myTab" class="nav nav-tabs" role="tablist">
-                                <li id="li1" class="active"><a href="#plandate1" role="tab" data-toggle="tab">plandate 1</a></li>
+                                <li id="li1" class="active"><a href="#theme" role="tab" data-toggle="tab">theme</a></li>
                                 <li id="last"><a href="#addTab"><span class="glyphicon glyphicon-plus"></span> Add Tab</a></li>
                                 <!-- <li><a href="#recent" data-toggle="tab" >Day1</a></li> -->
                             </ul>
@@ -22,7 +22,7 @@
                             <!--day별 내용  -->
                  			<div id = "content" class="tab-content">           
                    
-                   				<div class="tab-pane fade in active" id="plandate1"><p>Region</p></div>
+                   				<div class="tab-pane fade in active" id="theme"><p>Region</p></div>
                    				<!--append 되는 곳  -->
                  			</div> 
         
@@ -275,9 +275,11 @@
         
    <script>
         
-      function placeAdd(gpno){
-          	var a =$('#placeFormId'+gpno).serialize();
-    
+      function placeAdd(plandate, gpno){
+    	  alert('#placeFormId'+plandate);
+          	var a =$('#placeFormId'+plandate).serialize();
+          	//placeFormId${plandate }
+    		alert(a);
            $.ajax({
                url:"/bbs/guide/place",
                data: a,
@@ -287,10 +289,12 @@
             	   console.dir(data);
             	   var str = "";
             	   $.each(data, function(k,v){
-            		   if(v.gpno==gpno){
+           
             		   str += "<div id= 'place_"+v.grno+">"
             		   +"<address >"
                        +"<ul class='address-ul fa-ul'>"
+                       +"<input id='grno_"+v.grno+"' type='hidden'  value='"+v.grno+"'>"
+                       +"<input id='gpno_"+v.grno+"' type='hidden'  value='"+v.gpno+"'>"
                        +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
 			           +"<input id='lng_"+v.grno+"' type='hidden'  value='"+v.lng+"'>"
                        +"<li id='placeId_"+v.grno+"'>"
@@ -300,13 +304,13 @@
                        +"</li>"
                        +"<li id= 'msgId_"+v.grno+"'>"
                        +"<span >"
-                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
+                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno+',' + v.gpno
                        +"</span></li>"
                        +"<li><a href='javascript:placeModify("+v.grno+")'>수정"+ v.plandate+"</a>&nbsp;&nbsp;</li>"
                        +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
                        +"</ul>"
                        +"</address><hr></div>";
-            		   }
+            		 	
             	   });
             	 $("#addplaceID"+gpno).html(str);
             	   
@@ -322,12 +326,15 @@
            var modiMsg = $("#msgId_"+grno).text();
            var modilat = $("#lat_"+grno).val();
            var modilng = $("#lng_"+grno).val();
+          
+           alert("lat" +modilat);
            
            if(modiPlace !==null && modiMsg!== null){
               div.innerHTML =  "<div id= 'place_"+grno+"'>"
             	  			 +"<address>"
                				  +"<ul class='address-ul fa-ul'>"
 				              +"<input id='modi_placeNo' type='hidden'  value='"+grno+"'>" 
+				           
 				              +"<input id='modi_lat' type='hidden'  value='"+modilat+"'>"
 				              +"<input id='modi_lng' type='hidden'  value='"+modilng+"'>"
 				              +"<li >"
@@ -348,10 +355,12 @@
         function placeUpdate(grno){
 
 	        var lat = document.getElementById('modi_lat').value;
+	        alert("LLLL"+lat);
 	        var lng = document.getElementById('modi_lng').value;
 	        var place = document.getElementById('modi_place').value;
 	        var placeMsg = document.getElementById('modi_msg').value;
-           
+	       
+         
 	        document.placeList.no.value = grno;
 	        document.placeList.lat.value = lat;
 	        document.placeList.lng.value = lng;
@@ -371,6 +380,7 @@
 	                	  str +=  "<div id= 'place_"+v.grno+"'>"
 			            		   +"<address >"
 			                       +"<ul class='address-ul fa-ul'>"
+			                       
 			                       +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
 						           +"<input id='lng_"+v.grno+"' type='hidden'  value='"+v.lng+"'>"
 			                       +"<li id='placeId_"+v.grno+"'>"
@@ -380,7 +390,7 @@
 			                       +"</li>"
 			                       +"<li id= 'msgId_"+v.grno+"'>"
 			                       +"<span >"
-			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
+			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno+','+v.gpno
 			                       +"</span></li>"
 			                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
 			                       +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
@@ -431,8 +441,6 @@
         
         
         $(document).ready(function(){
-           $(function () {
-
                // This line is not required (I just up the system and say there is 1 tab in the <div id="messagesAlert"></div> markup)
                $('#displayElem').html('1');
 
@@ -472,7 +480,7 @@
                    // This line is not required (I just display, inside the <div id="messagesAlert"></div> markup, how many tabs there is)
                    $('#displayElem').html(nbrLiElem); 
                });
-               
+       
             /*  //for bootstrap 3 use 'shown.bs.tab' instead of 'shown' in the next line
                $('a[data-toggle="tab"]').on('click', function (e) {
                  //save the latest tab; use cookies if you like 'em better:
@@ -486,7 +494,6 @@
                    $('a[href="'+lastTab+'"]').click();
                } */
            }); 
-        });
 
         
         // Function 삭제 tab with the <li> number

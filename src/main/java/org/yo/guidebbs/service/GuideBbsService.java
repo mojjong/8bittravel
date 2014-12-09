@@ -22,7 +22,7 @@ public class GuideBbsService {
 		mapper.gplan(vo);
 	}
 	
-	//������ Guideregion ���
+	//GuideRegion 리스트
 	public List<GuideBbsVO> glist(int gpno){
 		return mapper.glist(gpno);
 	}
@@ -36,6 +36,12 @@ public class GuideBbsService {
 	public List<GuideBbsVO> grList(GuideBbsVO vo){
 		System.out.println("GRList 매퍼" + vo.toString());
 		return mapper.grList(vo);
+	}
+	
+	
+	public List<GuideBbsVO> guideTheme(GuideBbsVO vo){
+	
+		return mapper.guideTheme(vo);
 	}
 	//
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){

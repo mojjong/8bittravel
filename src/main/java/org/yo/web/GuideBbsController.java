@@ -36,28 +36,36 @@ public class GuideBbsController {
 	
 	//가이드가 일차별로일정짤때 보이는 view2
 	@RequestMapping(value="/guidetab", method = RequestMethod.GET)
-	public String guideTab(GuideBbsVO vo, Integer plandate , Integer travelno,Model model){
+	public String guideTab(GuideBbsVO vo, Model model){
+		logger.info("aaaaaaaaa" + vo.toString());
+		vo.setGuideno(33);
+		
+		if(!service.grList(vo).isEmpty()){
+			int gpno = service.grList(vo).get(0).getGpno();
+		
+			logger.info("GPNO!!!!"+ gpno);
+			vo.setGpno(service.grList(vo).get(0).getGpno());
+		}
+		
 		//탭 추가할때마다 gpno 증가/plandate 가져오기
-		if(service.daylist(vo)==null){
+		if(service.daylist(vo).isEmpty()){
+			logger.info("aaaaaaa");
 			service.gplan(vo);
 			}
 		else{
-			    vo.setTravelno(travelno);
-				vo.setGuideno(33);
+			logger.info("bbbbbbbb" + service.daylist(vo));
 				
-				int gpno = service.grList(vo).get(0).getGpno();
-				logger.info("GPNO!!!!"+ gpno);
-				vo.setGpno(service.grList(vo).get(0).getGpno());
+				
 		}
 		
 		model.addAttribute("vo", vo); 
 		logger.info("gplanVO : "  + vo.toString());
 		logger.info("가이드지역 List : " + service.grList(vo));
 		
-		model.addAttribute("plandate", plandate); 
+		model.addAttribute("plandate", vo.getPlandate()); 
 		model.addAttribute("placeList",service.daylist(vo)); 
 		logger.info("일차별List : " +service.daylist(vo));	
-		logger.info("plandate : " + plandate+ ", + " + vo.getTravelno());
+		logger.info("plandate : " + vo.getPlandate()+ ", + " + vo.getTravelno());
 		
 		return "/bbs/guidebbs/guidetab";
 	}
@@ -81,12 +89,14 @@ public class GuideBbsController {
 		@RequestMapping(value = "/place", method = RequestMethod.POST ,produces = "application/json")
 		@ResponseBody
 			public List<GuideBbsVO> placeAdd(GuideBbsVO vo, Model model){
-			
+			vo.setTravelno(159);
+			vo.setGuideno(33);
 				service.placeAdd(vo);
-
-				logger.info("추가 : "+ vo.toString());
-				logger.info("장소 ADD: " + service.glist(vo.getGpno()));
-				vo.setTravelno(159);
+				
+				logger.info("추가 : "+ vo.getGpno());
+				
+				logger.info("데이 ADD : " + service.daylist(vo));
+		
 			
 			return service.daylist(vo);
 				

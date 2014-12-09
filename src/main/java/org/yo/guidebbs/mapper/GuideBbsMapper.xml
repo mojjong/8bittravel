@@ -28,11 +28,12 @@ select gp.gpno,gr.no grno, place, lat, lng, msg, plandate from
 (select no, travelno, guideid, cost, pay 
 	from tbl_guidebbs 
 		where travelno = #{travelno} ) gb, tbl_guideplan gp
-	where gb.no = gp.guideno and guideno = #{guideno} and plandate=#{plandate}) gp, tbl_guideregion gr
+	where gb.no = gp.guideno and guideno = #{guideno}) gp, tbl_guideregion gr
 where gp.gpno = gr.gpno and gr.gpno=#{gpno}
 order by no asc
 </select>
 
+<!--탭 클릭할때 plan 추가되는것.  -->
  <insert id="gplan"  parameterType="org.yo.guidebbs.vo.GuideBbsVO" useGeneratedKeys="true">
 	<selectKey keyProperty="gpno" resultType="int" order="BEFORE">
 	            SELECT seq_guideplan.nextVal from dual
@@ -43,10 +44,30 @@ order by no asc
 </insert> 
 
 <select id="grList"  parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
-select gp.no gpno, travelno,guideid,  cost, pay,gp.plandate, guideno, rno from 
-(select no, travelno, guideid, cost, pay from tbl_guidebbs where travelno = #{travelno} ) gb, tbl_guideplan gp
-where gb.no = gp.guideno and guideno = #{guideno} and plandate=#{plandate}
+	select gp.no gpno, travelno,guideid,  cost, pay,gp.plandate, guideno, rno from 
+	(select no, travelno, guideid, cost, pay from tbl_guidebbs where travelno = #{travelno} ) gb, tbl_guideplan gp
+	where gb.no = gp.guideno and guideno = #{guideno} and plandate=#{plandate}
 </select>
+
+<select id="guideTheme" parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
+select guideno, rp.rno,  do, sigun, rp.content rpcontent, re.content gpcontent, rp.dir 
+	from 
+		(select guideno, max(rno) rno, max(content) content, max(do) do, max(sigun) sigun from 
+			(select no, rno, plandate, content, guideno from tbl_guideplan where guideno = 33) gp, tbl_region re 
+				where gp.rno = re.no
+			group by guideno) re, tbl_r_photo rp
+		where re.rno = rp.rno
+
+</select>
+
+
+
+
+
+
+
+
+
 
 <!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	<![CDATA[ 

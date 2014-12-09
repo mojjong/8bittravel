@@ -41,11 +41,12 @@
                            <!--ì¥ì ì¶ê° DIV  -->
                            <div class="widget no-margin-bottom">
                            		<!--ì¥ì ì¶ê° í¼ìì  -->
-                                <form  name="formPlace${vo.gpno }" id="placeFormId${vo.gpno }" >
-                                <input type="hidden" name=plandate value = "${vo.plandate}">
-                                	<input type="hidden" name="gpno" value="${vo.gpno }">
+                                <form  name="formPlace${plandate }" id="placeFormId${plandate }" >
+                                    <input type="hidden" name=plandate value = "${vo.plandate}"> 
+                                	<input type="hidden" name="gpno" value = "${vo.gpno }">
 									<input type="hidden" name="lat">
 									<input type="hidden" name="lng">
+									
                                     <div class="row">
                                         <div class="col-sm-6">
                                         <label for="check-in-date2">장소 이름</label>
@@ -55,7 +56,7 @@
                                         <input class="form-control" type="text" name="msg" placeholder="상세 설명" /></div>     
 									</div>
                                     <!-- <input class="button" type="submit" value="ì¥ì ì¶ê°" /> -->
-                                    <li class="button"><a href='javascript:placeAdd(${vo.gpno })'>장소추가</a>&nbsp;&nbsp;</li>
+                                    <li class="button"><a href='javascript:placeAdd(${plandate },${vo.gpno })'>장소추가</a>&nbsp;&nbsp;</li>
                                 </form><!--formPlace 끝 -->                               
 							</div><!--content 전체 끝  -->
 								
@@ -68,19 +69,21 @@
 			                        <input type="hidden" name="gpno" value = "${vo.gpno }"> 
 			                        <input type="hidden" name="no" > 
 			                        <input type="hidden" name="rno" value="377">
-			                       <input type="hidden" name="place">
-			                       <input type="hidden" name="msg">
-			                         <input type="hidden" name="plandate" value = "${vo.plandate}" > 
-			                        
+			                       	<input type="hidden" name="place">
+			                       	<input type="hidden" name="msg">
+			                        <input type="hidden" name="plandate" value = "${vo.plandate}" > 
+			                        <input type="hidden" name="lat">
+			                        <input type="hidden" name="lng">
 			                                <h3 class="widget-title">추가된 장소</h3>
-			                        <div id="addplaceID${vo.gpno }" class="widget no-margin-bottom">
+			                   <div id="addplaceID${vo.gpno }" class="widget no-margin-bottom">
 			                                
 			                      <c:forEach var="placevo" items="${placeList}">
 			                      	<c:if test="${vo.plandate ==plandate}">
 			                      
-			                      		<div id= "place_${placevo.getGpno() }">  
+			                      		<div id= "place_${placevo.getGrno() }">  
 			                            <address>
 				       					<ul class='address-ul fa-ul'>
+				       						
 				       						<li><input id="lat_${placevo.getGrno() }" type="hidden"  value="${placevo.getLat() }" ></li>
 			           						<li><input id="lng_${placevo.getGrno() }" type="hidden" value="${placevo.getLng() }" ></li>
 						       				<li id="placeId_${placevo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getGrno()}</span></li>

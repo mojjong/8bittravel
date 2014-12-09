@@ -28,11 +28,16 @@ public interface GuideBbsMapper {
 	//day별로 장소 보여주는 list
 	public List<GuideBbsVO> daylist(GuideBbsVO vo);
 	
-	//탭글릭시 pland 테이블 insert
+	//Guidebbs 들어갔을때 그 장소에 대한 설명 ... 
+	public List<GuideBbsVO> guideTheme(GuideBbsVO vo);
+		
+	
+	//탭클릭시 plan 테이블 insert
 	public void gplan(GuideBbsVO vo);
 	
+	
 	//장소 insert
-	@Insert(" insert into tbl_guideregion (no, gpno,place, lng, lat,msg) "
+	@Insert(" insert into tbl_guideregion (no, gpno, place, lng, lat,msg) "
 			+ "values(seq_guideregion.NEXTVAL, #{gpno},#{place},#{lng},#{lat},#{msg})")
 	public void placeAdd(GuideBbsVO vo);
 	

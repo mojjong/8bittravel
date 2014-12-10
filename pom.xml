@@ -15,7 +15,8 @@
 	</properties>
 	<dependencies>
 
-	<!-- Google earth -->
+	
+		<!-- Google earth -->
 	<dependency>
 		<groupId>com.drewnoakes</groupId>
 		<artifactId>metadata-extractor</artifactId>
@@ -26,9 +27,6 @@
 		<artifactId>xmpcore</artifactId>
 		<version>5.1.2</version>
 	</dependency>
-	
-
-
 
 		<!-- Spring -->
 		<dependency>
@@ -40,7 +38,7 @@
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
-				 </exclusion>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -49,10 +47,10 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>cn.guoyukun.jdbc</groupId> 
-		    <artifactId>oracle-ojdbc6</artifactId> 
-		    <version>11.2.0.3.0</version> 
-  		</dependency>
+			<groupId>cn.guoyukun.jdbc</groupId>
+			<artifactId>oracle-ojdbc6</artifactId>
+			<version>11.2.0.3.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -71,6 +69,7 @@
 			<version>1.9.13</version>
 		</dependency>
 
+
 		<!-- fileUpload 처리 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -82,7 +81,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-		
+
 		<!-- aop 추가 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -94,7 +93,7 @@
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
 		</dependency>
-		
+
 		<!-- 썸네일 처리 -->
 		<dependency>
 			<groupId>org.im4java</groupId>
@@ -102,14 +101,16 @@
 			<version>1.4.0</version>
 		</dependency>
 
-				
+
+
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
-		</dependency>	
-		
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -159,7 +160,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-				
+
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -188,23 +189,17 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.2.7</version>
 		</dependency>
-	
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>    
-		
-		<!-- Jackson추가 -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.4.3</version>
 		</dependency>
 		
 		<!-- 씨큐리티 추가부분 -->
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -216,6 +211,14 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>3.2.5.RELEASE</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.2.5.RELEASE</version>
+		</dependency>
+		
+		<!-- 여기까지 씨큐리티 추가부분 -->
 		    
 	</dependencies>
     <build>

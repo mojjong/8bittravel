@@ -39,12 +39,13 @@ public class YomamAuthenticationProvider implements AuthenticationProvider {
 		String user_id = (String)authentication.getPrincipal();
 		String user_pw = (String)authentication.getCredentials();
 
-		logger.info(user_id + "/" + user_pw);
+		logger.info("사용자가 입력한 로그인정보입니다. {}", user_id + "/" + user_pw);
 
 		UserVO vo = new UserVO().setId(user_id).setPw(user_pw);
 		
 		if(service.login(vo).equals("1")){
 			
+			logger.info("정상 로그인입니다.");
 			List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 			roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 
@@ -55,6 +56,7 @@ public class YomamAuthenticationProvider implements AuthenticationProvider {
 			
 		} else {
 
+			logger.info("올바르지 않은 사용자 정보입니다.");
 			throw new BadCredentialsException("Bad credentials");
 
 		}

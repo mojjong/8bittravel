@@ -296,8 +296,8 @@ jQuery(window).ready(function($) {
         if ($('.star.big').length > 0) {
             $('.star').raty({
                 space: false,
-                starOff: 'images/star-big-off.png',
-                starOn: 'images/star-big-on.png',
+                starOff: '/resources/images/star-big-off.png',
+                starOn: '/resources/images/star-big-on.png',
                 score: function() {
                     return $(this).attr('data-score');
                 }
@@ -305,8 +305,8 @@ jQuery(window).ready(function($) {
         } else {
             $('.star').raty({
                 space: false,
-                starOff: 'images/star-off.png',
-                starOn: 'images/star-on.png',
+                starOff: '/resources/images/star-off.png',
+                starOn: '/resources/images/star-on.png',
                 score: function() {
                     return $(this).attr('data-score');
                 }
@@ -418,21 +418,21 @@ jQuery(window).ready(function($) {
 
     if ($(".custom-checkbox").length > 0) {
         $(".custom-checkbox").screwDefaultButtons({
-            image: 'url("images/checkbox.png")',
+            image: 'url("/resources/images/checkbox.png")',
             width: 16,
             height: 16
         });
     }
     if ($(".hotel-type-filter-widget input:checkbox").length > 0) {
         $(".hotel-type-filter-widget input:checkbox").screwDefaultButtons({
-            image: 'url("images/checkbox.png")',
+            image: 'url("/resources/images/checkbox.png")',
             width: 16,
             height: 16
         });
     }
     if ($(".rating-filter-widget input:checkbox").length > 0) {
         $(".rating-filter-widget input:checkbox").screwDefaultButtons({
-            image: 'url("images/checkbox.png")',
+            image: 'url("/resources/images/checkbox.png")',
             width: 16,
             height: 16
         });

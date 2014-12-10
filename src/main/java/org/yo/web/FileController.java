@@ -32,6 +32,7 @@ public class FileController {
 	private final static String DEFAULT_DIR = "c:\\zzz\\8bitTravel";
 	
 	
+	//�ٿ�ε��� ������ jpg��� �����Ͽ�...
 	@RequestMapping(value = "/download", method= RequestMethod.GET, produces="application/octet-stream")
 	public @ResponseBody byte[] downFile(@RequestParam(value="filename", defaultValue="")String path, HttpServletResponse response) throws Exception{
 		if(path.equals(""))
@@ -40,8 +41,11 @@ public class FileController {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		File downFile = new File(DEFAULT_DIR, path);
+		//����ó��
+		//������ filename���� ������ �Ѿ��.
 		OutputStream os = response.getOutputStream();
 		FileInputStream fi = new FileInputStream(downFile);
+		//fi.read()�� ���� os.write�� ȿ���� ����. Ŭ���̾�Ʈ���� ������ ���ư���.
 		response.setHeader("Content-Disposition", "attachment; filename="+new String(path.getBytes("UTF-8"), "8859_1"));
 		byte[] bytes = FileCopyUtils.copyToByteArray(fi);
 		
@@ -51,14 +55,39 @@ public class FileController {
 		
 	}
 	
-	@RequestMapping(value="/view/{path}", produces="images/jpeg")
-	public @ResponseBody byte[] viewFile(@PathVariable("path") String path) throws Exception{
+	@RequestMapping(value = "/thumbnail", method= RequestMethod.GET, produces="application/octet-stream")
+	public @ResponseBody byte[] downThumnailFile(@RequestParam(value="filename", defaultValue="")String path, HttpServletResponse response) throws Exception{
+		if(path.equals(""))
+			return null;
+		
+		
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		String FILEDEFAULT_DIR="c:\\zzz\\8bitTravel\\thumbnail";
+		
+		File downFile = new File(FILEDEFAULT_DIR, path);
+		//����ó��
+		//������ filename���� ������ �Ѿ��.
+		OutputStream os = response.getOutputStream();
+		FileInputStream fi = new FileInputStream(downFile);
+		//fi.read()�� ���� os.write�� ȿ���� ����. Ŭ���̾�Ʈ���� ������ ���ư���.
+		response.setHeader("Content-Disposition", "attachment; filename="+new String(path.getBytes("UTF-8"), "8859_1"));
+		byte[] bytes = FileCopyUtils.copyToByteArray(fi);
+		
+		bos.write(bytes);
+		
+		return bos.toByteArray();
+		
+	}
+	
+	//������ �̸��� �Ķ���ͷ� �޴´�.(������ ����?)
+	@RequestMapping(value="/view/{foldername}/{filename}/{suffix}", produces="images/jpeg")
+	public @ResponseBody byte[] viewFile(@PathVariable("foldername") String foldername, @PathVariable("filename") String filename, @PathVariable("suffix") String suffix) throws Exception{
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		byte[] buffer = new byte[1024*8];
 		
-		InputStream fin = new FileInputStream(DEFAULT_DIR+path+".jpg");
+		InputStream fin = new FileInputStream(DEFAULT_DIR+File.separator+foldername+File.separator+filename+"."+suffix);
 		
 		while(true){
 			int count = fin.read(buffer);
@@ -71,8 +100,10 @@ public class FileController {
 		
 	}
 	
-	private void createThumbnail(File origin) throws Exception {
+	//ImageMagicK �̿��� ����� ���� �Լ�
+	private void createThumbnail(File origin, String foldername) throws Exception {
 		
+		//���������� ImageMagicK �н� ������.
 		//String myPath="C:\\Program Files\\ImageMagick";
 		//ProcessStarter.setGlobalSearchPath(myPath);
 		
@@ -81,13 +112,12 @@ public class FileController {
 		cmd.setSearchPath(imPath);
 		
 		String destinationFileName = 
-				origin.getParent()+File.separator+"s_"+origin.getName();
+				DEFAULT_DIR+File.separator+"thumbnail"+File.separator+foldername+File.separator+origin.getName();
 			File thumbNailFile = new File(destinationFileName);
 			if(!thumbNailFile.exists()) {
 				IMOperation op = new IMOperation();
 				op.addImage(origin.getPath());
-				op.thumbnail(100); 
-				op.blur(20.0); 
+				op.thumbnail(400); 
 				op.addImage(destinationFileName);
 				cmd.run(op);
 			}
@@ -97,7 +127,7 @@ public class FileController {
 	
 	@RequestMapping(value="/upload", produces="text/html; charset=UTF-8")
 	@ResponseBody
-	public String uploadFile(MultipartFile file) throws Exception {
+	public String uploadFile(MultipartFile file, String foldername) throws Exception {
 		
 		if(file.isEmpty()){
 			return "NONE";
@@ -112,7 +142,7 @@ public class FileController {
 		
 		InputStream in = file.getInputStream();
 		
-		File uploadedFile = new File(DEFAULT_DIR+fileName);
+		File uploadedFile = new File(DEFAULT_DIR+File.separator+foldername+File.separator+fileName);
 		
 		OutputStream fos = new FileOutputStream(uploadedFile);
 		
@@ -132,12 +162,12 @@ public class FileController {
 		
 		boolean isImage = isImage(fileName, suffix);
 		if(isImage){
-			createThumbnail(uploadedFile);
+			createThumbnail(uploadedFile, foldername);
 		}
 		
-		String jsObjStr = "{fileName:'"+fileName+"', isImage:"+isImage+", suffix:'"+ suffix+"'}";
+		String jsObjStr = "{foldername:'"+foldername+"', fileName:'"+fileName.substring(0, fileName.lastIndexOf("."))+"', isImage:"+isImage+", suffix:'"+ suffix.substring(1)+"'}";
 
-		String str = "<script>parent.updateResult("+jsObjStr+");</script>";
+		String str = "<script>parent.updateResult.increment("+jsObjStr+");</script>";
 		
 		
 		return str;

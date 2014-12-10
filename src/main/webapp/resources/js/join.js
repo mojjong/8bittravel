@@ -35,7 +35,6 @@ function checkID(obj){
 				$('#idmessage').html("<label style='color:blue; padding-top:8px'>사용 가능한 아이디입니다</label>");
 				$(".formID" ).attr("data-check", "T");
         	  } else {
-        		console.log("사용중");
         		$('#idmessage').html("<label style='color:red; padding-top: 8px'>이미 사용중인 아이디입니다</label>");
         		$(".formID" ).attr("data-check", "F");
         	  }

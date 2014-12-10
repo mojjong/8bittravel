@@ -50,10 +50,10 @@
         <link rel="stylesheet" href="/resources/styles/jquery-ui-1.10.3.custom.min.css" />
 
         <!-- MI slider -->
-        <link rel="stylesheet" href="/resources/styles/mi-slider.css" />   
+        <link rel="stylesheet" href="/resources/styles/mi-slider.css" />	
 
         <!-- Chozen UI -->
-        <link rel="stylesheet" href="/resources/styles/chosen.css" />   
+        <link rel="stylesheet" href="/resources/styles/chosen.css" />	
 
         <!-- Range Slider UI #2 -->
         <link rel="stylesheet" href="/resources/styles/rangeslider-classic.css" />
@@ -64,6 +64,22 @@
         <!--[if lte IE 7]><script src="/resources/inc/elegant-font/lte-ie7.js"></script><![endif]-->
 
      <link rel="stylesheet" href="/resources/demo/switcher.css" />
+
+<style>
+/* body {
+    background-image:url('http://media2.giphy.com/media/1TpGKApbHmkZa/giphy.gif');
+    background-size:100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    height:100%;
+    width:100%;
+} */
+.login-page-bg {
+background-image: url('http://media2.giphy.com/media/1TpGKApbHmkZa/giphy.gif');
+background-position: center center;
+background-size: cover;
+}
+</style>
 
     </head>
 
@@ -93,53 +109,54 @@
                                 <input name="id" placeholder="ID">
                                 <input class="margin-top-10" name="pw" type="password" placeholder="Password">
                                 <div class="custom-checkbox-holder margin-top-20 text-left">
-                                    <input class="custom-checkbox" type="checkbox" >
-                                    <span>Remember me on this computer.</span>
+                                    <input name="usermode" class="custom-checkbox" type="checkbox" >
+                                    <span>가이드 모드로 로그인</span>
                                 </div>
                             </div>
-                            <button type="submit" class="button green btn-block">Login Now</button>
+                            <button type="submit" class="button green btn-block" style="disply:inline; width:40%">Login</button>
+                            <a href="/user/join" class="button green btn-block" style="disply:inline; width:40%">Join Now</a>
                         </form>
                     </div>
                 </div>
                 </div>
             </section><!-- /#more-pages.section -->
-      <!-- /#footer -->
+		<!-- /#footer -->
         </div><!-- /#site -->
 <!-- Scripts -->
-   <!-- jQuery -->
+	<!-- jQuery -->
         <script src="/resources/inc/js/jquery-1.10.2.min.js"></script>
         <script src="/resources/inc/js/jquery-migrate-1.2.1.js"></script>
-   <!-- modernizer -->
+	<!-- modernizer -->
         <script src="/resources/inc/js/modernizr.custom.63321.js"></script>
-   <!-- FlexSlider -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.flexslider-min.js"></script>   
-   <!-- CatSlider -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.catslider.js"></script>   
-   <!-- Datepicker -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.ui.datepicker.min.js"></script>   
-   <!-- Masonry -->
-   <script type="text/javascript" src="/resources/inc/js/masonry.min.js"></script>   
-   <!-- Increase/decrease quantity -->
-   <script type="text/javascript" src="/resources/inc/js/increase-decrease-qty.js"></script>   
-   <!-- Mixitup (filterable item) -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.mixitup.min.js"></script>   
-   <!-- Google Map JS -->
-   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
-   <script type="text/javascript" src="/resources/inc/js/google-map-infobox.js"></script>      
-   <!-- Responsive Google Map (Fitmaps) JS -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.fitmaps.js"></script>   
-   <!-- Chozen UI JS -->
-   <script type="text/javascript" src="/resources/inc/js/chosen.jquery.js"></script>   
-   <!-- Checkbox/Radio UI JS -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.screwdefaultbuttonsV2.js"></script>   
-   <!-- Range Slider UI JS #2 -->
-   <script type="text/javascript" src="/resources/inc/js/jquery.mousewheel.min.js"></script>   
-   <script type="text/javascript" src="/resources/inc/js/jQRangeSlider-min.js"></script>   
-   <!-- bootstrap JS -->
-    <script type="text/javascript" src="/resources/inc/bootstrap/js/bootstrap.min.js"></script>      
-   <!-- raty JS -->
+	<!-- FlexSlider -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.flexslider-min.js"></script>	
+	<!-- CatSlider -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.catslider.js"></script>	
+	<!-- Datepicker -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.ui.datepicker.min.js"></script>	
+	<!-- Masonry -->
+	<script type="text/javascript" src="/resources/inc/js/masonry.min.js"></script>	
+	<!-- Increase/decrease quantity -->
+	<script type="text/javascript" src="/resources/inc/js/increase-decrease-qty.js"></script>	
+	<!-- Mixitup (filterable item) -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.mixitup.min.js"></script>	
+	<!-- Google Map JS -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+	<script type="text/javascript" src="/resources/inc/js/google-map-infobox.js"></script>		
+	<!-- Responsive Google Map (Fitmaps) JS -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.fitmaps.js"></script>	
+	<!-- Chozen UI JS -->
+	<script type="text/javascript" src="/resources/inc/js/chosen.jquery.js"></script>	
+	<!-- Checkbox/Radio UI JS -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.screwdefaultbuttonsV2.js"></script>	
+	<!-- Range Slider UI JS #2 -->
+	<script type="text/javascript" src="/resources/inc/js/jquery.mousewheel.min.js"></script>	
+	<script type="text/javascript" src="/resources/inc/js/jQRangeSlider-min.js"></script>	
+	<!-- bootstrap JS -->
+    <script type="text/javascript" src="/resources/inc/bootstrap/js/bootstrap.min.js"></script>		
+	<!-- raty JS -->
     <script type="text/javascript" src="/resources/inc/js/jquery.raty.min.js"></script>
-   <!-- Custom JS -->
-   <script type="text/javascript" src="/resources/inc/js/custom.js"></script>   
+	<!-- Custom JS -->
+	<script type="text/javascript" src="/resources/inc/js/custom.js"></script>	
     </body>
 </html>

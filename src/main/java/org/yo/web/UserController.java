@@ -1,6 +1,7 @@
 package org.yo.web;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.yo.user.vo.YomamUserDetail;
 import org.yo.web.util.Json;
 
 
+//�׸��� ������ ���� �������� �ѷ��ִ� ��Ʈ�ѷ�
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
@@ -46,14 +48,17 @@ public class UserController {
 		return new Json("{ \"result\" : \""+ result +"\" }");
 	}*/
 	
+	
+	
 	@RequestMapping(value="logout", method=RequestMethod.GET)
-	public void logout(HttpSession session){
-		YomamUserDetail userDetails = (YomamUserDetail)session.getAttribute("userLoginInfo");
+	public void logout(HttpSession session, HttpServletResponse response) throws Exception {
+ 
+/* 		YomamUserDetail userDetails = (YomamUserDetail)session.getAttribute("userLoginInfo");
 
-		logger.info("Welcome logout! {}, {}", session.getId(), userDetails.getUsername());
-
+		logger.info("Welcome logout! {}, {}", session.getId(), userDetails.getUsername());*/
 
 		session.invalidate();
+		response.sendRedirect("/user/login");
 	}
 
 	@RequestMapping(value = "login_success", method=RequestMethod.GET)
@@ -71,7 +76,6 @@ public class UserController {
 	public String joinPost(UserVO vo, Model model) {
 		logger.info(vo.toString());
 		service.join(vo);
-		//model.addAttribute("regionList", regionService.regionList());
 		return "/user/join";
 	}
 
@@ -80,6 +84,12 @@ public class UserController {
 		model.addAttribute("regionList", regionService.regionList());
 		return "/user/join";
 	}
+	
+    @RequestMapping(value = "/join/idcheck", method = RequestMethod.GET)
+    public @ResponseBody Json idcheck(String id) {
+    	String result = service.checkid(id);
+        return new Json("{ \"result\" : \""+ result +"\" }");
+    }
 	
 	
 }

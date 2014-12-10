@@ -534,6 +534,7 @@
 	 * @param {jQuery} item - The item to clone.
 	 * @returns {jQuery} - The cloned item.
 	 */
+
 	Owl.prototype.cloneItemContainer = function(item) {
 		var $clone = item.clone(true, true).addClass('cloned');
 		// somehow data references the same object

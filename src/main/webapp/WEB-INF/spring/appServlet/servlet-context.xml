@@ -4,6 +4,7 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -35,7 +36,14 @@
 	
 	<context:component-scan base-package="org.yo.**.service" />
 	<context:component-scan base-package="org.yo.**.web" />
-	
-	
+
+<!-- 	 <mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/main/**" /> 모든 URL 에 대해 Interceptor 를 적용하고자 한다면 /**
+        <mvc:mapping path="/bbs/**" />
+        <beans:bean class="org.yo.web.YomamInterceptor"/> HandlerInterceptor 인터페이스를 구현한 클래스
+    </mvc:interceptor>	
+    </mvc:interceptors>
+ -->
 	
 </beans:beans>

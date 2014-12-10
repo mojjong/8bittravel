@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yo.timecapsule.mapper.TimecapsuleMapper">
+
+<select id="list" parameterType="org.yo.web.util.TimecapsuleCriteria"   resultType="org.yo.timecapsule.vo.TimecapsuleVO">
+<![CDATA[
+select rn, no, id, content, isfile, regdate, filename, suffix,cnt
+	from
+	(select rownum rn, no, id, content, isfile, regdate, filename, suffix,cnt
+	from
+		(select 
+			rownum, no, id, content, isfile, regdate, filename, suffix, count(no) over() cnt
+		from 
+			tbl_timecapsule t, tbl_capsulefile f  
+		where 
+			t.no = f.timecapsuleno and t.gr_no = #{grno}
+			 
+		order by t.no desc)
+	where 
+		no > 0 and rownum <= ((CEIL(#{currentPage})*45)+1)
+		)
+		where rn>((#{currentPage}-1)*9) and rn<=(#{currentPage}*9)
+]]>
+</select>
+
+<insert id="create" parameterType="org.yo.timecapsule.vo.TimecapsuleVO" useGeneratedKeys="true"> 
+ 	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+            SELECT timecapsule_seq.nextval from dual
+    </selectKey>
+<![CDATA[	
+		insert into tbl_timecapsule (no, id, content, gr_no, isfile, regdate)
+		values(#{no}, #{id}, #{content}, #{grno}, #{isfile}, sysdate)
+		]]>
+</insert>
+
+<insert id="fileOneInsert" parameterType="org.yo.timecapsule.vo.TimecapsuleVO">
+	insert into TBL_CAPSULEFILE(TIMECAPSULENO, FILENAME, SUFFIX)
+	values
+	(#{no}, #{filename}, #{suffix})
+</insert>
+
+</mapper>

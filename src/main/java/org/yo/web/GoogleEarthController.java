@@ -28,7 +28,7 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.GpsDirectory;
 
 @Controller
-@RequestMapping("/bbs/google/*")
+@RequestMapping("/panorama/google/*")
 public class GoogleEarthController {
 
 	private static final Logger logger = LoggerFactory
@@ -42,7 +42,7 @@ public class GoogleEarthController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String google(){
-		return "/bbs/screen";
+		return "/panorama/screen";
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

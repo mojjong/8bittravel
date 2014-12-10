@@ -57,7 +57,7 @@ Content Tabel
   border-bottom: solid 1px #8bcf17;
 }
 .font-playfair {
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
 }
 /* Preloader */
 #preloader {
@@ -104,7 +104,7 @@ ol {
 body {
   background-color: #ffffff;
   color: #95a8b4;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', 'Nanum Gothic', serif;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
@@ -151,7 +151,7 @@ p {
   margin-top: 40px!important;
 }
 .font-family-icon {
-  font-family: 'ElegantIcons';
+  font-family: 'ElegantIcons', 'Nanum Gothic', serif;
 }
 .font-weight-regular {
   font-weight: 400;
@@ -182,7 +182,7 @@ noscript {
  * =============================== */
 /* Layout */
 .section {
-  padding-top: 30px;
+  padding-top: 100px;
   padding-bottom: 100px;
 }
 .section.light {
@@ -194,7 +194,8 @@ noscript {
   background-size: cover;
 }
 .section.holidays-bg {
-  background-image: url("images/content/feature-img.jpg");
+  /* background-image: url("images/content/feature-img.jpg"); */
+  background-image: url("images/content/ploaroid.png");
   background-position: center center;
   background-size: cover;
 }
@@ -240,7 +241,7 @@ noscript {
 }
 /* Typography */
 h1.page-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
   font-weight: 700;
   font-size: 48px;
   color: #51575b;
@@ -276,7 +277,7 @@ ul.list-bullets li {
   padding-left: 15px;
 }
 ul.list-bullets li:before {
-  font-family: fontawesome;
+  font-family: fontawesome, 'Nanum Gothic', serif;
   content: "\f105";
   position: absolute;
   top: 1px;
@@ -291,7 +292,7 @@ ul.list-caret li {
   padding-left: 15px;
 }
 ul.list-caret li:before {
-  font-family: fontawesome;
+  font-family: fontawesome, 'Nanum Gothic', serif;
   content: "\f0da";
   position: absolute;
   top: 1px;
@@ -524,8 +525,8 @@ input.green:focus {
   padding: 20px;
 }
 .goto-top:after {
-  content: "";
-  font-family: fontawesome;
+  content: "�꼩";
+  font-family: fontawesome, 'Nanum Gothic', serif;
   position: absolute;
   left: 0;
   right: 0;
@@ -559,7 +560,7 @@ input.green:focus {
 }
 #header .branding {
   width: 230px;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Jeju Gothic', 'Playfair Display', serif;
   font-weight: 700;
 }
 #header .branding a:hover {
@@ -617,7 +618,7 @@ input.green:focus {
   margin: auto;
   z-index: 100;
   color: #fff;
-  font-family: fontawesome;
+  font-family: fontawesome, 'Nanum Gothic', serif;
 }
 #header .toggle-menu-holder .menu-body {
   position: absolute;
@@ -832,7 +833,7 @@ input.green:focus {
 }
 .flex-direction-nav a.flex-next:before,
 .flex-direction-nav a.flex-prev:before {
-  font-family: 'ElegantIcons';
+  font-family: 'ElegantIcons', 'Nanum Gothic', serif;
   font-size: 40px;
   margin-top: -8px;
   color: #ffffff;
@@ -1030,7 +1031,7 @@ form.location-search div.quantity input.plus {
 }
 .featured-teaser-text h1,
 .featured-teaser-text h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
   margin: 0;
 }
 .featured-teaser-text h1 {
@@ -1145,7 +1146,7 @@ footer input[type="submit"] {
 }
 .grid.about-details h2 {
   font-size: 18px;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
   font-weight: 700;
   color: #51575b;
   margin: 0px;
@@ -1486,8 +1487,8 @@ footer input[type="submit"] {
   content: '';
   width: 30px;
   height: 30px;
-  content: "";
-  font-family: fontawesome;
+  content: "�꼹";
+  font-family: fontawesome, 'Nanum Gothic', serif;
   font-size: 14px;
   color: #444;
   padding: 3px 0 0 0;
@@ -1763,7 +1764,7 @@ footer input[type="submit"] {
 .entry .entry-meta span.review a:before {
   content: "";
   display: inline-block;
-  font-family: fontawesome;
+  font-family: fontawesome, 'Nanum Gothic', serif;
   margin-right: 5px;
 }
 .entry .entry-meta span.go-detail {
@@ -2165,6 +2166,22 @@ form.hotels-filter-form input[type="submit"] {
   height: 40px;
   margin-right: 10px;
 }
+form.hotels-filter-form input[type="submit"] {
+  text-indent: -9999px;
+  background: url('images/magnify.png') center center no-repeat;
+  border: none;
+  width: 18px;
+  height: 40px;
+  margin-right: 10px;
+}
+form.hotels-filter-form input[type="image"] {
+  text-indent: -9999px;
+  /* background: url('images/magnify.png') center center no-repeat; */
+  border: none;
+  width: 18px;
+  height: 40px;
+  margin-right: 10px;
+}
 form.hotels-filter-form .chosen-container-single .chosen-single div b {
   background: #8bcf17 url('images/select-dropdown.png') center center no-repeat;
 }
@@ -2464,8 +2481,9 @@ form.hotels-filter-form a.chosen-single {
   height: 500px;
 }
 #map_canvas {
+  width: 400px;
   height: 400px;
-  margin: 0px;
+  margin: 0px 0px 20px 30px;
   padding: 0px;
   margin-bottom: 40px;
   /*
@@ -2869,7 +2887,7 @@ form.hotels-filter-form a.chosen-single {
 .page-head-holder h2 {
   text-transform: capitalize;
   color: #8bcf17;
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
   margin: 30px 0;
   font-size: 30px;
 }
@@ -2885,7 +2903,7 @@ form.hotels-filter-form a.chosen-single {
 }
 .page-head-holder .breadcrumb-holder .breadcrumb > li + li:before {
   content: "";
-  font-family: fontawesome;
+  font-family: fontawesome, 'Nanum Gothic', serif;
   padding: 0 5px;
   color: #8bcf17;
 }
@@ -2906,7 +2924,7 @@ form.hotels-filter-form a.chosen-single {
   text-decoration: none;
 }
 #footer-black .footer-logo h1 {
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
 }
 #footer-black .footer-logo h1 a {
   color: #fff;
@@ -3233,10 +3251,10 @@ form.hotels-filter-form a.chosen-single {
   cursor: pointer;
 }
 .tab-holder .tab-pane h3 a:after {
-  content: "";
+  content: "�깤";
   color: #95a8b4;
   margin: 0 0 0 10px;
-  font-family: fontawesome;
+  font-family: fontawesome, 'Nanum Gothic', serif;
 }
 .tab-holder .tab-pane h3 a.collapsed:after {
   color: #8bcf17;
@@ -4154,7 +4172,7 @@ height: 20px;
   text-align: center;
 }
 .index-mini .head-image-texts .texts h1 {
-  font-family: 'Playfair Display';
+  font-family: 'Playfair Display', 'Nanum Gothic', serif;
   font-size: 59px;
   line-height: 53px;
   margin: 0;

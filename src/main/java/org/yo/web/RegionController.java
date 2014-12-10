@@ -16,21 +16,22 @@ import org.yo.region.service.RegionService;
 import org.yo.region.vo.RegionVO;
 import org.yo.region.vo.ThemeVO;
 
+//테마와 지역을 선택 페이지를 뿌려주는 컨트롤러
 @Controller
 @RequestMapping("/main/region/*")
 public class RegionController {
-	//logger 占싱울옙占�.
+	//logger 이용시.
 	private static final Logger logger = LoggerFactory.getLogger(RegionController.class);
 	
 	@Inject
 	private RegionService service;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String regionList(Model model) {
 		model.addAttribute("regionList", service.regionList());
 		model.addAttribute("themeList", service.themeList());
 		model.addAttribute("r_photoList", service.r_photoList());
-		return "/bbs/main/regionList";
+		return "/main/regionList";
 	}
 	
 	

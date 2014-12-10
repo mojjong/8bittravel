@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.yo.guidebbs.vo.GuideBbsVO;
+import org.yo.region.vo.R_photoVO;
+import org.yo.region.vo.RegionVO;
 
 public interface GuideBbsMapper {
 	
@@ -29,8 +31,15 @@ public interface GuideBbsMapper {
 	public List<GuideBbsVO> daylist(GuideBbsVO vo);
 	
 	//Guidebbs 들어갔을때 그 장소에 대한 설명 ... 
-	public List<GuideBbsVO> guideTheme(GuideBbsVO vo);
+	public GuideBbsVO guideplan(GuideBbsVO vo);
 		
+	//guide 지역 가져오기
+	@Select("select do, sigun from tbl_region where no = #{rno}")
+	public RegionVO region(GuideBbsVO vo);
+	
+	//guide 지역 사진 가져오기
+	@Select("select dir, content from tbl_r_photo where rno = #{rno}")
+	public R_photoVO r_photo(GuideBbsVO vo);
 	
 	//탭클릭시 plan 테이블 insert
 	public void gplan(GuideBbsVO vo);
@@ -53,4 +62,8 @@ public interface GuideBbsMapper {
 	@Insert(" insert into tbl_guidebbs (no, guideid, travelno, cost, pay, regdate) "
 			+ "values (seq_guidebbs.nextval, #{guideid},#{travelno},#{cost},#{pay},sysdate)")
 	public void guideBbsInsert( GuideBbsVO vo);
+	
+	
+	
+	
 }

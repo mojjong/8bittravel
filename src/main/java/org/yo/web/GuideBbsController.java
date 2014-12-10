@@ -74,9 +74,12 @@ public class GuideBbsController {
 		public String placeAdd2(GuideBbsVO vo, Model model){
 			
 			logger.info("AAA" + vo.toString());
-		
-			model.addAttribute("guideTheme", service.guideTheme(vo));
-			logger.info("guideTheme : " + service.guideTheme(vo));
+			
+			GuideBbsVO gVo = service.guideplan(vo);
+			
+			model.addAttribute("guideplan", gVo);
+			model.addAttribute("region", service.region(gVo));
+			model.addAttribute("r_photo", service.r_photo(gVo));
 		
 			return "/bbs/guidebbs/guideboard";
 		}

@@ -35,6 +35,11 @@ public class R_photoVO {
 		this.content = content;
 		return this;
 	}
+	@Override
+	public String toString() {
+		return "R_photoVO [no=" + no + ", dir=" + dir + ", regionname="
+				+ regionname + ", content=" + content + "]";
+	}
 	
 	
 	

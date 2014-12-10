@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.yo.guidebbs.mapper.GuideBbsMapper;
 import org.yo.guidebbs.vo.GuideBbsVO;
+import org.yo.region.vo.R_photoVO;
+import org.yo.region.vo.RegionVO;
 
 @Service("GuideBbsService")
 public class GuideBbsService {
@@ -39,9 +41,19 @@ public class GuideBbsService {
 	}
 	
 	
-	public List<GuideBbsVO> guideTheme(GuideBbsVO vo){
+	public GuideBbsVO guideplan(GuideBbsVO vo){
 	
-		return mapper.guideTheme(vo);
+		return mapper.guideplan(vo);
+	}
+	
+	public RegionVO region(GuideBbsVO vo){
+		
+		return mapper.region(vo);
+	}
+	
+	public R_photoVO r_photo(GuideBbsVO vo){
+		
+		return mapper.r_photo(vo);
 	}
 	//
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){

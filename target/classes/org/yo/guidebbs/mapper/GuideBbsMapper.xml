@@ -49,15 +49,16 @@ order by no asc
 	where gb.no = gp.guideno and guideno = #{guideno} and plandate=#{plandate}
 </select>
 
-<select id="guideTheme" parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
-select guideno, rp.rno,  do, sigun, rp.content rpcontent, re.content gpcontent, rp.dir 
-	from 
-		(select guideno, max(rno) rno, max(content) content, max(do) do, max(sigun) sigun from 
-			(select no, rno, plandate, content, guideno from tbl_guideplan where guideno = 33) gp, tbl_region re 
-				where gp.rno = re.no
-			group by guideno) re, tbl_r_photo rp
-		where re.rno = rp.rno
-
+<select id="guideplan" parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
+select 
+	guideno, 
+	max(content) content, 
+	max(rno) rno 
+from 
+	tbl_guideplan 
+where 
+	guideno = #{guideno} 
+group by guideno
 </select>
 
 

@@ -23,16 +23,8 @@
                  			<div id = "content" class="tab-content">           
                    
                    				<div class="tab-pane fade in active" id="theme">
-									
-									<li></li>
-									<li></li>
-									<li></li>
-									<li></li>
-									<li></li>
-									<li></li>
-									<li></li>
-									<li></li>
-									
+									<input id="input-25" type="file" multiple="true">
+										
 								</div>
                    				<!--append 되는 곳  -->
                  			</div> 
@@ -285,6 +277,15 @@
         </script> -->
         
    <script>
+   
+   $("#input-25").fileinput({
+	    initialPreview: [
+	        "<img src='/resources/image/star_rating_1.png' class='file-preview-image' alt='The Moon' title='The Moon'>",
+	        "<img src='/resources/image/star_rating_2.png' class='file-preview-image' alt='The Earth' title='The Earth'>",
+	    ],
+	    overwriteInitial: true,
+	    initialCaption: "The Moon and the Earth"
+	});
         
       function placeAdd(plandate, gpno){
     	  alert('#placeFormId'+plandate);

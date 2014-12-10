@@ -28,6 +28,10 @@ public class RegionVO {
 		this.SIGUN = SIGUN;
 		return this;
 	}
+	@Override
+	public String toString() {
+		return "RegionVO [NO=" + NO + ", DO=" + DO + ", SIGUN=" + SIGUN + "]";
+	}
 	
 	
 

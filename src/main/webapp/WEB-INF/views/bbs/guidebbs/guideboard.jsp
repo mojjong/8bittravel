@@ -22,7 +22,18 @@
                             <!--day별 내용  -->
                  			<div id = "content" class="tab-content">           
                    
-                   				<div class="tab-pane fade in active" id="theme"><p>Region</p></div>
+                   				<div class="tab-pane fade in active" id="theme">
+									
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									
+								</div>
                    				<!--append 되는 곳  -->
                  			</div> 
         

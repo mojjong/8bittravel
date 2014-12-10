@@ -63,7 +63,7 @@
                         + '<Icon><href>http://192.168.0.77:8080/bbs/google/view?filename='+i+'.jpg</href>'
                         + '</Icon>'
                         + '<scale>2.2</scale>'
-                        + '</IconStyle>'   
+                        + '</IconStyle>'
                         + '</Style>'
 	                   	+ '  <Placemark>'
 	                    + '    <styleUrl>#mystyle_'+i+'</styleUrl>'

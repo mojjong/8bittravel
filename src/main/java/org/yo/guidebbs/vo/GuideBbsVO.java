@@ -2,7 +2,7 @@ package org.yo.guidebbs.vo;
 
 import java.util.Date;
 
-public class GuideBbsVO {
+public class GuideBbsVO{
 	private int no;
 	private int guideno;
 	private int travelno;
@@ -16,7 +16,6 @@ public class GuideBbsVO {
 	private int pay;
 	private Date regdate;
 
-	
 	private String place;
 	private Double lng;
 	private Double lat;

@@ -55,7 +55,6 @@ public class GuideBbsController {
 		else{
 			logger.info("bbbbbbbb" + service.daylist(vo));
 				
-				
 		}
 		
 		model.addAttribute("vo", vo); 
@@ -74,14 +73,10 @@ public class GuideBbsController {
 		@RequestMapping(value="/place", method = RequestMethod.GET)
 		public String placeAdd2(GuideBbsVO vo, Model model){
 			
+			logger.info("AAA" + vo.toString());
 		
-			logger.info("AAA");
-		
-			vo.setGuideno(33);
-			//vo.setGpno(service.grList(vo).get(0).getGpno());
-			service.daylist(vo);
-			model.addAttribute("placeList : ",service.daylist(vo));
-			logger.info("PlaceGET : " + vo.toString());
+			model.addAttribute("guideTheme", service.guideTheme(vo));
+			logger.info("guideTheme : " + service.guideTheme(vo));
 		
 			return "/bbs/guidebbs/guideboard";
 		}
@@ -89,14 +84,11 @@ public class GuideBbsController {
 		@RequestMapping(value = "/place", method = RequestMethod.POST ,produces = "application/json")
 		@ResponseBody
 			public List<GuideBbsVO> placeAdd(GuideBbsVO vo, Model model){
-			vo.setTravelno(159);
-			vo.setGuideno(33);
 				service.placeAdd(vo);
 				
 				logger.info("추가 : "+ vo.getGpno());
 				
 				logger.info("데이 ADD : " + service.daylist(vo));
-		
 			
 			return service.daylist(vo);
 				

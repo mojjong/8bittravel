@@ -31,7 +31,7 @@ background-position: center center;
 background-size: cover;">
                 <div class="container">
 
-                    <div class="row thumbnails">
+                 <div class="row thumbnails">
 	                  
 					<c:forEach var="capsule" items="${capsule }">
 				       <div class="col-md-4 col-sm-6 col-xs-12">

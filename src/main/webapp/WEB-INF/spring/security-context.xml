@@ -11,7 +11,7 @@
 
         <intercept-url pattern="/user/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <intercept-url pattern="/user/login_duplicate" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <intercept-url pattern="/bbs/**" access="ROLE_USER" />
+        <!-- <intercept-url pattern="/bbs/**" access="ROLE_USER" /> -->
         <form-login login-page="/user/login"
                     username-parameter="id"
                     password-parameter="pw"    

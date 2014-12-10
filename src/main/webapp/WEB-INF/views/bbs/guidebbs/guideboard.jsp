@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../../include/header.jsp" %>
+<%@include file="../../include/timecapsulewriteheader.jsp" %>
 
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=8dc3f50341e3abc71540971185f76729"></script>
 
@@ -19,11 +19,55 @@
                                 <!-- <li><a href="#recent" data-toggle="tab" >Day1</a></li> -->
                             </ul>
                             
-                            <!--day별 내용  -->
+                            <!--테마내용  -->
                  			<div id = "content" class="tab-content">           
-                   
-                   				<div class="tab-pane fade in active" id="theme">
-									<input id="input-25" type="file" multiple="true">
+			                   
+			                   	<div class="row project-single">
+			                        <div class="col-lg-8 col-md-7 col-sm-12">
+			                            <div class="owl-carousel img-carousel">
+			                                <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                                <div class="item"><img name="carouselitem1" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                                <div class="item"><img name="carouselitem2" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                            </div>
+			                            <hr class="hidden-md hidden-lg"/>
+			                        </div>
+			                        <div class="col-lg-4 col-md-5 col-sm-7 project-overview">
+			                            <h3 class="block-title">GuidePlan Theme Upload</h3>
+			                            <!-- <input class="required " id="fileUpload1" type="file" style="margin-bottom:20px;"> -->
+			                            
+										<!--파일업로드DIV  -->
+										<form target="zero" name="fileUploadForm" id="fileUploadFormId" action="/file/upload" method="post" enctype="multipart/form-data">
+											
+											<input type="hidden" name="foldername" value="TIMECAPSULEFILE" />
+											<input type='file' name='file' id="inputfile" style="margin-bottom:10px;">
+											<a class="button mini low-blue" href="javascript:fileupload.upload()">upload</a>
+											<small style="float:right;">jpg, gif, png 이미지 파일만 업로드 가능</small>
+										</form>
+										
+										<iframe name="zero"  height = "0" frameborder="0">
+										</iframe>
+										<ul class="fileUL">
+										
+										</ul>
+			                            
+			                            
+			                        </div>
+			                        
+			                        <div class="col-lg-4 col-md-5 col-sm-7 project-overview">
+			                            <hr class="page-divider half hidden-sm"/>
+			                            <form name=writeForm>
+			                            <input type="hidden" name="grno" value="${param.grno}" />
+			                            <input type="hidden" name="id" value="user02" />
+			                            <input type="hidden" name="fileList" />
+			                            <input type="hidden" name="isfile" value="f" />
+			                                    <h3 class="block-title">GuidePlan Theme Details</h3>
+			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"></textarea>
+			                                    <p><a class="button green margi" href="javascript:writeSubmit();">테마 저장 </a> &nbsp;&nbsp;&nbsp;&nbsp; <small>(타임캡슐은 다른 여행자들과 공유됩니다)</small></p>
+			                        	</form>
+			                        </div>			
+			                    </div>
+                   			<hr/><!--썸네일추가끝  -->
+									
 										
 								</div>
                    				<!--append 되는 곳  -->
@@ -191,101 +235,163 @@
                         
                         <!-- Scripts -->
         <!-- jQuery -->
+
+    
+
+      
+
         <script src="/resources/inc/js/jquery-1.10.2.min.js"></script>
+
         <script src="/resources/inc/js/jquery-migrate-1.2.1.js"></script>
 
-        <!-- modernizer -->
+    
+
+    <!-- modernizer -->
+
+    
+
+      
+
         <script src="/resources/inc/js/modernizr.custom.63321.js"></script>
 
-        <!-- FlexSlider -->
-        <script type="text/javascript" src="/resources/inc/js/jquery.flexslider-min.js"></script>   
+    
 
-        <!-- CatSlider -->
-        <script type="text/javascript" src="/resources/inc/js/jquery.catslider.js"></script>    
+    <!-- FlexSlider -->
 
-        <!-- Datepicker -->
-        <script type="text/javascript" src="/resources/inc/js/jquery.ui.datepicker.min.js"></script>    
+    <script type="text/javascript" src="/resources/inc/js/jquery.flexslider-min.js"></script>   
 
-        <!-- Masonry -->
-        <script type="text/javascript" src="/resources/inc/js/masonry.min.js"></script> 
+    
 
-        <!-- Increase/decrease quantity -->
-        <script type="text/javascript" src="/resources/inc/js/increase-decrease-qty.js"></script>   
+    
+
+    <!-- CatSlider -->
+
+    <script type="text/javascript" src="/resources/inc/js/jquery.catslider.js"></script>    
+
+
+
+    
+
+    <!-- Datepicker -->
+
+    <script type="text/javascript" src="/resources/inc/js/jquery.ui.datepicker.min.js"></script>    
+
+    
+
+    
+
+    <!-- Masonry -->
+
+    <script type="text/javascript" src="/resources/inc/js/masonry.min.js"></script> 
+
+
+
+    
+
+    
+
+    <!-- Increase/decrease quantity -->
+
+    <script type="text/javascript" src="/resources/inc/js/increase-decrease-qty.js"></script>   
+
+    
+
+    <!-- Mixitup (filterable item) -->
+
+    <script type="text/javascript" src="/resources/inc/js/jquery.mixitup.min.js"></script>  
+
+    
+
+    
+
+    <!-- Google Map JS -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+
+    <script type="text/javascript" src="/resources/inc/js/google-map-infobox.js"></script>      
+
         
-        <!-- Mixitup (filterable item) -->
-        <script type="text/javascript" src="/resources/inc/js/jquery.mixitup.min.js"></script>  
 
-        <!-- Google Map JS -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
-        <script type="text/javascript" src="/resources/inc/js/google-map-infobox.js"></script>      
+    
 
-        <!-- Responsive Google Map (Fitmaps) JS -->
-        <script type="text/javascript" src="/resources/inc/js/jquery.fitmaps.js"></script>  
+    <!-- Responsive Google Map (Fitmaps) JS -->
 
-        <!-- Chozen UI JS -->
-        <script type="text/javascript" src="/resources/inc/js/chosen.jquery.js"></script>   
+    <script type="text/javascript" src="/resources/inc/js/jquery.fitmaps.js"></script>  
 
-        <!-- Checkbox/Radio UI JS -->
-        <script type="text/javascript" src="/resources/inc/js/jquery.screwdefaultbuttonsV2.js"></script>    
+    
 
-        <!-- Range Slider UI JS #2 -->
+    <!-- Chozen UI JS -->
 
-        <script type="text/javascript" src="/resources/inc/js/jquery.mousewheel.min.js"></script>   
+    <script type="text/javascript" src="/resources/inc/js/chosen.jquery.js"></script>   
 
-        <script type="text/javascript" src="/resources/inc/js/jQRangeSlider-min.js"></script>   
+            
 
-        <!-- bootstrap JS -->
+    
+
+    <!-- Checkbox/Radio UI JS -->
+
+    <script type="text/javascript" src="/resources/inc/js/jquery.screwdefaultbuttonsV2.js"></script>    
+
+        
+
+    
+
+    <!-- Range Slider UI JS #2 -->
+
+    <script type="text/javascript" src="/resources/inc/js/jquery.mousewheel.min.js"></script>   
+
+    <script type="text/javascript" src="/resources/inc/js/jQRangeSlider-min.js"></script>   
+
+    <!-- bootstrap JS -->
 
         <script type="text/javascript" src="/resources/inc/bootstrap/js/bootstrap.min.js"></script>     
 
-        <!-- raty JS -->
+    <!-- raty JS -->
+        <script type="text/javascript" src="/resources/inc/js/jquery.raty.min.js"></script>
 
-        <script type="text/javascript" src="/resources/inc/js/jquery.raty.min.js"></script> 
+    <!-- prettyphoto -->
+    <script type="text/javascript" src="/resources/inc/prettyphoto/js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript">
+        $("a[data-gal^='prettyPhoto']").prettyPhoto({
+            theme: 'dark_square'
+        });
+    </script>
 
-        <!-- Custom JS -->
+    <!-- OWL Carousel -->
+    <script src="/resources/inc/owlcarousel2/owl.carousel.min.js"></script>
 
-        <script type="text/javascript" src="/resources/inc/js/custom.js"></script>  
-        
-    <!--     <script>
-        var scroll = function(){
-             /* var formData = $("#guideForm").serialize();
- */        /*    console.info("폼테이터" + formData); */
-        $.ajax({
-                url:"/bbs/guide/list",
-                dataType:'json',
-                type:"post",
-                success: function (data) {
-                   //데이터의 갯수만큼 알아서 반복!(each)
-                    $.each(data, function(k,v){
-                        $("#guideList").append(
-                              "<ul class='target'>"
-                                +"<li class='no'>No : "+v.no+"</li>"
-                                +"<li class='userid'>Userid : "+v.userid+"</li>"
-                                +"<li class='cost'>Cost : "+v.cost+"</li>"
-                                +"<li class='pay'>Pay : "+v.pay+"</li>"
-                                +"<li class='regdate'>Reagdate : "+v.regdate+"</li>"
-                                +"</ul>"
-                        )})
-                }
-              ,error:function(){
-                   alert("history load error!");
-                }
-            });
-       }
-        scroll();
-                   
-        </script> -->
-        
+    <!-- Custom JS -->
+
+    <script type="text/javascript" src="/resources/inc/js/custom.js"></script>  
+       
    <script>
-   
-   $("#input-25").fileinput({
-	    initialPreview: [
-	        "<img src='/resources/image/star_rating_1.png' class='file-preview-image' alt='The Moon' title='The Moon'>",
-	        "<img src='/resources/image/star_rating_2.png' class='file-preview-image' alt='The Earth' title='The Earth'>",
-	    ],
-	    overwriteInitial: true,
-	    initialCaption: "The Moon and the Earth"
-	});
+   //파일 업로드
+   $var fileCounter = function() {
+		var fileCount = 0;
+		
+	  	  return { 
+			  upload: function() {
+					var file = document.fileUploadForm.file.value;
+					var suffix = file.substring(file.lastIndexOf("."), file.length);
+					if(suffix==".jpg" || suffix == ".png" || suffix == ".gif"){
+						fileCount += 1;
+						document.writeForm.isfile.value = 't';
+						if(fileCount > 3) {
+							alert("3개이상 업로드 불가");
+						}else{
+							document.fileUploadForm.submit();
+						}
+					}else{
+						alert("jpg, gif, png 이미지 파일만 업로드 가능");
+					}
+		 	 }
+		  }  
+
+		};    
+		
+		var fileupload = fileCounter();
+		
+		
         
       function placeAdd(plandate, gpno){
     	  alert('#placeFormId'+plandate);

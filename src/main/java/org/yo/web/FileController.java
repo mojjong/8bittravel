@@ -87,6 +87,7 @@ public class FileController {
 		
 		byte[] buffer = new byte[1024*8];
 		
+		
 		InputStream fin = new FileInputStream(DEFAULT_DIR+File.separator+foldername+File.separator+filename+"."+suffix);
 		
 		while(true){
@@ -106,6 +107,13 @@ public class FileController {
 		//���������� ImageMagicK �н� ������.
 		//String myPath="C:\\Program Files\\ImageMagick";
 		//ProcessStarter.setGlobalSearchPath(myPath);
+		
+		File targetDir = new File(DEFAULT_DIR+File.separator+"thumbnail"+File.separator+foldername);
+		
+		 if(!targetDir.exists()) {    //디렉토리 없으면 생성.
+			 logger.info(DEFAULT_DIR+File.separator+"thumbnail"+File.separator+foldername + " 생성!");
+	         targetDir.mkdirs();
+	        }
 		
 		String imPath="C:\\Program Files\\ImageMagick";
 		ConvertCmd cmd = new ConvertCmd();
@@ -132,6 +140,14 @@ public class FileController {
 		if(file.isEmpty()){
 			return "NONE";
 		}
+		
+		logger.info(DEFAULT_DIR+File.separator+foldername);
+		File targetDir = new File(DEFAULT_DIR+File.separator+foldername);
+		
+		 if(!targetDir.exists()) {    //디렉토리 없으면 생성.
+			 logger.info(DEFAULT_DIR+File.separator+foldername + " 생성!");
+	         targetDir.mkdirs();
+	        }
 		
 		byte[] buffer = new byte[1024*8];
 		String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();

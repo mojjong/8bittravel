@@ -41,11 +41,10 @@ public class FileController {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		File downFile = new File(DEFAULT_DIR, path);
-		//����ó��
-		//������ filename���� ������ �Ѿ��.
+		
 		OutputStream os = response.getOutputStream();
 		FileInputStream fi = new FileInputStream(downFile);
-		//fi.read()�� ���� os.write�� ȿ���� ����. Ŭ���̾�Ʈ���� ������ ���ư���.
+		
 		response.setHeader("Content-Disposition", "attachment; filename="+new String(path.getBytes("UTF-8"), "8859_1"));
 		byte[] bytes = FileCopyUtils.copyToByteArray(fi);
 		
@@ -65,11 +64,10 @@ public class FileController {
 		String FILEDEFAULT_DIR="c:\\zzz\\8bitTravel\\thumbnail";
 		
 		File downFile = new File(FILEDEFAULT_DIR, path);
-		//����ó��
-		//������ filename���� ������ �Ѿ��.
+		
 		OutputStream os = response.getOutputStream();
 		FileInputStream fi = new FileInputStream(downFile);
-		//fi.read()�� ���� os.write�� ȿ���� ����. Ŭ���̾�Ʈ���� ������ ���ư���.
+		
 		response.setHeader("Content-Disposition", "attachment; filename="+new String(path.getBytes("UTF-8"), "8859_1"));
 		byte[] bytes = FileCopyUtils.copyToByteArray(fi);
 		
@@ -87,6 +85,8 @@ public class FileController {
 		
 		byte[] buffer = new byte[1024*8];
 		
+		logger.info("aaaaaa  " + foldername);
+		
 		
 		InputStream fin = new FileInputStream(DEFAULT_DIR+File.separator+foldername+File.separator+filename+"."+suffix);
 		
@@ -103,7 +103,7 @@ public class FileController {
 	
 	//ImageMagicK �̿��� ����� ���� �Լ�
 	private void createThumbnail(File origin, String foldername) throws Exception {
-		
+		logger.info("여기는 섬네일");
 		//���������� ImageMagicK �н� ������.
 		//String myPath="C:\\Program Files\\ImageMagick";
 		//ProcessStarter.setGlobalSearchPath(myPath);
@@ -136,7 +136,7 @@ public class FileController {
 	@RequestMapping(value="/upload", produces="text/html; charset=UTF-8")
 	@ResponseBody
 	public String uploadFile(MultipartFile file, String foldername) throws Exception {
-		
+		System.out.println("AAAA");
 		if(file.isEmpty()){
 			return "NONE";
 		}
@@ -182,6 +182,8 @@ public class FileController {
 		}
 		
 		String jsObjStr = "{foldername:'"+foldername+"', fileName:'"+fileName.substring(0, fileName.lastIndexOf("."))+"', isImage:"+isImage+", suffix:'"+ suffix.substring(1)+"'}";
+		
+		logger.info(jsObjStr);
 
 		String str = "<script>parent.updateResult.increment("+jsObjStr+");</script>";
 		

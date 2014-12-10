@@ -24,11 +24,12 @@
 			                   
 			                   	<div class="row project-single">
 			                        <div class="col-lg-8 col-md-7 col-sm-12">
-			                            <div class="owl-carousel img-carousel">
-			                                <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
-			                                <div class="item"><img name="carouselitem1" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
-			                                <div class="item"><img name="carouselitem2" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
-			                            </div>
+			                          <div class="owl-carousel img-carousel">
+			                               <%--  <div class="item"><img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/></div> --%>
+			                             <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                             <div class="item"><img name="carouselitem1" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+                                		 <div class="item"><img name="carouselitem2" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                          </div>  
 			                            <hr class="hidden-md hidden-lg"/>
 			                        </div>
 			                        <div class="col-lg-4 col-md-5 col-sm-7 project-overview">
@@ -38,8 +39,8 @@
 										<!--파일업로드DIV  -->
 										<form target="zero" name="fileUploadForm" id="fileUploadFormId" action="/file/upload" method="post" enctype="multipart/form-data">
 											
-											<input type="hidden" name="foldername" value="TIMECAPSULEFILE" />
-											<input type='file' name='file' id="inputfile" style="margin-bottom:10px;">
+											<input type="hidden" name="foldername" value="GUIDEPLAN" />
+											<input type='file' name='file' id="inputfile" style="margin-bottom:10px;" >
 											<a class="button mini low-blue" href="javascript:fileupload.upload()">upload</a>
 											<small style="float:right;">jpg, gif, png 이미지 파일만 업로드 가능</small>
 										</form>
@@ -55,13 +56,14 @@
 			                        
 			                        <div class="col-lg-4 col-md-5 col-sm-7 project-overview">
 			                            <hr class="page-divider half hidden-sm"/>
-			                            <form name=writeForm>
-			                            <input type="hidden" name="grno" value="${param.grno}" />
-			                            <input type="hidden" name="id" value="user02" />
-			                            <input type="hidden" name="fileList" />
-			                            <input type="hidden" name="isfile" value="f" />
+			                            <form name="writeForm">
+				                            <input type="hidden" name="travelno" value="${guideplan.travelno}" />
+				                            <input type="hidden" name="guideno" value="${guideplan.guideno }" />
+<%-- 			                            <input type="hidden" name="gpphotono" value="${gpphoto.gpphotono }" /> --%>
+				                            <input type="hidden" name="fileList" />
+				                            <input type="hidden" name="isfile" value="f" />
 			                                    <h3 class="block-title">GuidePlan Theme Details</h3>
-			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"></textarea>
+			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"><%-- ${gpphoto.content } --%></textarea>
 			                                    <p><a class="button green margi" href="javascript:writeSubmit();">테마 저장 </a> &nbsp;&nbsp;&nbsp;&nbsp; <small>(타임캡슐은 다른 여행자들과 공유됩니다)</small></p>
 			                        	</form>
 			                        </div>			
@@ -71,7 +73,6 @@
 										
 								</div>
                    				<!--append 되는 곳  -->
-                 			</div> 
         
                         </div><!-- /.widget -->
                     </div><!--row  -->
@@ -365,8 +366,9 @@
     <script type="text/javascript" src="/resources/inc/js/custom.js"></script>  
        
    <script>
-   //파일 업로드
-   $var fileCounter = function() {
+   
+   var fileCounter = function() {
+
 		var fileCount = 0;
 		
 	  	  return { 
@@ -391,7 +393,48 @@
 		
 		var fileupload = fileCounter();
 		
-		
+     
+     function writeSubmit() {
+     	var srcList = [];
+     	for(var i=0; i<$(".img-responsive").length; i++){
+     		var src = $($(".img-responsive" ).get(i)).attr("data-src");
+     		if(src !== undefined){
+     			srcList.push(src);
+     		}	
+     	}
+     	srcList = jQuery.unique( srcList );
+     	console.log(srcList);
+     	
+         document.writeForm.action="/bbs/guide/guidep";
+         document.writeForm.method="post";
+         document.writeForm.fileList.value = srcList;
+         document.writeForm.submit();
+ }
+     
+     var updateCounter = function() {
+   	  var privateCounter = 0;
+   	  function changeBy(val) {
+   	    privateCounter += val;
+   	  }
+   	  return { 
+   		  increment: function(data) {
+   			//var obj =$("#carouselitem"+(privateCounter%3));
+     	    	var obj = document.getElementsByName("carouselitem"+(privateCounter%3));
+   			
+   			for (i = 0; i < obj.length; i++) { 
+   				obj[i].src = "/file/view/"+data.foldername+"/"+data.fileName+"/"+data.suffix;
+   				$(obj[i]).attr("data-src", data.foldername+"\\"+data.fileName+"."+data.suffix);
+   			}
+
+   			changeBy(1);
+   	 	 }
+   	  }  
+  };
+  
+  var updateResult = updateCounter();
+     
+     
+    
         
       function placeAdd(plandate, gpno){
     	  alert('#placeFormId'+plandate);

@@ -6,13 +6,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.guidebbs.service.GuideBbsService;
+import org.yo.guidebbs.vo.GP_PhotoVO;
 import org.yo.guidebbs.vo.GuideBbsVO;
 
 
@@ -33,6 +33,23 @@ public class GuideBbsController {
 		//model.addAttribute("guList", service.gulist(vo.getTravelno())); 
 		return service.gulist(vo);
 	}	
+	
+	//guidephto write
+	@RequestMapping(value="/guidep", method = RequestMethod.POST)
+	public String guideplan(GP_PhotoVO vo, int travelno, Model model){
+		
+		logger.info("controler : " + vo.toString());
+		/*
+		if(service.read_gpphoto().getGuidno()==guideno){	
+//			service.update_gpPhoto(vo);
+		}*/
+		
+		service.insert_gpPhoto(vo);
+		
+		return "redirect:/bbs/guide/place?travelno="+travelno+"&guideno="+vo.getGuideno();
+	}
+	
+	
 	
 	//가이드가 일차별로일정짤때 보이는 view2
 	@RequestMapping(value="/guidetab", method = RequestMethod.GET)
@@ -76,10 +93,12 @@ public class GuideBbsController {
 			logger.info("AAA" + vo.toString());
 			
 			GuideBbsVO gVo = service.guideplan(vo);
+			logger.info("cccc    "+gVo);
+			
 			
 			model.addAttribute("guideplan", gVo);
 			model.addAttribute("region", service.region(gVo));
-			model.addAttribute("r_photo", service.r_photo(gVo));
+//			model.addAttribute("gpphoto", service.read_gpphoto());
 		
 			return "/bbs/guidebbs/guideboard";
 		}
@@ -97,10 +116,6 @@ public class GuideBbsController {
 				
 			}
 		//-------------------------------------------------------------------------
-		
-		
-		
-		
 		
 		//장소 수정
 		@RequestMapping(value = "/placeModify", method =RequestMethod.POST ,produces = "application/json")
@@ -131,7 +146,7 @@ public class GuideBbsController {
 		}
 		//GuideBbsInsert-post 
 		@RequestMapping(value="/gWrite", method = RequestMethod.POST)
-		public String guideBbsInsert2(GuideBbsVO vo, Model model){
+		public String guideBbsInsert2(GuideBbsVO vo){
 			System.out.println("gWrite 컨트롤러");
 			String a = vo.getGuideid();
 			logger.info(a);

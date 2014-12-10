@@ -51,14 +51,33 @@ order by no asc
 
 <select id="guideplan" parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
 select 
-	guideno, 
-	max(content) content, 
-	max(rno) rno 
+	gp.guideno,
+	max(gb.travelno) travelno,
+	max(rno) rno,
+	max(gp.no) gpno
 from 
-	tbl_guideplan 
-where 
+	tbl_guideplan gp , tbl_guidebbs gb
+where gp.guideno = gb.no and
 	guideno = #{guideno} 
-group by guideno
+group by gp.guideno
+</select>
+
+<insert id="insert_gpPhoto" parameterType="org.yo.guidebbs.vo.GP_PhotoVO" useGeneratedKeys="true">
+	<selectKey keyProperty="gpphotono" resultType="int" order="BEFORE">
+	            SELECT seq_gpphoto.nextVal from dual
+	</selectKey>
+	insert into tbl_gp_photo(no,guideno, content,isfile) 
+	values (#{gpphotono},#{guideno},#{content},#{isfile})
+
+</insert>
+
+<!--다시 들어왓을때 사진 덮어씌우기  -->
+<select id="read_gpphoto" parameterType="org.yo.guidebbs.vo.GuideBbsVO" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
+	select  gpp.guideno, travelno, content, filename, suffix, gpf.gpphotono, isfile from
+		(select gpp.guideno, travelno, content, isfile,gpp.no gpphotono from 
+			(select no guideno, travelno from tbl_guidebbs where travelno = #{travelno}) gb, tbl_gp_photo gpp
+				where gb.guideno = gpp.guideno and gpp.guideno = #{guideno})gpp, tbl_gp_photofile gpf
+	where gpp.gpphotono = gpf.gpphotono 
 </select>
 
 
@@ -66,7 +85,11 @@ group by guideno
 
 
 
-
+<select id="read_gpphoto" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
+	select no gpphotono, content, isfile, filename, suffix from 
+	(select content, isfile, no from tbl_gp_photo) gpp, tbl_gp_photofile gpf
+	where gpp.no = gpf.gpphotono
+</select>
 
 
 

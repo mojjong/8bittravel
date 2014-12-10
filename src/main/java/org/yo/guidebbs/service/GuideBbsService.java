@@ -7,9 +7,12 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.yo.guidebbs.mapper.GuideBbsMapper;
+import org.yo.guidebbs.vo.GP_PhotoVO;
 import org.yo.guidebbs.vo.GuideBbsVO;
-import org.yo.region.vo.R_photoVO;
+
 import org.yo.region.vo.RegionVO;
 
 @Service("GuideBbsService")
@@ -51,11 +54,32 @@ public class GuideBbsService {
 		return mapper.region(vo);
 	}
 	
-	public R_photoVO r_photo(GuideBbsVO vo){
+	
+	//guidePlan 사진 insert
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void insert_gpPhoto(GP_PhotoVO vo){
+		logger.info("포토서비스 : " + vo);
+		mapper.insert_gpPhoto(vo);
 		
-		return mapper.r_photo(vo);
+		for (String filename : vo.getFileList()) {
+			logger.info("gpphoto : " + filename);
+			mapper.fileOneInsert(vo.setFilename(filename.substring(0, filename.lastIndexOf(".")))
+					.setSuffix(filename.substring(filename.lastIndexOf(".")+1)));
+		}
 	}
-	//
+	
+	//gpPhoto Read(guideno 값 구하기)
+	/*public GP_PhotoVO read_gpphoto(GuideBbsVO vo){
+		return mapper.read_gpphoto(vo);
+	}*/
+	public GP_PhotoVO read_gpphoto(){
+		return mapper.read_gpphoto();
+	}
+	//gpPhoto 업데이트
+	public void update_gpPhoto(){
+		 mapper.update_gpPhoto();
+	}
+	
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){
 		logger.info("service : 여기야 여기!!!" );
 		return mapper.gulist(vo);
@@ -82,5 +106,10 @@ public class GuideBbsService {
 	//GuideBbs �Է�
 	public void guideBbsinsert(GuideBbsVO vo){
 		mapper.guideBbsInsert(vo);
+	}
+
+	public int isEmpty(GP_PhotoVO vo) {
+	
+		return mapper.isEmpty(vo);
 	}
 }

@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.yo.guidebbs.vo.GP_PhotoVO;
 import org.yo.guidebbs.vo.GuideBbsVO;
-import org.yo.region.vo.R_photoVO;
 import org.yo.region.vo.RegionVO;
 
 public interface GuideBbsMapper {
@@ -36,18 +36,22 @@ public interface GuideBbsMapper {
 	//guide 지역 가져오기
 	@Select("select do, sigun from tbl_region where no = #{rno}")
 	public RegionVO region(GuideBbsVO vo);
-	
-	//guide 지역 사진 가져오기
-	@Select("select dir, content from tbl_r_photo where rno = #{rno}")
-	public R_photoVO r_photo(GuideBbsVO vo);
+
+
 	
 	//탭클릭시 plan 테이블 insert
 	public void gplan(GuideBbsVO vo);
 	
 	
+	/*@Insert(" insert into tbl_gp_photo(gpno,dir,content) values (#{gpno},#{dir},#{content})")*/
+	public void insert_gpPhoto(GP_PhotoVO vo);
+	
+	@Insert("insert into tbl_gp_photofile(filename, suffix, gpphotono) values(#{filename},#{suffix},#{gpphotono})")
+	public void fileOneInsert(GP_PhotoVO vo);
+	
 	//장소 insert
-	@Insert(" insert into tbl_guideregion (no, gpno, place, lng, lat,msg) "
-			+ "values(seq_guideregion.NEXTVAL, #{gpno},#{place},#{lng},#{lat},#{msg})")
+	@Insert(" insert into tbl_guideregion (no, gpno, place, lng, lat,msg)"
+			+ " values(seq_guideregion.NEXTVAL, #{gpno},#{place},#{lng},#{lat},#{msg})")
 	public void placeAdd(GuideBbsVO vo);
 	
 	//장소 modify
@@ -60,10 +64,16 @@ public interface GuideBbsMapper {
 	
 	//GuideBbs Insert
 	@Insert(" insert into tbl_guidebbs (no, guideid, travelno, cost, pay, regdate) "
-			+ "values (seq_guidebbs.nextval, #{guideid},#{travelno},#{cost},#{pay},sysdate)")
+			+ " values (seq_guidebbs.nextval, #{guideid},#{travelno},#{cost},#{pay},sysdate)")
 	public void guideBbsInsert( GuideBbsVO vo);
 	
+	//사진 다시 수정했을때 조건 비교 쿼리
+	/*public GP_PhotoVO read_gpphoto(GuideBbsVO vo); */
+	public GP_PhotoVO read_gpphoto(); 
+	//guidephoto update
+	public void update_gpPhoto(); 
 	
+	public int isEmpty(GP_PhotoVO vo);
 	
 	
 }

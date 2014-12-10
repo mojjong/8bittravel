@@ -10,6 +10,7 @@ public class GuideBbsVO{
 	private int gpno;
 	private int rno;
 	
+	
 	private String userid;
 	private String guideid;
 	private int cost;
@@ -26,6 +27,7 @@ public class GuideBbsVO{
 	
 	
 	
+
 	public int getGuideno() {
 		return guideno;
 	}
@@ -246,21 +248,16 @@ public class GuideBbsVO{
 		this.regdate = regdate;
 	}
 
-
-
-
-
 	@Override
 	public String toString() {
-		return "GuideBbsVO [guideno=" + guideno + ", travelno=" + travelno
-				+ ", grno=" + grno + ", gpno=" + gpno + ", rno=" + rno
-				+ ", userid=" + userid + ", guideid=" + guideid + ", cost="
-				+ cost + ", pay=" + pay + ", regdate=" + regdate + ", place="
-				+ place + ", lng=" + lng + ", lat=" + lat + ", msg=" + msg
-				+ ", plandate=" + plandate + "]";
+		return "GuideBbsVO [no=" + no + ", guideno=" + guideno + ", travelno="
+				+ travelno + ", grno=" + grno + ", gpno=" + gpno + ", rno="
+				+ rno + ", userid=" + userid
+				+ ", guideid=" + guideid + ", cost=" + cost + ", pay=" + pay
+				+ ", regdate=" + regdate + ", place=" + place + ", lng=" + lng
+				+ ", lat=" + lat + ", msg=" + msg + ", plandate=" + plandate
+				+ "]";
 	}
-	
-	
-	
-	
+
+
 }

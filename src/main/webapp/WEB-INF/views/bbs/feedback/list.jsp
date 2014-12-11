@@ -119,7 +119,7 @@
 
    
    
-   <button id="infiBtn" class="button btn-block" OnClick="javascript:infinityScrollFunction()"> 글 더 보기...</button>
+   <button id="infiBtn" class="btn btn-success btn-default col-md-offset-4 col-lg-3" OnClick="javascript:infinityScrollFunction()"> 글 더 보기...</button>
    
 
    
@@ -512,7 +512,7 @@
          $.each(data,function(key, val){
             $("#feedbackcon").append( 
                   "<div id='modm_"+val.no+"'class='media story'>"
-                  +"<a href='#' class='pull-left story-avatar'><img alt='' src='/resources/images/blog/avatar-1.jpg' class='media-object img-circle'></a>"
+                  +"<a href='#' class='pull-left story-avatar'>"+val.no+"<img alt='' src='/resources/images/blog/avatar-1.jpg' class='media-object img-circle'></a>"
                   + "<div id='mod_"+val.no+"' class='media-body'>"
                   + "<div id='title_"+val.no+"'><h2 class='media-heading'> "+val.title+"</h2></div><br>"
                   + "<div id='content_"+val.no+"'><p class='story-text'> "+val.content+"</p></div></div>"
@@ -534,6 +534,22 @@
             if(key == 4) {
                     $("#infiBtn").on("click",function infinityScrollFunction(){
                        
+                      /*  
+                       //현재문서의 높이를 구함.
+                        var documentHeight  = $(document).height();
+                        //console.log("documentHeight : " + documentHeight);
+                        //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환
+                        //스크롤바가 맨 위쪽에 있을때 , 위치는 0
+                        //console.log("window의 scrollTop() : " + $(window).scrollTop());
+                        //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
+                        //console.log("window의 height() : " + $(window).height());
+                        //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
+                        //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
+                        var scrollHeight = $(window).scrollTop()+$(window).height();
+                        //console.log("scrollHeight : " + scrollHeight);
+                        
+                        
+                        if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가 */
                            currentPage++;
                            console.log(currentPage + " 페이지 로드");
                            var target = $("#feedbackcon");
@@ -563,7 +579,7 @@
                         });  $("#feedbackcon").append("<input type='hidden' name='feedbackno'>");
 
                   });
-                        
+//                         }
                     });
                 }
          });  $("#feedbackcon").append("<input type='hidden' name='feedbackno'>");

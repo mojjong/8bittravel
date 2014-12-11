@@ -7,12 +7,12 @@
 
 
             <section class="page-head-holder">
-             <h1 class="block-title text-center"> ※ N O T I C E ※ </h1>
+            <!--  <h1 class="block-title text-center"></h1> -->
 
                     <hr class="transparent">
                     
 
-                    <h2 class="block-title text-center">Welcome to the HELL!!!</h2>
+                    <h1 class="block-title text-center">. N O T I C E .</h1>
              
             </section>
 
@@ -34,7 +34,7 @@
                <div class='panel panel-default'>
            <div class='panel-heading'>
            <h4 class='panel-title'>
-           <a data-toggle='collapse' data-parent='#accordion' href='#collapse_${listBoard.no }'>${listBoard.title}</a></h4></div>
+           <a data-toggle='collapse' data-parent='#accordion' href='#collapse_${listBoard.no }'> &nbsp; &nbsp; &nbsp; &nbsp; ${listBoard.no }&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  | &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; ${listBoard.title}</a></h4></div>
            <div id='collapse_${listBoard.no }' class='panel-collapse collapse' style='height: 0px;'>
            <div class='panel-body'>${listBoard.content}</div>
            <div class='panel-body'><a class="button mini" href="javascript:modify(${listBoard.no})">Modify</a>
@@ -51,7 +51,7 @@
                <form name="form3">
                 <br>
                 </form>
-                <div class="div-cell text-center" ><button class="button green" OnClick="window.location='/bbs/notice/write'">Write</button></div>
+                <div class="col-md-offset-10" ><button class="button green narrow" OnClick="window.location='/bbs/notice/write'">Write</button></div>
                 <br> 
                   <div class="dataTables_paginate">
 						<%@ include file="include_pageAction.jsp"%>

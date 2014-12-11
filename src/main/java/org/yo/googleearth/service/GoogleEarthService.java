@@ -14,7 +14,7 @@ import org.yo.web.GoogleEarthController;
 public class GoogleEarthService {
 	
 	  private static final Logger logger = LoggerFactory
-		         .getLogger(GoogleEarthController.class);
+		         .getLogger(GoogleEarthService.class);
 		   
 	
 	@Inject

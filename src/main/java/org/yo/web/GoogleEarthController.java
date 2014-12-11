@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.googleearth.service.GoogleEarthService;
+import org.yo.googleearth.vo.FileInfo;
 import org.yo.googleearth.vo.GoogleEarthVO;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
@@ -48,7 +49,7 @@ public class GoogleEarthController {
 
    @RequestMapping(value = "/list", method = RequestMethod.GET)
    @ResponseBody
-   public List<String> googleList(Model model) {
+   public List<FileInfo> googleList(Model model) {
       File file = new File(path);
 
       
@@ -56,7 +57,7 @@ public class GoogleEarthController {
 
       String contentType = "image/jpeg";
 
-      List<String> mapList = new ArrayList<String>();
+      List<FileInfo> mapList = new ArrayList<FileInfo>();
       if ("image/jpeg".equals(contentType)) {
          Metadata meta;
          try {
@@ -66,7 +67,9 @@ public class GoogleEarthController {
             
 
             for (File tempFile : fileList) {
+            	FileInfo fi = new FileInfo();
             	List<Double> gap = new ArrayList<Double>();
+            	String fileName = tempFile.getName();
                meta = JpegMetadataReader.readMetadata(tempFile);
                ExifSubIFDDirectory directory = meta
                      .getDirectory(ExifSubIFDDirectory.class);
@@ -88,15 +91,13 @@ public class GoogleEarthController {
             	   
             	   for (GoogleEarthVO dbTime : mapper) {
             		 
-            		   
-            		   
             		   diffTemp = dbTime.getTime().getTime() - date.getTime();
             		   diffTemp = Math.abs(diffTemp);
             		   
             		   gap.add((double)diffTemp);
             	   }
-            	  
-            	   System.out.println(gap);
+            	   
+            	   System.out.println("시간차 : " + fileName + " , " + gap);
                    double min = gap.get(0);
                    int minIdx = 0;
                    
@@ -116,13 +117,20 @@ public class GoogleEarthController {
                    }
                   
                    System.out.println("최소값 인덱스"+ minIdx);
+                   
+                   double lat = Double.valueOf(mapper.get(minIdx).getLat()).doubleValue();
+                   double lng = Double.valueOf(mapper.get(minIdx).getLng()).doubleValue();
             	   
-            	   mapList.add(mapper.get(minIdx).getLat()+","+mapper.get(minIdx).getLng());
+                   fi.setFileName(fileName).setLat(lat).setLng(lng);
+                   
+            	   mapList.add(fi);
             	   
             	   
                } else {
-            	 //사진에 위치정보가 없을때
-                   mapList.add(gpsDir.getGeoLocation().toString());
+            	 //사진에 위치정보가 있을때
+                   mapList.add(fi.setFileName(fileName).
+                		   setLat(gpsDir.getGeoLocation().getLatitude()).
+                		   setLng(gpsDir.getGeoLocation().getLongitude()));
                }
 
                //logger.info("위도 경도 : " + gpsDir.getGeoLocation());
@@ -135,6 +143,9 @@ public class GoogleEarthController {
          }
 
       }
+      
+      logger.info(mapList.toString());
+      
       return mapList;
    }
    

@@ -154,7 +154,7 @@ public class FileController {
 
 		String suffix = fileName.substring(fileName.lastIndexOf("."));
 
-				logger.info("SUFFIX :" + suffix);
+		logger.info("SUFFIX :" + suffix);
 		
 		InputStream in = file.getInputStream();
 		
@@ -192,9 +192,63 @@ public class FileController {
 		
 	}
 	
+	
+	@RequestMapping(value="/multiUpload", produces="text/html; charset=UTF-8")
+	@ResponseBody
+	public String mulUploadFile(MultipartFile[] files, String foldername) throws Exception {
+		logger.info("multiUpload" + files.length);
+		if(files.length == 0){
+			return "NONE";
+		}
+		
+		logger.info(DEFAULT_DIR+File.separator+foldername);
+		File targetDir = new File(DEFAULT_DIR+File.separator+foldername);
+		
+		 if(!targetDir.exists()) {    //디렉토리 없으면 생성.
+			 logger.info(DEFAULT_DIR+File.separator+foldername + " 생성!");
+	         targetDir.mkdirs();
+	        }
+		
+		 
+		 for(MultipartFile file : files){
+			 byte[] buffer = new byte[1024*8];
+				String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+				String suffix = fileName.substring(fileName.lastIndexOf("."));
+
+				logger.info("SUFFIX :" + suffix);
+				
+				InputStream in = file.getInputStream();
+				
+				File uploadedFile = new File(DEFAULT_DIR+File.separator+foldername+File.separator+fileName);
+				
+				OutputStream fos = new FileOutputStream(uploadedFile);
+				
+				while(true){
+					int count = in.read(buffer);
+					if(count == -1) { break;}
+					fos.write(buffer);
+				}
+				
+				fos.flush();
+				fos.close();
+				
+				logger.info("-------------------");
+				
+				logger.info(fileName);
+				logger.info("-------------------");
+				
+				String str = "";
+		 }
+		 
+		 
+		return "";
+	}
+	
+	
 	private boolean isImage(String fileName, String suffix) {
 		
-		if(suffix.contains(".jpg")){
+		if(suffix.contains(".jpg") || suffix.contains(".png") || suffix.contains(".gif")){
 			return true;
 		}
 		return false;

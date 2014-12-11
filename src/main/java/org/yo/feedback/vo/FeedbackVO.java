@@ -11,10 +11,17 @@ public class FeedbackVO {
 	private String content;
 	private int rating;
 	private Date regdate;
+	private int minIdx;
 	
 	
 	
 	
+	public int getMinIdx() {
+		return minIdx;
+	}
+	public void setMinIdx(int minIdx) {
+		this.minIdx = minIdx;
+	}
 	public String getTitle() {
 		return title;
 	}

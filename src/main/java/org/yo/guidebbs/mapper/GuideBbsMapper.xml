@@ -85,13 +85,6 @@ group by gp.guideno
 
 
 
-<select id="read_gpphoto" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
-	select no gpphotono, content, isfile, filename, suffix from 
-	(select content, isfile, no from tbl_gp_photo) gpp, tbl_gp_photofile gpf
-	where gpp.no = gpf.gpphotono
-</select>
-
-
 
 <!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	<![CDATA[ 

@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +19,9 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.yo.region.service.RegionService;
+import org.yo.googleearth.service.GoogleEarthService;
+import org.yo.googleearth.vo.FileInfo;
+import org.yo.googleearth.vo.GoogleEarthVO;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Metadata;
@@ -31,76 +32,194 @@ import com.drew.metadata.exif.GpsDirectory;
 @RequestMapping("/panorama/google/*")
 public class GoogleEarthController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(GoogleEarthController.class);
-	
-	private final static String path = "C:\\zzz\\upload\\";
+   private static final Logger logger = LoggerFactory
+         .getLogger(GoogleEarthController.class);
+   
+   private final static String path = "C:\\zzz\\upload\\dd\\";
 
-	@Inject
-	private RegionService service;
-	
-	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String google(){
-		return "/panorama/screen";
-	}
+   @Inject
+   GoogleEarthService service;
+   
+ 
+   
+   @RequestMapping(value = "/", method = RequestMethod.GET)
+   public String google(){
+      return "/panorama/screen";
+   }
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	@ResponseBody
-	public List<String> googleList(Model model) {
-		File file = new File(path);
+   @RequestMapping(value = "/list", method = RequestMethod.GET)
+   @ResponseBody
+   public List<FileInfo> googleList(Model model) {
+      File file = new File(path);
 
-		File[] fileList = file.listFiles();
+      
+      File[] fileList = file.listFiles();
 
-		String contentType = "image/jpeg";
+      String contentType = "image/jpeg";
 
-		List<String> mapList = new ArrayList<String>();
-		if ("image/jpeg".equals(contentType)) {
-			Metadata meta;
-			try {
+      List<FileInfo> mapList = new ArrayList<FileInfo>();
+      if ("image/jpeg".equals(contentType)) {
+         Metadata meta;
+         try {
 
-				GpsDirectory gpsDir = null;
-				// GpsDescriptor gpsDesc = null;
-				
+            GpsDirectory gpsDir = null;
+            // GpsDescriptor gpsDesc = null;
+            
 
-				for (File tempFile : fileList) {
+            for (File tempFile : fileList) {
+            	FileInfo fi = new FileInfo();
+            	List<Double> gap = new ArrayList<Double>();
+            	String fileName = tempFile.getName();
+               meta = JpegMetadataReader.readMetadata(tempFile);
+               ExifSubIFDDirectory directory = meta
+                     .getDirectory(ExifSubIFDDirectory.class);
+               Date date = directory
+                     .getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
 
-					meta = JpegMetadataReader.readMetadata(tempFile);
-					ExifSubIFDDirectory directory = meta
-							.getDirectory(ExifSubIFDDirectory.class);
-					Date date = directory
-							.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+               gpsDir = meta.getDirectory(GpsDirectory.class);
+               // gpsDesc = new GpsDescriptor(gpsDir);
+               
+//               logger.info("Date : " + date);
+               
+               if(gpsDir == null){
+            	   //사진에 위치정보가 없을때
+            	   
+            	
+            	   long diffTemp = 0;
+            	   
+            	   List<GoogleEarthVO> mapper = service.getTime();
+            	   
+            	   for (GoogleEarthVO dbTime : mapper) {
+            		 
+            		   diffTemp = dbTime.getTime().getTime() - date.getTime();
+            		   diffTemp = Math.abs(diffTemp);
+            		   
+            		   gap.add((double)diffTemp);
+            	   }
+            	   
+            	   System.out.println("시간차 : " + fileName + " , " + gap);
+                   double min = gap.get(0);
+                   int minIdx = 0;
+                   
+                   System.out.println("전체길이: "+gap.size());
+            
+                   for(int loop = 1; loop < gap.size(); loop++) {
+                       
+                       if (gap.get(loop)< min){
+                    	   min = gap.get(loop)/ (24*60);
+                    	   minIdx = loop;
+                    	   
+                    	   mapper.get(minIdx);
+                    	   
+                    	  System.out.println("ssdsssssss"+mapper.get(minIdx));
+                       }
+                       
+                   }
+                  
+                   System.out.println("최소값 인덱스"+ minIdx);
+                   
+                   double lat = Double.valueOf(mapper.get(minIdx).getLat()).doubleValue();
+                   double lng = Double.valueOf(mapper.get(minIdx).getLng()).doubleValue();
+            	   
+                   fi.setFileName(fileName).setLat(lat).setLng(lng);
+                   
+            	   mapList.add(fi);
+            	   
+            	   
+               } else {
+            	 //사진에 위치정보가 있을때
+                   mapList.add(fi.setFileName(fileName).
+                		   setLat(gpsDir.getGeoLocation().getLatitude()).
+                		   setLng(gpsDir.getGeoLocation().getLongitude()));
+               }
 
-					gpsDir = meta.getDirectory(GpsDirectory.class);
-					// gpsDesc = new GpsDescriptor(gpsDir);
-
-					logger.info("Date : " + date);
-					logger.info("위도 경도 : " + gpsDir.getGeoLocation());
-
-					mapList.add(gpsDir.getGeoLocation().toString());
-				}
+               //logger.info("위도 경도 : " + gpsDir.getGeoLocation());
+            }
 
 
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+         } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
 
-		}
-		return mapList;
-	}
-	
-	@RequestMapping(value = "/view", produces = "image/jpeg")
-	public @ResponseBody byte[] viewFile(String filename, HttpServletResponse res) throws Exception {
+      }
+      
+      logger.info(mapList.toString());
+      
+      return mapList;
+   }
+   
+   
+   /*@RequestMapping(value = "/time", method = RequestMethod.GET)
+   @ResponseBody
+   public List<Date> dateTime(Model model) {
+      File file = new File(path+"dd\\");
 
-		logger.info(filename);
-		
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+      File[] fileList = file.listFiles();
 
-		InputStream fin = new FileInputStream(path + filename);
+      String contentType = "image/jpeg";
 
-		FileCopyUtils.copy(fin, bos);
+      List<Date> dateList = new ArrayList<Date>();
+      if ("image/jpeg".equals(contentType)) {
+         Metadata meta;
+         try {
 
-		return bos.toByteArray();
-	}
+//            GpsDirectory gpsDir = null;
+            // GpsDescriptor gpsDesc = null;
+            
+
+            for (File tempFile : fileList) {
+
+               meta = JpegMetadataReader.readMetadata(tempFile);
+               ExifSubIFDDirectory directory = meta
+                     .getDirectory(ExifSubIFDDirectory.class);
+               Date date = directory
+                     .getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+
+//               gpsDir = meta.getDirectory(GpsDirectory.class);
+               // gpsDesc = new GpsDescriptor(gpsDir);
+
+               logger.info("Date : " + date);
+//               logger.info("위도 경도 : " + gpsDir.getGeoLocation());
+
+               dateList.add(date);
+            }
+
+
+         } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+        
+         List<Date> date = service.getTime();
+         
+         Date time1 = dateList.get(0);
+//		 Date time2 = dateList.get(1);
+		 
+		 System.out.println(time1 +":::::"+ date);
+		 long diff = time1.getTime() - date.get(0).getTime();
+		 long diffDays = diff / (24*60*60);
+
+		 
+		 System.out.println(diffDays);
+         
+         System.out.println("컨트롤러"+ date);
+      }
+      return dateList;
+   }
+   */
+   
+   @RequestMapping(value = "/view", produces = "image/jpeg")
+   public @ResponseBody byte[] viewFile(String filename, HttpServletResponse res) throws Exception {
+
+//      logger.info(filename);
+      
+      ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+      InputStream fin = new FileInputStream(path + filename);
+
+      FileCopyUtils.copy(fin, bos);
+
+      return bos.toByteArray();
+   }
 }

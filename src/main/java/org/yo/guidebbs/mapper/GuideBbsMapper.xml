@@ -73,20 +73,6 @@ group by gp.guideno
 </select>
 
 
-
-
-
-
-
-<!-- 
-<select id="read_gpphoto" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
-	select no gpphotono, content, isfile, filename, suffix from 
-	(select content, isfile, no from tbl_gp_photo) gpp, tbl_gp_photofile gpf
-	where gpp.no = gpf.gpphotono
-</select> -->
-
-
-
 <select id = "userGviewlist"  parameterType="org.yo.guidebbs.vo.GuideBbsVO" resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	<![CDATA[ 
 	
@@ -109,25 +95,24 @@ group by gp.guideno
 </select> 
 
 
- <!-- <delete id="placeDel" parameterType="int" >
-	delete from tbl_guideregion 
-	where no=#{No}
-</delete>  -->
 
 
-<!-- <update id="placModify" parameterType="int" >
-	update tbl_guideregion set place =#{place} ,msg= #{msg} where no={no};"
-
-</update> -->
 
 
-<!-- <update id="update" parameterType="org.yo.vo.GuideBbsVO ">
-	UPDATE tbl_guideregion
-	<set>
-		<if test="place !=null">place=#{place},</if>
-		<if test="msg !=null">msg=#{msg}</if>
-		
-	</set>
-	where no=#{no}
-</update> -->
+<!-- <select id="read_gpphoto" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
+	select no gpphotono, content, isfile, filename, suffix from 
+	(select content, isfile, no from tbl_gp_photo) gpp, tbl_gp_photofile gpf
+	where gpp.no = gpf.gpphotono
+</select> -->
+
+
+
+
+
+ 
+
+
+
+
+
 </mapper>

@@ -6,15 +6,15 @@
 
                 <div class="container">
 
-                    <div class="col-xs-6">
+                    <div class="col-xs-10">
 
 
 
-                        <h2>Panorama</h2>
+                        <div class="col-md-offset-5"><h1 class="page-title">My <span class="higlight">Panorama</span></h1></div>
 
                     </div>
 
-                    <div class="col-xs-6">
+                    <div class="col-xs-2">
 
                         <div class="breadcrumb-holder">
 
@@ -65,11 +65,38 @@
 
 
 
-                    <article id="post-6" class="contact section-intro">
+                    	
+		<div class="container">
+            <form enctype="multipart/form-data">
+                <div class="form-group">
+                    <input id="file-0" class="file" type="file" multiple=true data-show-preview="true">
+                </div>
+            </form>
+        </div>
+        
+<div class="main-contact-form">
+<div class='col-md-3'>
+<input type="button" class="button" onclick="enterTour()" value="Enter Tour" />
+</div>
+<div class='col-md-3'>
+<input type="button" class="button" onclick="playTour()" value="Play Tour" />
+</div>
+<div class='col-md-3'>
+<input type="button" class="button" onclick="pauseTour()" value="Pause Tour" />
+</div>
+<div class='col-md-3'>
+<input type="button" class="button" onclick="resetTour()" value="Stop/Reset Tour" />
+</div>
+
+<br />&nbsp;
+
+</div>
+
+<article id="post-6" class="contact section-intro">
 
 
 
-                        <h1 class="page-title">My <span class="higlight">Panorama</span></h1>
+                        
 
                         <div class="entry-content">
 
@@ -83,25 +110,8 @@
 
 
 
-                    </article><!-- /#post-6.contact -->			
+                    </article><!-- /#post-6.contact -->		
 
-<div class="main-contact-form">
-<div class='col-md-3'>
-<input class="button" onclick="enterTour()" value="Enter Tour" />
-</div>
-<div class='col-md-3'>
-<input class="button" onclick="playTour()" value="Play Tour" />
-</div>
-<div class='col-md-3'>
-<input class="button" onclick="pauseTour()" value="Pause Tour" />
-</div>
-<div class='col-md-3'>
-<input class="button" onclick="resetTour()" value="Stop/Reset Tour" />
-</div>
-
-<br />&nbsp;
-
-</div>
                     <div id="map3d" class="home-map" style="padding-top:10px;"></div>
 
 
@@ -293,6 +303,11 @@
        <!-- Scripts -->
 
     
+    	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/resources/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="/resources/js/fileinput.js" type="text/javascript"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
 
     <!-- jQuery -->
 
@@ -308,7 +323,6 @@
 
     <!-- modernizer -->
 
-    
 
       
 
@@ -438,17 +452,29 @@
 //     	var gpsstr = null;
     	$.getJSON("/panorama/google/list" , function (data) {
             var gps = "";
+            var fileName = "";
+            var lat = "";
+            var lng	= "";
             $.each(data, function (key, val) {
-            	console.log(val);
-            	
-            	gps += val + ",";
-            	
-            	console.log(gps);
+            	fileName += val.fileName + " ";
+            	lat += val.lat + " ";
+            	lng += val.lng + " ";
             });
             
             
-            var gpsstr = gps.split(",");
-        	
+            console.log(fileName);
+            console.log(lat);
+            console.log(lng);
+            
+            
+            var fileNames = fileName.split(" ");
+            var lats = lat.split(" ");
+            var lngs = lng.split(" ");
+            
+            console.log(fileNames);
+            console.log(lats);
+            console.log(lngs);
+            
             ge = instance;
             ge.getWindow().setVisibility(true);
             
@@ -465,10 +491,10 @@
             	 +'<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">'
             	 +'<Document>'
             	   
-           	     for(i = 0; i < gpsstr.length-1; i+=2){
+           	     for(i = 0; i < fileNames.length-1; i++){
                    	kmlString += '<Style id="mystyle_'+i+'">'
                         + '<IconStyle>'                          
-                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+i+'.jpg</href>'
+                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+fileNames[i]+'</href>'
                         + '</Icon>'
                         + '<scale>2.2</scale>'
                         + '</IconStyle>'   
@@ -476,7 +502,7 @@
 	                   	+ '  <Placemark>'
 	                    + '    <styleUrl>#mystyle_'+i+'</styleUrl>'
 	                    + '    <Point>'
-	                    + '      <coordinates>'+gpsstr[i+1]+','+gpsstr[i]+',0</coordinates>'
+	                    + '      <coordinates>'+lngs[i]+','+lats[i]+',0</coordinates>'
 	                    + '    </Point>'
 	                    + '  </Placemark>';
                   }
@@ -488,14 +514,14 @@
             	     +'<name>Play me</name>'
             	     +'<gx:Playlist>';
             	       
-           	     for(i = 0; i < gpsstr.length-1; i+=2){
+           	     for(i = 0; i < fileNames.length-1; i++){
            	  			
            	    	kmlString += 
            	    		'<gx:FlyTo>'
            	           +'<gx:duration>5.0</gx:duration>'
            	           +'<LookAt>'
-           	           +'<longitude>'+gpsstr[i+1]+'</longitude>'
-           	           +'<latitude>'+gpsstr[i]+'</latitude>'
+           	           +'<longitude>'+lngs[i]+'</longitude>'
+           	           +'<latitude>'+lats[i]+'</latitude>'
            	           +'<altitude>400</altitude>'
            	           +'<heading>0.0</heading>'
            	           +'<tilt>0.0</tilt>'
@@ -574,8 +600,15 @@
     function exitTour() {
         ge.getTourPlayer().setTour(null);
     }
+    
 
     google.setOnLoadCallback(init);
+    
+    
+    function upload(){
+    	alert("업로드");
+    	document.upFileForm.submit();
+    }
     
     </script>
 

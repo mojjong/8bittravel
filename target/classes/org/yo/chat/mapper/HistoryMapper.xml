@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yo.chat.mapper.HistoryMapper">
+
+<select id="list" resultType="org.yo.chat.vo.HistoryVO">
+<![CDATA[
+SELECT /*+INDEX_DESC(TBL_HISTORY PK_HISTORY) */  ROWNUM RN, NO, GPNO, USERID, TIME, LAT, LNG
+FROM TBL_HISTORY
+WHERE NO>0 AND USERID='user00' AND SYSDATE - TIME < 1 AND ROWNUM < 4
+]]>
+</select>
+
+<insert id="insert" parameterType="org.yo.chat.vo.HistoryVO">
+<![CDATA[
+INSERT INTO TBL_HISTORY(NO, GPNO, USERID, TIME, LAT, LNG)
+VALUES (SEQ_HISTORY.NEXTVAL, #{gpno}, #{userid}, SYSDATE, #{lat}, #{lng})
+]]>
+</insert>
+
+</mapper>

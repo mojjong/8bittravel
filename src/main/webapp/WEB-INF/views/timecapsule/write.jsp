@@ -378,9 +378,11 @@
         <script type="text/javascript" src="/resources/inc/bootstrap/js/bootstrap.min.js"></script>     
 
     <!-- raty JS -->
+
         <script type="text/javascript" src="/resources/inc/js/jquery.raty.min.js"></script>
 
     <!-- prettyphoto -->
+
     <script type="text/javascript" src="/resources/inc/prettyphoto/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript">
         $("a[data-gal^='prettyPhoto']").prettyPhoto({
@@ -389,6 +391,7 @@
     </script>
 
     <!-- OWL Carousel -->
+
     <script src="/resources/inc/owlcarousel2/owl.carousel.min.js"></script>
 
     <!-- Custom JS -->

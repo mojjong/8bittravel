@@ -31,7 +31,9 @@ background-position: center center;
 background-size: cover;">
                 <div class="container">
 
-                 <div class="row thumbnails">
+                    <div class="row thumbnails">
+                    
+                    <sec:authentication var="user" property="principal" />
 	                  
 					<c:forEach var="capsule" items="${capsule }">
 				       <div class="col-md-4 col-sm-6 col-xs-12">
@@ -43,7 +45,12 @@ background-size: cover;">
                                             <div class="caption-inner div-cell">
                                                 <p class="caption-buttons">
                                                     <a href="/file/download?filename=${capsule.filename}.${capsule.suffix}" onclick="javascript:fillcontent.setting(this);" class="btn caption-zoom" data-gal="prettyPhoto" data-msg="${capsule.content }"><i class="fa fa-search"></i></a>
-                                                    <a href="/timecapsule/sub/delete?no=${capsule.no}&grno=${param.grno}" class="btn caption-link"><i class="fa fa-link"></i></a>
+                                                    
+                                                    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+														<c:if test="${user == capsule.id}">
+														<a href="/timecapsule/sub/delete?no=${capsule.no}&grno=${param.grno}" class="btn caption-link"><i class="fa fa-bitbucket"></i></a>
+														</c:if>
+													</sec:authorize>
                                                 </p>
                                             </div>
                                         </div>

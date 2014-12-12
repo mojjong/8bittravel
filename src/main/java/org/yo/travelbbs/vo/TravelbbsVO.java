@@ -24,6 +24,7 @@ public class TravelbbsVO {
 	private String thememode;
 	private String guideid;
 	private Map<String, String> dateMap;
+	private String region;
 	
 	
 	
@@ -186,6 +187,12 @@ public class TravelbbsVO {
 				+ ", themeno=" + themeno + ", themename=" + themename
 				+ ", thememode=" + thememode + ", guideid=" + guideid
 				+ ", dateMap=" + dateMap + "]";
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
 	}
 	
 	

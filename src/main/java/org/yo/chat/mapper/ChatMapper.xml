@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yo.chat.mapper.ChatMapper">
+
+<select id="list" resultType="org.yo.chat.vo.ChatVO">
+<![CDATA[SELECT /*+INDEX_DESC(TBL_CHATMSG PK_CHATMSG) */  ROWNUM RN, NO, USERID, GUIDEID, CONTENT, REGDATE, SENDER
+FROM TBL_CHATMSG
+WHERE NO>0 AND USERID='user00' AND SYSDATE - REGDATE < 1]]>
+</select>
+
+<insert id="insert" parameterType="org.yo.chat.vo.ChatVO">
+<![CDATA[
+INSERT INTO TBL_CHATMSG(NO, USERID, GUIDEID, CONTENT, REGDATE, SENDER)
+VALUES (SEQ_CHATMSG.NEXTVAL, #{userid}, #{guideid}, #{content}, SYSDATE, #{sender})
+]]>
+</insert>
+
+</mapper>

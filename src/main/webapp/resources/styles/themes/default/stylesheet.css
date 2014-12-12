@@ -182,7 +182,7 @@ noscript {
  * =============================== */
 /* Layout */
 .section {
-  padding-top:50px;
+  padding-top: 100px;
   padding-bottom: 100px;
 }
 .section.light {
@@ -2323,10 +2323,10 @@ form.hotels-filter-form a.chosen-single {
   padding-right: 0;
 }
 .no-margin-top {
-  margin-top: 20px;
+  margin-top: 0;
 }
 .no-margin-bottom {
-  margin-bottom: 20px;
+  margin-bottom: 0 !important;
 }
 .contents.grid-contents > .row {
   margin: 0 0 20px 0;
@@ -2493,7 +2493,11 @@ form.hotels-filter-form a.chosen-single {
     */
 }
 .infoBox {
-  position: relative;
+/*   position: relative; */
+  font-size: 13px;
+}
+.infoBoxGuide {
+/*   position: relative; */
   font-size: 13px;
 }
 .infoBox div {
@@ -2513,12 +2517,39 @@ form.hotels-filter-form a.chosen-single {
   border-right: 6px solid transparent;
   border-top: 12px solid #8bcf17;
 }
+.infoBoxGuide div {
+  background-color: #eff2f3 !important;
+}
+.infoBoxGuide:after {
+  display: block;
+  width: 12px;
+  height: 12px;
+  content: '';
+  bottom: -12px;
+  left: 0;
+  float: right;
+  margin-right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 12px solid #eff2f3;
+}
 .infoBox h3 {
   margin: 0;
   font-size: 18px;
   line-height: 18px;
 }
 .infoBox img {
+  display: none;
+  visibility: hidden;
+}
+.infoBoxGuide h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 18px;
+}
+.infoBoxGuide img {
   display: none;
   visibility: hidden;
 }

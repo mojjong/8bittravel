@@ -37,16 +37,24 @@ where rn<=(#{page}*5)
 </select>
 
 
-<insert id="create" parameterType="org.yo.travelbbs.vo.TravelbbsVO">
-insert into tbl_travelbbs (no, title, content, startdate, enddate, teammember, cost, transport, memo, region, userid, themeno) 
-values(seq_travelbbs.nextval,#{title},#{content},to_date(#{startdate},'YY/MM/DD'),to_date(#{enddate},'YY/MM/DD'),#{teammember},#{cost},#{transport},#{memo},#{region},#{userid},#{themeno})
+<insert id="create" parameterType="org.yo.travelbbs.vo.TravelbbsVO" useGeneratedKeys="true">
+<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	            SELECT seq_travelbbs.nextVal from dual
+	</selectKey>
+insert into 
+	tbl_travelbbs (no , title, content, startdate, enddate, teammember, cost, transport, regionno, userid, themeno) 
+values(#{no},#{title},#{content},to_date(#{startdate},'dd month yyyy'),to_date(#{enddate},'dd month yyyy'),#{teammember},#{cost},#{transport},#{regionno},#{userid},#{themeno})
 </insert>
 
 
-<select id="read" parameterType="int" resultType="org.yo.travelbbs.vo.TravelbbsVO">
-select /*+INDEX_DESC(tbl_travelbbs pk_travelbbs) */
-no , title, content, to_char(startdate,'YY-MM-DD') startdate, to_char(enddate,'YY-MM-DD') enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid
-from tbl_travelbbs where no = #{no}
+<select id="read" parameterType="org.yo.travelbbs.vo.TravelbbsVO" resultType="org.yo.travelbbs.vo.TravelbbsVO">
+select tb.no, title, content, to_char(startdate,'dd month yyyy') startdate, to_char(enddate,'dd month yyyy') enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid,thememode,name themename 
+from 
+(select /*+INDEX_DESC(tbl_travelbbs pk_travelbbs) */
+no, title, content, startdate, enddate, teammember, cost, transport, memo, bidstate, region, userid, themeno, guideid
+from tbl_travelbbs where no = #{no})tb, tbl_theme theme
+where theme.no = tb.themeno and tb.themeno = #{themeno}
+
 </select>
 
 

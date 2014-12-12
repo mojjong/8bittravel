@@ -56,29 +56,34 @@ public class TravelbbsController {
 	@RequestMapping(value="/write", method = RequestMethod.GET)
 	public String write(TravelbbsVO vo){
 		
+		logger.info(vo.toString());
+		
 		return "bbs/travelbbs/write";
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String create(TravelbbsVO vo){
+	public String create(TravelbbsVO vo,Model model){
 		logger.info("create : " + vo);
 		service.create(vo);
-		
-		return "";
+		logger.info("글쓰고 난후 : " + vo.toString());
+		int travelno = vo.getNo();
+		return "redirect:/bbs/travelbbs/read?no="+travelno;
 	}
 	
-	@RequestMapping(value="/read", method = RequestMethod.GET)
-	public String read(int no, Model model){
-		logger.info("read : " + no);
-		model.addAttribute("vo", service.read(no));
-		return "/bbs/travelbbs/read";
-	}
+	 @RequestMapping(value="/read", method = RequestMethod.GET)
+	   public String read(TravelbbsVO vo, Model model){
+	      logger.info("read : " + vo);
+	      logger.info("read : " + service.read(vo));
+	      
+	      model.addAttribute("vo", service.read(vo));
+	      return "/bbs/travelbbs/read";
+	   }
 	
 	@RequestMapping(value="/update", method = RequestMethod.GET)
 	public String updateRead(TravelbbsVO vo, Model model){
 		logger.info("update : " + vo);
 		
-		model.addAttribute("vo", service.read(vo.getNo()));
+		model.addAttribute("vo", service.read(vo));
 		
 		return "/bbs/travelbbs/update";
 	}

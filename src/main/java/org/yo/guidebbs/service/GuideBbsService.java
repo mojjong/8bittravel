@@ -80,12 +80,14 @@ public class GuideBbsService {
 	public void update_gpPhoto(GP_PhotoVO vo){
 		System.out.println("업데이트service : "+ vo.toString());
 		 mapper.update_gpPhoto(vo);
-		 mapper.update_gpPhotoFile(vo);
+		 
+		 for (String filename : vo.getFileList()) {
+				logger.info("gpphoto : " + filename);
+				 mapper.update_gpPhotoFile(vo.setFilename(filename.substring(0, filename.lastIndexOf(".")))
+						.setSuffix(filename.substring(filename.lastIndexOf(".")+1)));
+			}
+		 
 	}
-	
-	/*public void update_gpPhotoFile(GP_PhotoVO vo){
-		mapper.update_gpPhotoFile(vo);
-	}*/
 	
 
 	//사용자가 보는 뷰

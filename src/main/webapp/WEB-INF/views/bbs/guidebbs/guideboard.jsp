@@ -10,25 +10,23 @@
                     <div class="row">          
                      <div class="widget widget-tabs">
                            <div id="messagesAlert"></div>
-                              
-                              
-                             <!--탭 DIv  -->                        
-                            <ul  id = "myTab" class="nav nav-tabs" role="tablist">
-                                <li id="li1" class="active"><a href="#theme" role="tab" data-toggle="tab">theme</a></li>
-                                <li id="last"><a href="#addTab"><span class="glyphicon glyphicon-plus"></span> Add Tab</a></li>
-                                <!-- <li><a href="#recent" data-toggle="tab" >Day1</a></li> -->
-                            </ul>
-                            
+	                             <!--탭 DIv  -->                        
+	                            <ul  id = "myTab" class="nav nav-tabs" role="tablist">
+	                                <li id="li1" class="active"><a href="#theme" role="tab" data-toggle="tab">REGION</a></li>
+	                                <li id="last"><a href="#addTab"><span class="glyphicon glyphicon-plus"></span> Add Tab</a></li>
+	                                <!-- <li><a href="#recent" data-toggle="tab" >Day1</a></li> -->
+	                            </ul>
+	                            
                             <!--테마내용  -->
-                 			<div id = "content" class="tab-content">           
-			                   
+                 			<div id = "content" class="tab-content">  
+                 			         
+			                   <div class="tab-pane fade in active" id="theme">
 			                   	<div class="row project-single">
 			                        <div class="col-lg-8 col-md-7 col-sm-12">
 			                          <div class="owl-carousel img-carousel">
 			                          <c:choose>
 			                          <c:when test="${gpphoto.isfile == 't'}">
-			                                <div class="item"><img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/></div>
-			                             
+			                                <div class="item"><img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/></div>   
 			                          </c:when>
 			                          <c:otherwise>
                                 		 <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
@@ -43,20 +41,22 @@
 			                            
 										<!--파일업로드DIV  -->
 										<form target="zero" name="fileUploadForm" id="fileUploadFormId" action="/file/upload" method="post" enctype="multipart/form-data">
-											
+											<input type="hidden" name="gpphotono" value="${gpphoto.gpphotono }"/>
 											<input type="hidden" name="foldername" value="GUIDEPLAN" />
-											<input type='file' name='file' id="inputfile" style="margin-bottom:10px;" >
+											<c:if test="${gpphoto.getIsfile() == 'f' }">
+											<input type='file' name='file' id="inputfile"  style="margin-bottom:10px;" ></c:if>
+											 <c:if test="${gpphoto.getIsfile() == 't' }">
+											  <p class="form-control-static"><a>선택된 파일 : ${gpphoto.getOriginfilename() }.${gpphoto.getSuffix() } </a></p>&nbsp;
+											<input type='file' name='file' id="inputfile"   style="margin-bottom:10px;" >
+											</c:if>
 											<a class="button mini low-blue" href="javascript:fileupload.upload()">upload</a>
 											<small style="float:right;">jpg, gif, png 이미지 파일만 업로드 가능</small>
 										</form>
 										
 										<iframe name="zero"  height = "0" frameborder="0">
 										</iframe>
-										<ul class="fileUL">
-										
+										<ul class="fileUL">	
 										</ul>
-			                            
-			                            
 			                        </div>
 			                        
 			                        <div class="col-lg-4 col-md-5 col-sm-7 project-overview">
@@ -71,9 +71,11 @@
 			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"> ${gpphoto.content } </textarea>
 			                                    <p><a class="button green margi" href="javascript:writeSubmit();">테마 저장 </a> &nbsp;&nbsp;&nbsp;&nbsp; <small>(타임캡슐은 다른 여행자들과 공유됩니다)</small></p>
 			                        	</form>
-			                        </div>			
-			                    </div>
-                   			<hr/><!--썸네일추가끝  -->
+			                        </div>	
+			                        	<hr/>
+			                    </div><!--썸네일추가끝  -->		
+			                    </div><!--ㅌㅔ마div끝  -->
+                   		
 									
 										
 								</div>

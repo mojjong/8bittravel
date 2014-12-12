@@ -32,8 +32,8 @@ public class TravelbbsService {
 		mapper.create(vo);
 	}
 	
-	public TravelbbsVO read(int no){
-		return mapper.read(no);
+	public TravelbbsVO read(TravelbbsVO vo){
+		return mapper.read(vo);
 	}
 	
 	public void update(TravelbbsVO vo){
@@ -43,4 +43,5 @@ public class TravelbbsService {
 	public void delete(int no){
 		mapper.delete(no);
 	}
+	
 }

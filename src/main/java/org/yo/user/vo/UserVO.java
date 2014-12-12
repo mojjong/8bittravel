@@ -62,18 +62,18 @@ public class UserVO {
 	public UserVO setBirth(String birth) {
 		dateMap = new HashMap<String, String>();
 		
-		dateMap.put("January", "1¿ù");
-		dateMap.put("Feburary", "2¿ù");
-		dateMap.put("March", "3¿ù");
-		dateMap.put("April", "4¿ù");
-		dateMap.put("May", "5¿ù");
-		dateMap.put("June", "6¿ù");
-		dateMap.put("July", "7¿ù");
-		dateMap.put("August", "8¿ù");
-		dateMap.put("September", "9¿ù");
-		dateMap.put("October", "10¿ù");
-		dateMap.put("November", "11¿ù");
-		dateMap.put("December", "12¿ù");
+		dateMap.put("January", "1ì›”");
+		dateMap.put("Feburary", "2ì›”");
+		dateMap.put("March", "3ì›”");
+		dateMap.put("April", "4ì›”");
+		dateMap.put("May", "5ì›”");
+		dateMap.put("June", "6ì›”");
+		dateMap.put("July", "7ì›”");
+		dateMap.put("August", "8ì›”");
+		dateMap.put("September", "9ì›”");
+		dateMap.put("October", "10ì›”");
+		dateMap.put("November", "11ì›”");
+		dateMap.put("December", "12ì›”");
 		
 		String[] date = birth.split(" ");
 		

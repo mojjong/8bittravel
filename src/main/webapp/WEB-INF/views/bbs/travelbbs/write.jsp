@@ -8,7 +8,7 @@
                 <div class="container">
 
                     <div class="col-xs-12 col-sm-6">
-                        <h2>글쓰기</h2>
+                        <h2>WRITE</h2>
                     </div>
 
                     <div class="col-xs-12 col-sm-6">
@@ -25,19 +25,25 @@
 
             <section id="more-pages" class="section wide-fat">
                 <div class="container">
+							<h1 class="widget-title no-margin-top no-margin-bottom">어떤 <span class="higlight"> 여행 </span>을 가고 싶습니까?&nbsp;&nbsp;</h1>
 
                     <div class="row">
                         <div class="contents col-sm-8 col-md-9">
-
-							<h2>필수 사항</h2>
+							
                             <div class="form-holder booking-form">
                                 <form class="info-form" name="writeForm" action="/bbs/travelbbs/write" method="post">
+                                 <input name = "regionno" type = "hidden" value= "377">
+                                 <input name = "userid" type = "hidden"  value = "user03">
+                                 <input name = "themeno" type = "hidden" value = "24">
+                                 
+                                 
+                                 
                                     <div class="row field-row">
                                         <div class="col-xs-10">
-                                        	<label>제목</label>
+                                        	<label>Title</label>
 
                                              <br />
-                                            <input class="required" name="title" placeholder="Title">
+                                            <input name = "title" class="required" name="title" placeholder="Title">
                                         </div>
                                         
                                          
@@ -48,24 +54,23 @@
                                     
                                     <div class="row field-row">
                                     	<div class="col-xs-10">
-		                                    <label>내용</label>
+		                                    <label>Contents</label>
 		
 		                                    <br />
-		                                    <textarea class="form-control" id="content" placeholder="Additional information" rows="7"></textarea>
+		                                    <textarea name ="content" class="form-control" id="content" placeholder="Additional information" rows="7"></textarea>
 		                                    <!-- fck editor 설정 -->
 											<script type="text/javascript">
 		              			 					CKEDITOR.replace( 'content' );
 		           							</script>
 	                                  	</div>
-        							</div>    
+        						 </div> 
         							                      	
                                     <div class="row field-row">
-                                    
                                     	<div class="col-xs-4 col-sm-2">
-                                        	<label>어른</label>
+                                           <label>Persons</label>
 
                                              <br />
-                                            <select class="custom-select" data-placeholder="Adults">
+                                            <select name ="teammember" class="custom-select" data-placeholder="Persons">
                                                 <option value="Adults"></option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -79,89 +84,58 @@
                                                 <option value="10">10</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-4 col-sm-2">
-                                        	<label>아동</label>
-
-                                             <br />
-                                            <select class="custom-select" data-placeholder="Kids">
-                                                <option value="Kids"></option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                        </div>
+                                        
                                         
                                         <div class="col-field-left col-xs-5 col-sm-3">
 
-                                             <label for="check-in-date">시작일</label>
+                                             <label for="check-in-date">Start DATE</label>
 
                                              <br />
 
-                                             <input id="check-in-date" class="traveline_date_input" type="text" value="YY-MM-DD" />
+                                             <input name = "startdate" id="check-in-date" class="traveline_date_input" type="text" value="dd month yyyy" />
 
                                          </div>
 
                                          <div class="col-field-right col-xs-5 col-sm-3">
 
-                                             <label for="check-out-date">종료일</label>
+                                             <label for="check-out-date">End DATE</label>
 
                                              <br />
 
-                                             <input id="check-out-date" class="traveline_date_input" type="text" value="YY-MM-DD" />
+                                             <input name="enddate" id="check-out-date" class="traveline_date_input" type="text" value="dd month yyyy" />
 
                                          </div>
                                     	
                                     	
                                     </div>
                                     
-                                    <div class="row field-row">
-                                    	<div class="col-xs-12 col-sm-3">
-                                        	<label>테마1</label>
-
-                                             <br />
-                                            <select class="custom-select" data-placeholder="Theme1">
-                                                <option value="테마"></option>
-                                            </select>
-                                         </div>
-                                        
-                                         <div class="col-xs-12 col-sm-3">
-                                        	<label>테마2</label>
-
-                                             <br />
-                                            <select class="custom-select" data-placeholder="Theme2">
-                                                <option value="테마"></option>
-                                            </select>
-                                         </div>
+                                     <div class="row field-row">
+                                    	
                                     	
                                         <div class="col-xs-12 col-sm-4">
-                                        	<label>교통수단</label>
+                                        	<label>Transport</label>
 
                                     		<br />
-                                            <select class="custom-select" data-placeholder="Transport">
+                                            <select name ="transport"  class="custom-select" data-placeholder="Transport">
                                                 <option value="none"></option>
-                                                <option value="bus">버스</option>
-                                                <option value="train">기차</option>
-                                                <option value="car">자가용</option>
+                                                <option value="bus">BUS</option>
+                                                <option value="train">TRAIN</option>
+                                                <option value="car">CAR</option>
                                             </select>
                                         </div>
                                         
                                         <div class="col-xs-10 col-sm-6">
-                                        	<label>예상 경비</label>
+                                        	<label>COST</label>
 
                                     		<br />
-                                            <input class="required " placeholder="Cost">
+                                            <input name= "cost" class="required " placeholder="Cost">
                                         </div>
                                     </div>
-                                    <br>
-                                    <button type="submit" class="button green narrow">등록</button>
-                                    <button type="reset" class="button green narrow">취소</button>
+                                  
+                                    <hr>
+                                    
+                                    <button type="submit" class="button green narrow" >Register</button>
+                                    <button type="reset" class="button green narrow">Cancel</button>
                                 </form>
 
 

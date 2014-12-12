@@ -182,7 +182,7 @@ noscript {
  * =============================== */
 /* Layout */
 .section {
-  padding-top: 50px;
+  padding-top:50px;
   padding-bottom: 100px;
 }
 .section.light {
@@ -2323,10 +2323,10 @@ form.hotels-filter-form a.chosen-single {
   padding-right: 0;
 }
 .no-margin-top {
-  margin-top: 0;
+  margin-top: 20px;
 }
 .no-margin-bottom {
-  margin-bottom: 0 !important;
+  margin-bottom: 20px;
 }
 .contents.grid-contents > .row {
   margin: 0 0 20px 0;

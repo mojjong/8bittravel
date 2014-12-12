@@ -24,7 +24,7 @@
                                 <li><a href="#">Home</a></li>
 
                               
-                                <li><a href="#">travel info</a></li>
+                                <li><a href="#">Content</a></li>
 
                                
 
@@ -45,7 +45,7 @@
 
 
 
-                <div class="container">	
+                <div class="container">   
 
 
 
@@ -59,7 +59,7 @@
 
                             <hr>
                             
-			
+         
                             <article>
 
                             
@@ -135,34 +135,34 @@
 
                             </article>
 <hr style="margin-top:0px;border-color:#BDBDBD;">
-							<button class="btn btn-success btn-sm" id="listBtn">목록</button>
-							<button class="btn btn-success btn-sm" id="updateBtn">수정</button>
-							<button class="btn btn-danger btn-sm" id="deleteBtn">삭제</button>
+                     <button class="btn btn-success btn-sm" id="listBtn">목록</button>
+                     <button class="btn btn-success btn-sm" id="updateBtn">수정</button>
+                     <button class="btn btn-danger btn-sm" id="deleteBtn">삭제</button>
                         </div>
 
                     </div>
                      
                      
                         <div class="col-xs-12 col-sm-4">
-							<div class="confirm-page">
-	
-	                	
-	                		<h1>Guide List</h1>
+                     <div class="confirm-page">
+   
+                      
+                         <h1>Guide List</h1>
 
                             <hr>
-							<form name="guideForm" id="guideForm">
-								<input type="hidden" name="travelno" value="${vo.no}">
-								
-							</form>
-							<div id="guideList"></div>
-						    </div>
-					</div>
+                     <form name="guideForm" id="guideForm">
+                        <input type="hidden" name="travelno" value="${vo.no}">
+                        
+                     </form>
+                     <div id="guideList"></div>
+                      </div>
+               </div>
 
                 </div>
                 <hr>
-                <div class="container">	
-	            
-				</div>
+                <div class="container">   
+               
+            </div>
             </section>
 
 
@@ -334,31 +334,31 @@
         <script>
         
         $(document).ready(function(){
-        	
-        	
-        	var formData = $("#guideForm").serialize();
-        	var target = $("#guideList");
-        	
-        	console.log(target);
-        	console.log(formData);
-        	
-        	$.ajax({
-				type : "GET",
-				url : "/bbs/guide/guidelist",
-				data : formData, //변환된 formData를 요청
-				success : function(data) {
-					$.each(data, function(key, val) {
-						target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+val.guideid+"님의 Guide</a></h3>");
-					});
-				}
-        	});
+           
+           
+           var formData = $("#guideForm").serialize();
+           var target = $("#guideList");
+           
+           console.log(target);
+           console.log(formData);
+           
+           $.ajax({
+            type : "GET",
+            url : "/bbs/guide/guidelist",
+            data : formData, //변환된 formData를 요청
+            success : function(data) {
+               $.each(data, function(key, val) {
+                  target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+val.guideid+"님의 Guide</a></h3>");
+               });
+            }
+           });
         });
         
         EventUtil.addHandler(document, "DOMContentLoaded", function(event) {
-			EventUtil.addHandler(updateBtn, "click", function(event) {
-				update();
-			});
-		});
+         EventUtil.addHandler(updateBtn, "click", function(event) {
+            update();
+         });
+      });
         </script>
 
 

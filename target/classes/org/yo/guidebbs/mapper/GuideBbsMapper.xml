@@ -4,16 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yo.guidebbs.mapper.GuideBbsMapper">
 
- <!-- <select id="glist"  resultType="org.yo.guidebbs.vo.GuideBbsVO">
-	select 
-		no, userid, cost,pay, regdate 
-	from 
-		tbl_guidebbs  
-		gb, tbl_travelbbs tb
-	where  
-		gb.travelno= tb.no and tb.no= #{no}
-</select>  -->
- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+<!--GuideRegion 리스트   -->
+<select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	 select  no grno,place, msg, lat, lng 
 	 from tbl_guideregion 
 	 where gpno=#{gpno} order by no asc
@@ -73,10 +65,10 @@ group by gp.guideno
 
 <!--다시 들어왓을때 사진 덮어씌우기  -->
 <select id="read_gpphoto" parameterType="org.yo.guidebbs.vo.GuideBbsVO" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
-	select  gpp.guideno, travelno, content, filename, suffix, gpf.gpphotono, isfile from
-		(select gpp.guideno, travelno, content, isfile,gpp.no gpphotono from 
-			(select no guideno, travelno from tbl_guidebbs where travelno = #{travelno}) gb, tbl_gp_photo gpp
-				where gb.guideno = gpp.guideno and gpp.guideno = #{guideno})gpp, tbl_gp_photofile gpf
+	select  gpp.guideno, content, filename, suffix, gpf.gpphotono, isfile from
+		(select gpp.guideno, content, isfile,gpp.no gpphotono from 
+			(select no guideno from tbl_guidebbs where travelno = #{travelno}) gb, tbl_gp_photo gpp
+				where gb.guideno = gpp.guideno and gpp.guideno = #{guideno}) gpp, tbl_gp_photofile gpf
 	where gpp.gpphotono = gpf.gpphotono 
 </select>
 
@@ -85,36 +77,38 @@ group by gp.guideno
 
 
 
+
+<!-- 
 <select id="read_gpphoto" resultType="org.yo.guidebbs.vo.GP_PhotoVO">
 	select no gpphotono, content, isfile, filename, suffix from 
 	(select content, isfile, no from tbl_gp_photo) gpp, tbl_gp_photofile gpf
 	where gpp.no = gpf.gpphotono
-</select>
-
-
-
-<!-- <select id = "glist"  parameterType="int" resultType="org.yo.guidebbs.vo.GuideBbsVO">
-	<![CDATA[ 
-	select 
-		guideno, plandate, cost, pay, regdate, place, msg
-	from 
-		(select 
-	  		plan.no, rno, guideno, plandate, travelno, guideid, cost, pay, regdate
-		from
-			(select /*INDEX_DESC (tbl_guideplan PK_guideplan) */
-	  			no, rno, guideno, content, plandate
-			from
-	  			tbl_guideplan
-			where 
-	 			 no > 0 and
-	  	guideno = #{guideno}) plan, tbl_guidebbs guide
-		where
-	  		guide.no = plan.guideno) gp, tbl_guideregion gr, tbl_region region
-	where 
-		gp.no = gr.gpno and region.no = gp.rno]]>
-	 
-
 </select> -->
+
+
+
+<select id = "userGviewlist"  parameterType="org.yo.guidebbs.vo.GuideBbsVO" resultType="org.yo.guidebbs.vo.GuideBbsVO">
+	<![CDATA[ 
+	
+		select gp.guideno, plandate,gr.no grno, gp.cost, pay, regdate, place, msg, travelno, startdate, enddate, (enddate-startdate) caldate
+			from 
+			(select 
+			  plan.no, guide.no guideno,rno, plandate, travelno, guideid, cost, pay, regdate
+				from
+				(select /*INDEX_DESC (tbl_guideplan PK_guideplan) */
+				   no, guideno, rno, plandate
+					from
+					  tbl_guideplan
+					where 
+					  no > 0 and
+					  guideno = #{guideno}) plan, tbl_guidebbs guide
+		where
+		  guide.no = plan.guideno) gp, tbl_guideregion gr, tbl_region region, tbl_travelbbs travel
+	where gp.no = gr.gpno and region.no = gp.rno and gp.travelno = travel.no and travel.no=#{travelno}
+	]]>	
+</select> 
+
+
  <!-- <delete id="placeDel" parameterType="int" >
 	delete from tbl_guideregion 
 	where no=#{No}

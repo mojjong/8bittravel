@@ -45,12 +45,12 @@ public class GuideBbsService {
 	
 	
 	public GuideBbsVO guideplan(GuideBbsVO vo){
-	
+	  System.out.println("여기는 가이드 플랜");
 		return mapper.guideplan(vo);
 	}
 	
 	public RegionVO region(GuideBbsVO vo){
-		
+		logger.info("region 쿼리");
 		return mapper.region(vo);
 	}
 	
@@ -68,22 +68,39 @@ public class GuideBbsService {
 		}
 	}
 	
+	
 	//gpPhoto Read(guideno 값 구하기)
-	/*public GP_PhotoVO read_gpphoto(GuideBbsVO vo){
+	public GP_PhotoVO read_gpphoto(GuideBbsVO vo){
+		System.out.println("여기는 포토리드매퍼 : " + vo.toString());
 		return mapper.read_gpphoto(vo);
-	}*/
-	public GP_PhotoVO read_gpphoto(){
-		return mapper.read_gpphoto();
 	}
+
 	//gpPhoto 업데이트
-	public void update_gpPhoto(){
-		 mapper.update_gpPhoto();
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void update_gpPhoto(GP_PhotoVO vo){
+		System.out.println("업데이트service : "+ vo.toString());
+		 mapper.update_gpPhoto(vo);
+		 mapper.update_gpPhotoFile(vo);
 	}
 	
+	/*public void update_gpPhotoFile(GP_PhotoVO vo){
+		mapper.update_gpPhotoFile(vo);
+	}*/
+	
+
+	//사용자가 보는 뷰
+	public List<GuideBbsVO> userGviewlist(GuideBbsVO vo){
+		logger.info("service :여기는 사용자가 보는 view" );
+		return mapper.userGviewlist(vo);
+	}
+	
+	//사용자가 보는 가이드 목록뷰
 	public List<GuideBbsVO> gulist(GuideBbsVO vo){
-		logger.info("service : 여기야 여기!!!" );
 		return mapper.gulist(vo);
 	}
+
+	
+	
 	
 	//Guideregion �߰�
 	public void placeAdd(GuideBbsVO vo){
@@ -108,8 +125,5 @@ public class GuideBbsService {
 		mapper.guideBbsInsert(vo);
 	}
 
-	public int isEmpty(GP_PhotoVO vo) {
-	
-		return mapper.isEmpty(vo);
-	}
+
 }

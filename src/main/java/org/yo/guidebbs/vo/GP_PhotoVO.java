@@ -6,6 +6,7 @@ public class GP_PhotoVO {
 	private int gpphotono;
 	private int guideno;
 	private String filename;
+	private String originfilename;
 	private String[] fileList;
 	private String suffix;
 	private String isfile;
@@ -13,6 +14,12 @@ public class GP_PhotoVO {
 	
 	
 	
+	public String getOriginfilename() {
+		return originfilename;
+	}
+	public void setOriginfilename(String originfilename) {
+		this.originfilename = originfilename;
+	}
 	public String getFilename() {
 		return filename;
 	}

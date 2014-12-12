@@ -9,14 +9,15 @@ public class GuideBbsVO{
 	private int grno;
 	private int gpno;
 	private int rno;
-	
+	private int gpphotono;
 	
 	private String userid;
 	private String guideid;
 	private int cost;
 	private int pay;
 	private Date regdate;
-
+	private int caldate;
+	
 	private String place;
 	private Double lng;
 	private Double lat;
@@ -252,11 +253,27 @@ public class GuideBbsVO{
 	public String toString() {
 		return "GuideBbsVO [no=" + no + ", guideno=" + guideno + ", travelno="
 				+ travelno + ", grno=" + grno + ", gpno=" + gpno + ", rno="
-				+ rno + ", userid=" + userid
+				+ rno + ", gpphotono=" + gpphotono + ", userid=" + userid
 				+ ", guideid=" + guideid + ", cost=" + cost + ", pay=" + pay
-				+ ", regdate=" + regdate + ", place=" + place + ", lng=" + lng
-				+ ", lat=" + lat + ", msg=" + msg + ", plandate=" + plandate
-				+ "]";
+				+ ", regdate=" + regdate + ", caldate=" + caldate + ", place="
+				+ place + ", lng=" + lng + ", lat=" + lat + ", msg=" + msg
+				+ ", plandate=" + plandate + "]";
+	}
+
+	public int getGpphotono() {
+		return gpphotono;
+	}
+
+	public void setGpphotono(int gpphotono) {
+		this.gpphotono = gpphotono;
+	}
+
+	public int getCaldate() {
+		return caldate;
+	}
+
+	public void setCaldate(int caldate) {
+		this.caldate = caldate;
 	}
 
 

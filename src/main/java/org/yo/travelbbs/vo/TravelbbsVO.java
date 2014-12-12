@@ -19,8 +19,22 @@ public class TravelbbsVO {
 	private String userid;
 	private int themeno;
 	private String guideid;
+	private String themeName;
+	private String themeMode;
 	
 	
+	public String getThemeName() {
+		return themeName;
+	}
+	public void setThemeName(String themeName) {
+		this.themeName = themeName;
+	}
+	public String getThemeMode() {
+		return themeMode;
+	}
+	public void setThemeMode(String themeMode) {
+		this.themeMode = themeMode;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -105,7 +119,6 @@ public class TravelbbsVO {
 	public void setGuideid(String guideid) {
 		this.guideid = guideid;
 	}
-	
 	@Override
 	public String toString() {
 		return "TravelbbsVO [no=" + no + ", title=" + title + ", content="
@@ -113,8 +126,10 @@ public class TravelbbsVO {
 				+ ", teammember=" + teammember + ", cost=" + cost
 				+ ", transport=" + transport + ", memo=" + memo + ", bidstate="
 				+ bidstate + ", region=" + region + ", userid=" + userid
-				+ ", themeno=" + themeno + ", guideid=" + guideid + "]";
+				+ ", themeno=" + themeno + ", guideid=" + guideid
+				+ ", themeName=" + themeName + ", themeMode=" + themeMode + "]";
 	}
+	
 	
 	
 }

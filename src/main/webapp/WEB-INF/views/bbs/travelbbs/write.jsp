@@ -27,14 +27,13 @@
                 <div class="container">
 
                     <div class="row">
-                        <div class="contents col-sm-8 col-md-9">
+                        <div class="contents col-sm-5 col-md-9">
 
-							<h2>필수 사항</h2>
                             <div class="form-holder booking-form">
                                 <form class="info-form" name="writeForm" action="/bbs/travelbbs/write" method="post">
                                     <div class="row field-row">
                                         <div class="col-xs-10">
-                                        	<label>제목</label>
+                                        	<label class="block-title">제목</label>
 
                                              <br />
                                             <input class="required" name="title" placeholder="Title">
@@ -48,7 +47,7 @@
                                     
                                     <div class="row field-row">
                                     	<div class="col-xs-10">
-		                                    <label>내용</label>
+		                                    <label class="block-title">내용</label>
 		
 		                                    <br />
 		                                    <textarea class="form-control" id="content" placeholder="Additional information" rows="7"></textarea>
@@ -62,7 +61,7 @@
                                     <div class="row field-row">
                                     
                                     	<div class="col-xs-4 col-sm-2">
-                                        	<label>어른</label>
+                                        	<label class="block-title">어른</label>
 
                                              <br />
                                             <select class="custom-select" data-placeholder="Adults">
@@ -80,7 +79,7 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-4 col-sm-2">
-                                        	<label>아동</label>
+                                        	<label class="block-title">아동</label>
 
                                              <br />
                                             <select class="custom-select" data-placeholder="Kids">
@@ -100,7 +99,7 @@
                                         
                                         <div class="col-field-left col-xs-5 col-sm-3">
 
-                                             <label for="check-in-date">시작일</label>
+                                             <label for="check-in-date" class="block-title">시작일</label>
 
                                              <br />
 
@@ -110,7 +109,7 @@
 
                                          <div class="col-field-right col-xs-5 col-sm-3">
 
-                                             <label for="check-out-date">종료일</label>
+                                             <label for="check-out-date" class="block-title">종료일</label>
 
                                              <br />
 
@@ -123,25 +122,30 @@
                                     
                                     <div class="row field-row">
                                     	<div class="col-xs-12 col-sm-3">
-                                        	<label>테마1</label>
+                                        	<label class="block-title">테마1</label>
 
                                              <br />
-                                            <select class="custom-select" data-placeholder="Theme1">
-                                                <option value="테마"></option>
-                                            </select>
+                                            <select onChange="change_thememode(this)" class="form-control">
+											<c:set var="thememode_temp" />
+											<c:forEach var="theme" items="${themeList }">
+													<c:if test="${theme.thememode != thememode_temp }">
+													<option value="${theme.thememode}">${theme.thememode}</option>
+													</c:if>
+													<c:set var="thememode_temp" value="${theme.thememode }" />
+											</c:forEach>
+		            						</select>
                                          </div>
                                         
                                          <div class="col-xs-12 col-sm-3">
-                                        	<label>테마2</label>
+                                        	<label class="block-title">테마2</label>
 
                                              <br />
-                                            <select class="custom-select" data-placeholder="Theme2">
-                                                <option value="테마"></option>
-                                            </select>
+                                            <select class="form-control" name="themeno">
+            								</select>
                                          </div>
                                     	
                                         <div class="col-xs-12 col-sm-4">
-                                        	<label>교통수단</label>
+                                        	<label class="block-title">교통수단</label>
 
                                     		<br />
                                             <select class="custom-select" data-placeholder="Transport">
@@ -153,7 +157,7 @@
                                         </div>
                                         
                                         <div class="col-xs-10 col-sm-6">
-                                        	<label>예상 경비</label>
+                                        	<label class="block-title">예상 경비</label>
 
                                     		<br />
                                             <input class="required " placeholder="Cost">
@@ -464,6 +468,35 @@
         <!-- Custom JS -->
 
         <script type="text/javascript" src="/resources/inc/js/custom.js"></script>   
+        
+        
+        <script type="text/javascript">
+			
+      	//테마모드 변경시 호출됨.
+        function change_thememode(obj)
+        {
+        	  $.ajax({
+                  type:"GET",
+                  url: "/main/region/jsonThemeList",
+                  dataType: "JSON",
+                  success: function(data){
+                	  var str = new Array();
+                	  str.push("<select class='form-control' name='themeno'>");
+                	  $.each(data, function(idx, item){
+                		  if(item.thememode == obj.value){
+                        		str.push("<option value='"+item.no+"'>"+ item.name +"</option>");
+                    	 }
+                      })
+                	  str.push("</select>");
+        				$("#themename").html(str.join(""));
+                  }
+              });
+        	
+
+        }
+		</script>
+        
+        
     </body>
 
 </html>

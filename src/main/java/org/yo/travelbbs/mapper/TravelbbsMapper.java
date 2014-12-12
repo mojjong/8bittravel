@@ -27,4 +27,8 @@ public interface TravelbbsMapper {
 	
 	@Delete("delete from tbl_travelbbs where no=#{no}")
 	public void delete(int no);
+
+	
+	@Select( "select * from tbl_theme where no = #{themeno}")
+	public TravelbbsVO themaName(int themeno);
 }

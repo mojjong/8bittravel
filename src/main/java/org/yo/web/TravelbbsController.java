@@ -60,7 +60,9 @@ public class TravelbbsController {
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.GET)
-	public String write(TravelbbsVO vo){
+	public String write(TravelbbsVO vo,Model model){
+		
+		model.addAttribute("themeList", rg_service.themeList());
 		
 		return "bbs/travelbbs/write";
 	}
@@ -76,6 +78,9 @@ public class TravelbbsController {
 	@RequestMapping(value="/read", method = RequestMethod.GET)
 	public String read(int no, Model model){
 		logger.info("read : " + no);
+		TravelbbsVO vo = service.read(no);
+		service.themaName(vo.getThemeno());
+		
 		model.addAttribute("vo", service.read(no));
 		return "/bbs/travelbbs/read";
 	}

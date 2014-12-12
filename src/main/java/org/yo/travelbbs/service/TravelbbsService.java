@@ -43,4 +43,11 @@ public class TravelbbsService {
 	public void delete(int no){
 		mapper.delete(no);
 	}
+
+	public TravelbbsVO themaName(int themeno){
+		return mapper.themaName(themeno);
+	}
+
+	
+	 
 }

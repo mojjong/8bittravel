@@ -42,124 +42,71 @@
             
             	
 
-                <div class="container">   
-                
-                <div class="hotels-filter">
-                        <div class="container">
-                            <div class="search-heading col-md-3 col-sm-6">
-                            </div>
-                            <div class="vertical-hotel-filter col-md-9 col-sm-6">
-                                <form class="hotels-filter-form"  method="get">
-                                    <ul>
-                                        <li class="short-by form-member">
-                                            <span>Short by</span>
-                                        </li>
-                                        <li class="form-member">
-                                            <select  class="chosen-select">
-                                                <option value="">Hotel Name 1</option>
-                                                <option value="">Hotel Name 2</option>
-                                                <option value="">Hotel Name 3</option>
-                                                <option value="">Hotel Name 4</option>
-                                                <option value="">Hotel Name 5</option>
-                                                <option value="">Hotel Name 6</option>
-                                            </select>
-                                        </li>
-                                        <li class="form-member">
-                                            <select  class="chosen-select">
-                                                <option value="">Price 1</option>
-                                                <option value="">Price 2</option>
-                                                <option value="">Price 3</option>
-                                                <option value="">Price 4</option>
-                                                <option value="">Price 5</option>
-                                                <option value="">Price 6</option>
-                                            </select>
-                                        </li>
-                                        <li class="form-member">
-                                            <select  class="chosen-select">
-                                                <option value="">Guest Rating 1</option>
-                                                <option value="">Guest Rating 2</option>
-                                                <option value="">Guest Rating 3</option>
-                                                <option value="">Guest Rating 4</option>
-                                                <option value="">Guest Rating 5</option>
-                                                <option value="">Guest Rating 6</option>
-                                            </select>
-                                        </li>
-                                        <li class="form-member">
-                                            <select  class="chosen-select">
-                                                <option value="">Reviews 1</option>
-                                                <option value="">Reviews 2</option>
-                                                <option value="">Reviews 3</option>
-                                                <option value="">Reviews 4</option>
-                                                <option value="">Reviews 5</option>
-                                                <option value="">Reviews 6</option>
-                                            </select>
-                                        </li>
-                                        <li class="most-popular form-member"><span>Most Popular</span></li>
-                                        <li class="filter-btn form-member"><input type="submit" value="Search" /></li>
-                                    </ul>
-                                </form>
-                            </div>
-                        </div>
-                    </div><!-- /.hotels-filter -->
-                
-                            <div class="contents grid-contents col-xs-12 ">
-                            	<div class="row">
-                            		<form name="writeForm">
-                            			<input type="hidden" name="travelno">
-                            			<input type="hidden" name="page">
-                            			<input type="hidden" name="region">
-                            			<input type="hidden" name="theme">
-                            			<button id="writeBtn" class="button mini">글쓰기</button>
-                            		</form>
-								</div>
-<!--                               <div class="row">
+                <div class="container">
+				<div class="search-heading col-md-2 col-sm-6">
+					<h3>Region & Theme</h3>
+				</div>
+				<div class="vertical-hotel-filter col-md-10 col-sm-6" style="padding-right:10px">
+					<form class="filter-form" name="regionfilter" method="get">
+						<ul>
+        						<div class="col-sm-1 selectContainer" style="margin-top:3px; padding-left:30px">
+        						<label>Region</label>
+        						</div>
+       							<div class="col-sm-2 selectContainer" style="margin-top:3px; padding-left:0px">
+            						<select class="form-control" onChange="change_regionDOchange(this)">
+									<c:set var="region_temp" />
+									<c:forEach var="region" items="${regionList }">
+											<c:if test="${region.DO != region_temp }">
+											<option value="${region.DO}">${region.DO}</option>
+											</c:if>
+											<c:set var="region_temp" value="${region.DO }" />
+									</c:forEach>
+            						</select>
+        						</div>
+        						
+        						<div id="regionSIGUN" class="col-sm-2 selectContainer" style="margin-top:3px; padding-left:0px;">
+            						<select class="form-control" name="regionno">
+            						</select>
+        						</div>
+        						<div class="col-sm-1 selectContainer" style="margin-top:3px; padding-left:30px">
+        						<label>Theme</label>
+        						</div>
+        						<div class="col-sm-2 selectContainer" style="margin-top:3px; padding-left:0px;">
+            						<select onChange="change_thememode(this)" class="form-control">
+									<c:set var="thememode_temp" />
+									<c:forEach var="theme" items="${themeList }">
+											<c:if test="${theme.thememode != thememode_temp }">
+											<option value="${theme.thememode}">${theme.thememode}</option>
+											</c:if>
+											<c:set var="thememode_temp" value="${theme.thememode }" />
+									</c:forEach>
+            						</select>
+        						</div>
+        						
+        						<div id="themename" class="col-sm-2 selectContainer" style="margin-top:3px; padding-left:0px;">
+            						<select class="form-control" name="themeno">
+            						</select>
+        						</div>
+        						<div id="themename" class="col-sm-2 selectContainer" style="margin-top:3px; padding-left:0px;">
+        						<!-- <a class="button mini" style="height:30px; padding-left:0px;" href="javascript:filterSubmit();">Search</a> -->
+        						<a href="javascript:filterSubmit();" class="button green mini">Search Now</a>
+        						</div>
+						</ul>
+					</form>
+				</div>
+			</div>
+	<!-- Include Bootstrap-select CSS, JS -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
 
+<style type="text/css">
+	#bootstrapSelectForm .selectContainer .form-control-feedback {
+		/* Adjust feedback icon position */
+		right: -15px;
+	}
+</style>
 
-
-                                    <div class="content  wide">
-                                        <div class="inner">
-                                            <div class="col-md-4 col-lg-1 no-margin">
-                                                <a class="thumbnailz" href="#">
-                                                    <img src="images/content/post-thumb-1.png" alt="Your Hotel Title Here" class="responsive-image" />
-														<br><br><br><br><br><span class="higlight emphasize value">가이드 가능</span>
-                                                    <span class="overlay">Details</span>
-                                                </a>
-                                            </div>
-                                            <div class=" col-md-9 col-lg-8">
-                                                <div class="entry">
-                                                    <article class="entry-content">
-                                                        <h2 class="post-title"><a href="#" title="Your Hotel Title Here">가족여행 가고싶어요</a><span class="user col-md-offset-8">U_user00</span></h2>
-                                                        <span class="price col-md-offset-1"><span class="higlight emphasize value">50000원</span> / 3 Day</span>
-                                                        <span class="member col-md-offset-2">인원 : 2명</span>
-                                                        <span class="region col-md-offset-2">지역 : 부산</span><br />
-                                                        <p class="text-center">Sed laoreet tellus at mollis porta.</p>
-                                                    </article>
-                                                    <div class="entry-meta">
-                                                        <span class="go-detail"><a href="#">More</a></span>
-                                                        <span class="review"><a href="#">24 Reviews</a></span>
-                                                    </div>   
-                                                </div>/.entry   
-                                            </div>
-                                             <div class="col-md-3 col-lg-3 no-margin">
-                                                 <div class="right-area"><br><br><br><br>
-                                                  <div class="book-holder">
-                                                    <span class="higlight emphasize value">가이드 가능</span>
-                                                     <a href="#" class="button mini">가이드하기</a>
-                                                 </div>
-                                                 </div>
-                                             </div>
-                                        </div>
-                                    </div>/.content
-
-									
-
-                                </div>/.row -->
-
-                            </div><!-- /.contents.grid-contents -->
-
-                </div>
-
-            </section><!-- /#hotels.section -->      
+</section><!-- /#hotels.section -->      
 
 
 
@@ -187,7 +134,7 @@
 
 
 
-                                <a href="#"><img src="images/site-logo.png" alt="Traveline" /> <span>Travel<span class="higlight">ine</span></span></a>
+                                <a href="#"><img src="/resources/images/site-logo.png" alt="Traveline" /> <span>Travel<span class="higlight">ine</span></span></a>
 
 
 
@@ -331,6 +278,8 @@
         
         <script type="text/javascript" src="/resources/js/travelbbs.js"></script>
 
+		
+		
 		<script type="text/javascript">
 			
 		$(document).ready(function(){
@@ -524,7 +473,70 @@
 
         <!-- Custom JS -->
 
-        <script type="text/javascript" src="/resources/inc/js/custom.js"></script>   
+        <script type="text/javascript" src="/resources/inc/js/custom.js"></script> 
+        
+        <!-- 선택시 리스트 변화 -->
+<script>
+//지역 도 옵션값 변화시 호출됨.
+function change_regionDOchange(obj)
+{   
+	  $.ajax({
+          type:"GET",
+          url: "/main/region/jsonRegionList",
+          dataType: "JSON",
+          success: function(data){
+        	  var str = new Array();
+        	  str.push("<select class='form-control' name='regionno'>");
+        	  $.each(data, function(idx, item){
+            	  if(item.do == obj.value){
+                		str.push("<option value='"+item.no+"'>"+ item.sigun +"</option>");
+            	 }
+              })
+              
+              str.push("</select>")
+              
+              $("#regionSIGUN").html(str.join(""));
+          }
+      });
+}
+
+//테마모드 변경시 호출됨.
+function change_thememode(obj)
+{
+	  $.ajax({
+          type:"GET",
+          url: "/main/region/jsonThemeList",
+          dataType: "JSON",
+          success: function(data){
+        	  var str = new Array();
+        	  str.push("<select class='form-control' name='themeno'>");
+        	  $.each(data, function(idx, item){
+        		  if(item.thememode == obj.value){
+                		str.push("<option value='"+item.no+"'>"+ item.name +"</option>");
+            	 }
+              })
+        	  str.push("</select>");
+				$("#themename").html(str.join(""));
+          }
+      });
+	
+
+}
+
+
+function filterSubmit(){
+	if(document.regionfilter.regionno.value == "" || document.regionfilter.themeno.value == ""){
+		alert("지역, 테마 선택을 완료해주세요");
+	}else {
+		alert("리스트");
+		document.regionfilter.method = "GET";
+		document.regionfilter.action = "/bbs/travelbbs/fiterlist";
+		document.regionfilter.submit();	
+	}
+}
+
+</script>
+          
     </body>
 
 </html>

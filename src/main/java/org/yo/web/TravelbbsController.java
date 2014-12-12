@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.yo.region.service.RegionService;
 import org.yo.travelbbs.service.TravelbbsService;
 import org.yo.travelbbs.vo.TravelbbsVO;
 import org.yo.web.util.TravelBbsCriteria;
@@ -24,10 +25,15 @@ public class TravelbbsController {
 	@Inject
 	TravelbbsService service;
 	
+	@Inject
+	RegionService rg_service;
+	
 	@RequestMapping(value="/board")
 	public String travelbbs(TravelBbsCriteria cri, Model model){
 		
 		logger.info(cri.toString());
+		model.addAttribute("regionList", rg_service.regionList());
+		model.addAttribute("themeList", rg_service.themeList());
 		model.addAttribute("cri",cri);
 		
 		return "/bbs/travelbbs/list";
@@ -49,7 +55,7 @@ public class TravelbbsController {
 		cri.setThemeno(themeno);
 		cri.setRegionno(regionno);
 		
-		
+		logger.info(cri.toString());
 		return service.getFilteringList(cri);
 	}
 	

@@ -20,9 +20,12 @@ public interface GuideBbsMapper {
 	/*@Select(" select no, place, msg from tbl_guideregion where gpno=#{gpno} order by no asc; ")*/
 	public List<GuideBbsVO> glist(Integer gpno);
 	
-	//사용자가 글을 클릭했을때 보는 view
+	//사용자가 글을 클릭했을때 보는 view 목록
 	@Select(" select no guideno, travelno, cost, pay, guideid from tbl_guidebbs where travelno=#{travelno}")
 	public List<GuideBbsVO> gulist(GuideBbsVO vo);
+	
+	//사용자가 글을 클릭했을때 보는 view 
+	public List<GuideBbsVO> userGviewlist(GuideBbsVO vo);
 	
 	//가이드 region 리스트!!!
 	public List<GuideBbsVO> grList(GuideBbsVO vo);
@@ -68,12 +71,16 @@ public interface GuideBbsMapper {
 	public void guideBbsInsert( GuideBbsVO vo);
 	
 	//사진 다시 수정했을때 조건 비교 쿼리
-	/*public GP_PhotoVO read_gpphoto(GuideBbsVO vo); */
-	public GP_PhotoVO read_gpphoto(); 
-	//guidephoto update
-	public void update_gpPhoto(); 
+	public GP_PhotoVO read_gpphoto(GuideBbsVO vo); 
+	//public GP_PhotoVO read_gpphoto(); 
 	
-	public int isEmpty(GP_PhotoVO vo);
 	
+	//gpPhoto update
+	@Update(" update tbl_gp_photo set content =#{content} where guideno=#{guideno} ")
+	public void update_gpPhoto(GP_PhotoVO vo); 
+	
+	//gpPhotoFile update
+	@Update(" update tbl_gp_photofile set filename = #{filename}, suffix = #{suffix} where gpphotono = #{gpphotono}")
+	public void update_gpPhotoFile(GP_PhotoVO vo); 
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.guidebbs.service.GuideBbsService;
 import org.yo.guidebbs.vo.GP_PhotoVO;
@@ -34,19 +35,38 @@ public class GuideBbsController {
 		return service.gulist(vo);
 	}	
 	
-	//guidephto write
+
+	//가이드 글을 클릭하면 사용자가 보는 view
+	@RequestMapping(value="/userGviewlist", method = RequestMethod.GET)
+	
+	public String userGview(GuideBbsVO vo,Model model){
+		logger.info("userGview :" + service.userGviewlist(vo));
+		 model.addAttribute("guList", service.userGviewlist(vo)); 
+		 logger.info("GPPHOTO :" + service.read_gpphoto(vo));
+		 model.addAttribute("gpphoto", service.read_gpphoto(vo));
+		return "/bbs/guidebbs/userGview";
+	}	
+
+	
+	//GPPHOTO write
 	@RequestMapping(value="/guidep", method = RequestMethod.POST)
 	public String guideplan(GP_PhotoVO vo, int travelno, Model model){
 		
 		logger.info("controler : " + vo.toString());
-		/*
-		if(service.read_gpphoto().getGuidno()==guideno){	
-//			service.update_gpPhoto(vo);
-		}*/
 		
-		service.insert_gpPhoto(vo);
+		//파일이 기존에 있을 경우 update
+		if(vo.getGpphotono()!=0){
+			System.out.println("업데이트");
+			service.update_gpPhoto(vo);
+			System.out.println("업데이트 :  "+ vo.toString());
+		}else{
+			//없으면 insert
+			service.insert_gpPhoto(vo);
+		}
 		
-		return "redirect:/bbs/guide/place?travelno="+travelno+"&guideno="+vo.getGuideno();
+		
+		
+		return "redirect:/bbs/guide/place?travelno="+travelno+"&guideno="+vo.getGuideno()+"&gpphotono="+vo.getGpphotono();
 	}
 	
 	
@@ -93,13 +113,22 @@ public class GuideBbsController {
 			logger.info("AAA" + vo.toString());
 			
 			GuideBbsVO gVo = service.guideplan(vo);
-			logger.info("cccc    "+gVo);
-			
-			
+			logger.info("가이드BBS GVO:::::    "+gVo);
 			model.addAttribute("guideplan", gVo);
+
 			model.addAttribute("region", service.region(gVo));
-//			model.addAttribute("gpphoto", service.read_gpphoto());
 		
+			GP_PhotoVO gpVo = service.read_gpphoto(vo);
+			logger.info("sdfsdfsdf     "+gpVo);
+			String gpfilename;
+			if(gpVo != null){
+				gpfilename = gpVo.getFilename().substring(gpVo.getFilename().lastIndexOf("_")+1);
+				System.out.println("gpphotofilename " + gpfilename);
+				gpVo.setOriginfilename(gpfilename);
+			}
+			
+			model.addAttribute("gpphoto", gpVo);
+			logger.info("가이드BBS GVO:::::    "+gpVo);
 			return "/bbs/guidebbs/guideboard";
 		}
 		//가이드가 일차별로일정짤때 보이는 view3

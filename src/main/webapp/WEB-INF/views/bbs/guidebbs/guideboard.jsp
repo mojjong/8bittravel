@@ -25,10 +25,15 @@
 			                   	<div class="row project-single">
 			                        <div class="col-lg-8 col-md-7 col-sm-12">
 			                          <div class="owl-carousel img-carousel">
-			                               <%--  <div class="item"><img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/></div> --%>
-			                             <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
-			                             <div class="item"><img name="carouselitem1" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
-                                		 <div class="item"><img name="carouselitem2" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                          <c:choose>
+			                          <c:when test="${gpphoto.isfile == 't'}">
+			                                <div class="item"><img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/></div>
+			                             
+			                          </c:when>
+			                          <c:otherwise>
+                                		 <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
+			                          </c:otherwise>
+			                          </c:choose>
 			                          </div>  
 			                            <hr class="hidden-md hidden-lg"/>
 			                        </div>
@@ -59,11 +64,11 @@
 			                            <form name="writeForm">
 				                            <input type="hidden" name="travelno" value="${guideplan.travelno}" />
 				                            <input type="hidden" name="guideno" value="${guideplan.guideno }" />
-<%-- 			                            <input type="hidden" name="gpphotono" value="${gpphoto.gpphotono }" /> --%>
-				                            <input type="hidden" name="fileList" />
+ 			                            	<input type="hidden" name="gpphotono" value="${gpphoto.gpphotono }"/>
+				                            <input type="hidden" name="fileList" value="${gpphoto.originfilename}.${gpphoto.suffix}"/>
 				                            <input type="hidden" name="isfile" value="f" />
 			                                    <h3 class="block-title">GuidePlan Theme Details</h3>
-			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"><%-- ${gpphoto.content } --%></textarea>
+			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"> ${gpphoto.content } </textarea>
 			                                    <p><a class="button green margi" href="javascript:writeSubmit();">테마 저장 </a> &nbsp;&nbsp;&nbsp;&nbsp; <small>(타임캡슐은 다른 여행자들과 공유됩니다)</small></p>
 			                        	</form>
 			                        </div>			
@@ -367,6 +372,8 @@
        
    <script>
    
+   alert(document.writeForm.gpphotono.value == "");
+   
    var fileCounter = function() {
 
 		var fileCount = 0;
@@ -395,6 +402,13 @@
 		
      
      function writeSubmit() {
+    	 alert(document.writeForm.gpphotono.value);
+    	var gpphotonno = document.writeForm.gpphotono.value;
+    	 if(gpphotonno == ""){
+    		 alert("비었다.");
+    		 document.writeForm.gpphotono.value = 0;
+    	 }
+    	 
      	var srcList = [];
      	for(var i=0; i<$(".img-responsive").length; i++){
      		var src = $($(".img-responsive" ).get(i)).attr("data-src");
@@ -402,7 +416,7 @@
      			srcList.push(src);
      		}	
      	}
-     	srcList = jQuery.unique( srcList );
+     	srcList = jQuery.unique(srcList);
      	console.log(srcList);
      	
          document.writeForm.action="/bbs/guide/guidep";

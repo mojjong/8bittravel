@@ -138,6 +138,7 @@
                      <button class="btn btn-success btn-sm" id="listBtn">목록</button>
                      <button class="btn btn-success btn-sm" id="updateBtn">수정</button>
                      <button class="btn btn-danger btn-sm" id="deleteBtn">삭제</button>
+                     <button class="btn btn-success btn-sm" style="float:right;" id="guideWriteBtn">가이드신청</button>
                         </div>
 
                     </div>
@@ -347,16 +348,23 @@
             url : "/bbs/guide/guidelist",
             data : formData, //변환된 formData를 요청
             success : function(data) {
+               var str = "<article><ul>";
                $.each(data, function(key, val) {
-                  target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+val.guideid+"님의 Guide</a></h3>");
+            		  str += "<li>"+
+            		  "<h3 class='post-title col-md-12'>"+
+            		  "<a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+
+            		  val.guideid+"`s&nbsp;&nbsp;&nbsp;&nbsp;Guide</a></h3></li>"+
+            		  "<hr style='margin-top:-2px;border-color:#BDBDBD;'>";
                });
+               str += "<ul></article>";
+           	   target.html(str);
             }
            });
         });
         
         EventUtil.addHandler(document, "DOMContentLoaded", function(event) {
-         EventUtil.addHandler(updateBtn, "click", function(event) {
-            update();
+         EventUtil.addHandler(guideWriteBtn, "click", function(event) {
+            guideWrite();
          });
       });
         </script>

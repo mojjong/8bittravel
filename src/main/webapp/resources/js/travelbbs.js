@@ -20,3 +20,8 @@ function doguide(travelno){
 	
 	
 }
+
+function guideWrite(){
+	travelno
+	guideno
+}

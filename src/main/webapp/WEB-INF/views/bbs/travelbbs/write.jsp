@@ -23,8 +23,8 @@
                 </div>
             </section>
 
-            <section id="more-pages" class="section wide-fat">
-                <div class="container">
+            <section id="more-pages" class="section wide-fat travel_write-bg">
+                <div class="container col-md-offset-3">
 							<h1 class="widget-title no-margin-top no-margin-bottom">어떤 <span class="higlight"> 여행 </span>을 가고 싶습니까?&nbsp;&nbsp;</h1>
 
                     <div class="row">
@@ -46,8 +46,6 @@
                                             <input name = "title" class="required" name="title" placeholder="Title">
                                         </div>
                                         
-                                         
-                                         
                                     </div>
                                     
                                     <script type="text/javascript" src="/resources/fck/ckeditor.js"></script>
@@ -57,7 +55,7 @@
 		                                    <label>Contents</label>
 		
 		                                    <br />
-		                                    <textarea name ="content" class="form-control" id="content" placeholder="Additional information" rows="7"></textarea>
+		                                    <textarea name ="content" class="required" id="content" placeholder="Additional information" rows="7"></textarea>
 		                                    <!-- fck editor 설정 -->
 											<script type="text/javascript">
 		              			 					CKEDITOR.replace( 'content' );
@@ -128,7 +126,7 @@
                                         	<label>COST</label>
 
                                     		<br />
-                                            <input name= "cost" class="required " placeholder="Cost">
+                                            <input name= "cost" class="required" placeholder="Cost">
                                         </div>
                                     </div>
                                   

@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@include file="../include/regionheader.jsp"%>
+
+<%-- <sec:authentication var="user" property="principal" />
+
+<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+${user}
+</sec:authorize> --%>
 
 <section class="page-head-holder">
 	<div class="container">
@@ -20,17 +27,34 @@
 </section>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section id="hotels" class="section wide-fat page">
 	<div class="container">
+	
+
 		<div class="hotels-filter">
 			<div class="container">
 				<div class="search-heading col-md-2 col-sm-6">
 					<h3>Region & Theme</h3>
 				</div>
 				<div class="vertical-hotel-filter col-md-10 col-sm-6" style="padding-right:10px">
-					<form class="filter-form" name="regionfilter" id="regionfilterID" method="get">
-					<input type="hidden" name="no">
-					<input type="hidden" name="page">
+					<form class="filter-form" id="regionfilterID" name="regionfilter" method="get">
 						<ul>
         						<div class="col-sm-1 selectContainer" style="margin-top:3px; padding-left:30px">
         						<label>Region</label>
@@ -74,6 +98,41 @@
         						<!-- <a class="button mini" style="height:30px; padding-left:0px;" href="javascript:filterSubmit();">Search</a> -->
         						<a href="javascript:filterSubmit();" class="button green mini">Search Now</a>
         						</div>
+        						
+							<!-- <li class="filter-btn form-member"><a href="javascript:filterSubmit();"><img style="border: none; margin-top: 10px;" src="../../resources/images/magnify.png" /></a></li> -->
+							
+<%-- 							<li class="form-member">
+							<select class="chosen-select" onChange="change_regionDOchange(this)" name="regionDO">
+									<c:set var="region_temp" />
+									<c:forEach var="region" items="${regionList }">
+											<c:if test="${region.DO != region_temp }">
+											<option value="${region.DO}">${region.DO}</option>
+											</c:if>
+											<c:set var="region_temp" value="${region.DO }" />
+									</c:forEach>
+							</select>
+							</li> 
+
+							
+							<li class="form-member" id="li_regionSIGUN"><select class="chosen-select" name="regionSIGUN">
+							</select></li>
+							
+							<li class="form-member" id="li_thememode"><select class="chosen-select" onChange="change_thememode(this)" name="thememode">
+
+									<c:set var="thememode_temp" />
+									<c:forEach var="theme" items="${themeList }">
+											<c:if test="${theme.thememode != thememode_temp }">
+											<option value="${theme.thememode}">${theme.thememode}</option>
+											</c:if>
+											<c:set var="thememode_temp" value="${theme.thememode }" />
+									</c:forEach>
+							</select></li>
+					 		<li class="form-member" id="li_themename"><select class="chosen-select" name="themename">
+							</select></li>
+							<li class="most-popular form-member"><span>Most
+									Popular</span></li>
+							<li class="filter-btn form-member"><input type="submit"
+								value="Search" /></li>--%>
 						</ul>
 					</form>
 				</div>
@@ -90,18 +149,24 @@
     right: -15px;
 }
 </style>
+    
+
+
+
+
+
 
 		<div class="contents-wrapper">
 			<div class="row">
-				<div class="contents grid-contents col-md-12 col-sm-6 no-margin">
+				<div class="contents grid-contents col-md-12 col-sm-6">
 					<div class="row">
 					<c:forEach var="r_photo" items="${r_photoList }">
 						<div class="content col-md-3 col-sm-12">
 							<div class="inner">
-								<a class="thumbnailz" href="#"> 
-								<img src="/file/download?filename=${r_photo.dir }"
-									alt="Your Hotel Title Here" class="responsive-image" /> 
-								<span class="overlay">${r_photo.regionname }</span>
+								<a class="thumbnailz" href="#"> <img
+									src="/file/download?filename=${r_photo.dir }"
+									alt="Your Hotel Title Here" class="responsive-image" /> <span
+									class="overlay">${r_photo.regionname }</span>
 								</a>
 								<div class="entry">
 									<article class="entry-content">
@@ -487,82 +552,9 @@ function filterSubmit(){
 	if(document.regionfilter.regionno.value == "" || document.regionfilter.themeno.value == ""){
 		alert("지역, 테마 선택을 완료해주세요");
 	}else {
-		var currentPage = 1;
-		document.regionfilter.page.value=currentPage;
 		var data = $("#regionfilterID").serialize();
-		var target = $(".contents");
-		alert(data);
-		$.ajax({
-	          type:"GET",
-	          url: "/bbs/travelbbs/filterlist",
-	          data: data,
-	          success: function(data){
-	        	  var str = "";
-	        	  $.each(data, function(idx, val){
-	        		  str +=
-	        		  '<div class="content col-md-3 col-sm-12">'+
-						'<div class="inner">'+
-						'<div class="entry">'+
-							'<article class="entry-content">'+
-								'<h2 class="post-title">'+
-									'<span class="higlight emphasize value">'+val.no+'</span><a href="javascript:read('+val.no+')"> '+val.title+'sssssssssssss</a>'+
-								'</h2>'+
-							'</article>'+
-						'</div>'+
-							'<div class="entry">'+
-								'<article class="entry-content">'+
-								'<span class="price col-md-10"><span class="higlight emphasize value">'+ val.cost +'원</span> / 3 Day</span><br>'+
-								'<span class="col-md-7">지역 : '+val.region+'</span><span class="col-md-5">인원 : '+val.teammember+' 명</span>'+
-								'<p class="lead col-md-12">'+val.content+'</p><br>'+
-								'</article>'+
-								'<div class="entry-meta">'+
-// 									'<span class="review"><a href="#">24 Reviews</a></span>'+
-										'<div class="go-detail col-md-6 col-md-offset-4"><a href="/bbs/guide/place?travelno='+val.no+'">가이드 신청</a></div>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-						
-					'</div>';
-	        		  
-	        		  
-	        		  
-	        		  
-// 	        		str += "<div class='row' >"+
-//                     "<div class='content  wide col-md-8' >"+
-//           			"<div class='inner'>"+
-//           			"<div class='col-md-4 col-lg-1 no-margin'>"+
-//           			"<br><br><br><br><br><span class='higlight emphasize value'>가이드 가능</span>"+
-//           			"</div><div class=' col-md-9 col-lg-9'>"+
-//           			"<div class='entry' >"+
-//           			"<article class='entry-content'>"+
-//           			"<h2 class='post-title col-md-10'>"+ val.no +" <a href='/bbs/travelbbs/read?no="+ val.no +"'> "+ val.title +"</a></h2><span class='user col-md-2'><strong>U_user00</strong></span><br>"+
-//           			"<br><br><span class='price col-md-3'><span class='higlight emphasize value'>"+ val.cost +"원</span> / 3 Day</span>"+
-//           			"<span class='member col-md-offset-2'>인원 : "+ val.teammember +"명</span>"+
-//           			"<span class='region col-md-offset-2'>지역 : "+ val.region +"</span><br />"+
-//           			"<br><br><p class='text-left col-md-11'>"+ val.content +"</p></article>"+
-//           			"<div class='entry-meta'>"+
-//           			"<br><span class='go-detail'><a href='#'>More</a></span>"+
-//           			"<span class='review'><a href='#'>24 Reviews</a></span></div>"+
-//           			"</div><!-- /.entry -->"+ 
-//           			"</div>"+
-//           			"<div class='col-md-2 col-lg-2 no-margin'>"+
-//           			"<div class='right-area'><br><br><br><br>"+
-//           			"<div class='book-holder'>"+
-//           			"<a href='javascript:doguide(" + val.no + ")'>Guide</a>"+
-//           			"</div></div></div></div></div></div>"
-	              });
-	        	  target.html(str);
-	          }
-	      });
+		window.location.assign("/bbs/travelbbs/board?"+data);
 	}
-}
-
-
-function read(no){
-	document.regionfilter.no.value = no;
-	document.regionfilter.action = "/bbs/travelbbs/read";
-	document.regionfilter.method = "get";
-	document.regionfilter.submit();
 }
 
 </script>

@@ -16,6 +16,7 @@
 
                     <div class="col-xs-2">
 
+
                         <div class="breadcrumb-holder">
 
                             <ol class="breadcrumb">
@@ -65,34 +66,35 @@
 
 
 
-                    	
-		<div class="container">
-            <form enctype="multipart/form-data">
-                <div class="form-group">
-                    <input id="file-0" class="file" type="file" multiple=true data-show-preview="true">
-                </div>
-            </form>
-        </div>
-        
-<div class="main-contact-form">
-<div class='col-md-3'>
-<input type="button" class="button" onclick="enterTour()" value="Enter Tour" />
-</div>
-<div class='col-md-3'>
-<input type="button" class="button" onclick="playTour()" value="Play Tour" />
-</div>
-<div class='col-md-3'>
-<input type="button" class="button" onclick="pauseTour()" value="Pause Tour" />
-</div>
-<div class='col-md-3'>
-<input type="button" class="button" onclick="resetTour()" value="Stop/Reset Tour" />
-</div>
-
-<br />&nbsp;
-
-</div>
-
-<article id="post-6" class="contact section-intro">
+                    <article id="post-6" class="contact section-intro">
+  					
+                   
+<!--         <div class='panel-group' id='accordion' style="margin-bottom:10px;">     
+               <div class='panel panel-default'>
+           <div class='panel-heading'>
+           <h4 class='panel-title'>
+           <a data-toggle='collapse' data-parent='#accordion' href='#collapse_uploadform'>Custom Panorama Gallery Upload</a></h4></div>
+           <div id='collapse_uploadform' class='panel-collapse collapse' style='height: 0px;'>
+           <div class='panel-body'> -->
+             	<div class="form-group">
+    <div class="col-xs-12">
+	<form  id="fileFormId" name="fileForm" action="/panorama/google/folderupload" method="post" enctype="multipart/form-data">
+                        <a href="javascript:submitFileForm();" class="button mini blue" style="margin-bottom:10px; margin-right:5px; float:right;">Upload Folder</a>
+						<!-- <input type="submit" class="button mini navy" style="margin-bottom:10px; margin-right:5px; float:right;" value="Upload Files" /> -->
+                        <!-- <a href="javascript:addFileInput.increment()" class="button mini blue" style="margin-bottom:10px; margin-right:5px; float:right;">Add File</a> -->
+	<input type="hidden" name="folderName" value="user00" />
+	<input type="file" style="margin-bottom: 10px;" name="folder" webkitdirectory directory multiple/>
+    <!-- <div id="fileinputDiv"><input type="file" style="margin-bottom: 10px;" name="folder[0]" /></div> -->
+    </form>
+    
+    </div>
+  </div>
+  <hr />
+<!--            </div>
+           
+           </div></div>
+    	</div> -->
+  	
 
 
 
@@ -110,8 +112,25 @@
 
 
 
-                    </article><!-- /#post-6.contact -->		
+                    </article><!-- /#post-6.contact -->			
 
+<div class="main-contact-form">
+<div class='col-md-3'>
+<input type="button" class="button" onclick="enterTour()" value="Enter Tour" />
+</div>
+<div class='col-md-3'>
+<input type="button" class="button" onclick="playTour()" value="Play Tour" />
+</div>
+<div class='col-md-3'>
+<input type="button" class="button" onclick="pauseTour()" value="Pause Tour" />
+</div>
+<div class='col-md-3'>
+<input type="button" class="button" onclick="resetTour()" value="Stop/Reset Tour" />
+</div>
+
+<br />&nbsp;
+
+</div>
                     <div id="map3d" class="home-map" style="padding-top:10px;"></div>
 
 
@@ -303,11 +322,6 @@
        <!-- Scripts -->
 
     
-    	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/resources/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="/resources/js/fileinput.js" type="text/javascript"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
 
     <!-- jQuery -->
 
@@ -323,6 +337,7 @@
 
     <!-- modernizer -->
 
+    
 
       
 
@@ -452,29 +467,17 @@
 //     	var gpsstr = null;
     	$.getJSON("/panorama/google/list" , function (data) {
             var gps = "";
-            var fileName = "";
-            var lat = "";
-            var lng	= "";
             $.each(data, function (key, val) {
-            	fileName += val.fileName + " ";
-            	lat += val.lat + " ";
-            	lng += val.lng + " ";
+            	console.log(val);
+            	
+            	gps += val + ",";
+            	
+            	console.log(gps);
             });
             
             
-            console.log(fileName);
-            console.log(lat);
-            console.log(lng);
-            
-            
-            var fileNames = fileName.split(" ");
-            var lats = lat.split(" ");
-            var lngs = lng.split(" ");
-            
-            console.log(fileNames);
-            console.log(lats);
-            console.log(lngs);
-            
+            var gpsstr = gps.split(",");
+        	
             ge = instance;
             ge.getWindow().setVisibility(true);
             
@@ -491,10 +494,10 @@
             	 +'<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">'
             	 +'<Document>'
             	   
-           	     for(i = 0; i < fileNames.length-1; i++){
+           	     for(i = 0; i < gpsstr.length-1; i+=2){
                    	kmlString += '<Style id="mystyle_'+i+'">'
                         + '<IconStyle>'                          
-                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+fileNames[i]+'</href>'
+                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+i+'.jpg</href>'
                         + '</Icon>'
                         + '<scale>2.2</scale>'
                         + '</IconStyle>'   
@@ -502,7 +505,7 @@
 	                   	+ '  <Placemark>'
 	                    + '    <styleUrl>#mystyle_'+i+'</styleUrl>'
 	                    + '    <Point>'
-	                    + '      <coordinates>'+lngs[i]+','+lats[i]+',0</coordinates>'
+	                    + '      <coordinates>'+gpsstr[i+1]+','+gpsstr[i]+',0</coordinates>'
 	                    + '    </Point>'
 	                    + '  </Placemark>';
                   }
@@ -514,14 +517,14 @@
             	     +'<name>Play me</name>'
             	     +'<gx:Playlist>';
             	       
-           	     for(i = 0; i < fileNames.length-1; i++){
+           	     for(i = 0; i < gpsstr.length-1; i+=2){
            	  			
            	    	kmlString += 
            	    		'<gx:FlyTo>'
            	           +'<gx:duration>5.0</gx:duration>'
            	           +'<LookAt>'
-           	           +'<longitude>'+lngs[i]+'</longitude>'
-           	           +'<latitude>'+lats[i]+'</latitude>'
+           	           +'<longitude>'+gpsstr[i+1]+'</longitude>'
+           	           +'<latitude>'+gpsstr[i]+'</latitude>'
            	           +'<altitude>400</altitude>'
            	           +'<heading>0.0</heading>'
            	           +'<tilt>0.0</tilt>'
@@ -600,16 +603,51 @@
     function exitTour() {
         ge.getTourPlayer().setTour(null);
     }
-    
 
     google.setOnLoadCallback(init);
     
+    </script>
     
-    function upload(){
-    	alert("업로드");
-    	document.upFileForm.submit();
-    }
     
+    <script>
+    var fileCounter = function() {
+  	  var privateCounter = 0;
+  	  function changeBy(val) {
+  	    privateCounter += val;
+  	  }
+  	  return { 
+  		  increment: function() {
+  			changeBy(1);
+  			$("#fileinputDiv").append('<input type="file" style="margin-bottom: 10px;" name="folder['+privateCounter+']"/>');
+  	 	 }
+  	  }  
+ 	};
+ 	
+ 	var addFileInput = fileCounter();
+ 	
+ 	function submitFileForm(){
+ 		  var formData = new FormData($("#fileFormId")[0]);
+ 		  console.log(formData);
+
+ 		  var formDataSerialized = $("#fileFormId").serialize();
+ 		  console.log(formDataSerialized);
+ 		
+ 		  $.ajax({
+ 	          type:"POST",
+ 	          url: "/panorama/google/folderupload",
+ 	          data: formData,
+ 	          async: false,
+ 	          cache: false,
+ 	          contentType: false,
+ 	          processData: false,
+ 	          success: function(data){
+					alert(data.fileSize+'개 파일 업로드 완료!!');
+ 	          },
+ 	          error: function(){
+ 	                alert("error in ajax form submission");
+ 	          }
+ 	      });
+ 	}
     </script>
 
     </body>

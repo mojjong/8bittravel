@@ -7,21 +7,8 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <li class="active" role="presentation">
                                                 <a role="menuitem" tabindex="-1" href="/main/region/">Region&Theme</a>
-                                                <a role="menuitem" tabindex="-1" href="#">dummy</a>
-                                                <a role="menuitem" tabindex="-1" href="#">dummy</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-
-                                    <li class="menu-item our-travel">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="/bbs/guide/place"><i class="icon_globe_alt"></i>GUIDE</a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li class="active" role="presentation">
-                                                <a role="menuitem" tabindex="-1" href="/bbs/guide/place">place</a>
-                                                <a role="menuitem" tabindex="-1" href="#">dummy</a>
-                                                <a role="menuitem" tabindex="-1" href="#">dummy</a>
-                                                <a role="menuitem" tabindex="-1" href="#">dummy</a>
+<!--                                                 <a role="menuitem" tabindex="-1" href="#">dummy</a>
+                                                <a role="menuitem" tabindex="-1" href="#">dummy</a> -->
                                             </li>
                                         </ul>
                                     </li>
@@ -33,12 +20,23 @@
                                     <li class="menu-item shortcodes">
                                         <a href="/panorama/google/"><i class="icon_map"></i>PANORAMA</a>
                                     </li>
-
-
-
-                                    <li class="menu-item contact">
-                                        <a href="page-site-map.html"><i class="icon_contacts"></i> Pages</a>
+                                    
+                                    									<li class="menu-item destinations">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon_globe_alt"></i> CHAT</a>
+                                          <ul class="dropdown-menu" role="menu">
+                                            <li class="active" role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="/chat/uroom">user</a>
+                                                <a role="menuitem" tabindex="-1" href="/chat/groom">guide</a>
+                                            </li>
+                                        </ul>
                                     </li>
+                                    
+                                    
+                                    <li class="menu-item our-travel">
+                                        <a href="/bbs/notice/list"><i class="icon_pin"></i>NOTICE</a>
+                                    </li>
+
+
                                 </ul>
 
                                 <select class="top-drop-menu nav visible-sm visible-xs visible-md">
@@ -56,7 +54,7 @@
                                         </option>
                                     </optgroup>
 
-                                    <optgroup label="ddd">
+                                    <optgroup label="Destinations">
 
                                         <option value="destinations.html">
 

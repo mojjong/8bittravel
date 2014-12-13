@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +20,12 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.yo.file.vo.FileVO;
 import org.yo.googleearth.service.GoogleEarthService;
 import org.yo.googleearth.vo.FileInfo;
 import org.yo.googleearth.vo.GoogleEarthVO;
+import org.yo.web.util.Json;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Metadata;
@@ -222,4 +226,34 @@ public class GoogleEarthController {
 
       return bos.toByteArray();
    }
+   
+	//글쓰기 동작(파일업로드 동시처리)
+	@RequestMapping(value = "/folderupload", method = RequestMethod.POST)
+	public @ResponseBody Json folderUpload(FileVO vo, Model model) throws Exception{
+		//파일 업로드 동작이 추가될 경우.
+		String UUName = UUID.randomUUID().toString();
+		
+		List<MultipartFile> list = vo.getFolder();
+		String foldername = vo.getFolderName();
+		
+		File targetDir = new File("c://zzz//upload//uploadTest//"+foldername);
+		
+		 if(!targetDir.exists()) {    //디렉토리 없으면 생성.
+	         targetDir.mkdirs();
+	     }
+		
+		for(MultipartFile file : list){
+
+			if(!file.isEmpty()){
+				String fileName = UUName +"_"+ file.getOriginalFilename();
+				file.transferTo(new File("c://zzz//upload//uploadTest//"+foldername, fileName));
+			}
+		}
+
+		
+		//logger.info("파일 사이즈 : "+vo.getFolder().size());
+		
+		return new Json("{ \"fileSize\" : \""+ vo.getFolder().size() +"\" }");
+	}
+   
 }

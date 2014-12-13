@@ -348,7 +348,7 @@
             data : formData, //변환된 formData를 요청
             success : function(data) {
                $.each(data, function(key, val) {
-                  target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+val.guideid+"님의 Guide</a></h3>");
+                  target.append("<h3 class='post-title col-md-10'><a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"&themeno="+val.themeno+"&regionno="+val.regionno+"'>"+val.guideid+"님의 Guide</a></h3>");
                });
             }
            });

@@ -3,13 +3,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../../include/timecapsulewriteheader.jsp" %>
 
+
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=8dc3f50341e3abc71540971185f76729"></script>
+<section class="page-head-holder">
+                <div class="container">
+
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>GuideWrite</h2>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="breadcrumb-holder">
+                            <ol class="breadcrumb">
+                                <li><a href="#">Home</a></li>                              
+                                <li><a href="#">List</a></li>         
+                                <li><a href="#">Content</a></li> 
+                                <li><a href="#">GuideWrite</a></li>   
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
 
              <section id="contact" class="section wide-fat">        
                 <div class="container">
-                    <div class="row">          
-                     <div class="widget widget-tabs">
-                           <div id="messagesAlert"></div>
+                    <div class="row"> 
+                     <div class="widget widget-tabs"> 
+                    	
+                    	 
+                				    
+                           		<div id="messagesAlert"></div>
+                           		
 	                             <!--탭 DIv  -->                        
 	                            <ul  id = "myTab" class="nav nav-tabs" role="tablist">
 	                                <li id="li1" class="active"><a href="#theme" role="tab" data-toggle="tab">REGION</a></li>
@@ -17,13 +43,15 @@
 	                                <!-- <li><a href="#recent" data-toggle="tab" >Day1</a></li> -->
 	                            </ul>
 	                            
+	                            
                             <!--테마내용  -->
+                            
                  			<div id = "content" class="tab-content">  
                  			         
 			                   <div class="tab-pane fade in active" id="theme">
 			                   	<div class="row project-single">
 			                        <div class="col-lg-8 col-md-7 col-sm-12">
-			                          <div class="owl-carousel img-carousel">
+			                          <!-- <div class="owl-carousel img-carousel"> -->
 			                          <c:choose>
 			                          <c:when test="${gpphoto.isfile == 't'}">
 			                                <div class="item"><img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/></div>   
@@ -32,11 +60,11 @@
                                 		 <div class="item"><img name="carouselitem0" class="img-responsive" src="/resources/images/transparent.png" alt=""/></div>
 			                          </c:otherwise>
 			                          </c:choose>
-			                          </div>  
+			                          <!-- </div>   -->
 			                            <hr class="hidden-md hidden-lg"/>
 			                        </div>
 			                        <div class="col-lg-4 col-md-5 col-sm-7 project-overview">
-			                            <h3 class="block-title">GuidePlan Theme Upload</h3>
+			                            <h3 class="block-title">Upload File</h3>
 			                            <!-- <input class="required " id="fileUpload1" type="file" style="margin-bottom:20px;"> -->
 			                            
 										<!--파일업로드DIV  -->
@@ -67,21 +95,26 @@
  			                            	<input type="hidden" name="gpphotono" value="${gpphoto.gpphotono }"/>
 				                            <input type="hidden" name="fileList" value="${gpphoto.originfilename}.${gpphoto.suffix}"/>
 				                            <input type="hidden" name="isfile" value="f" />
-			                                    <h3 class="block-title">GuidePlan Theme Details</h3>
+			                                    <h3 class="block-title">Region Details</h3>
 			                                    <textarea class="col-xs-12" name="content" placeholder="이 지역에 대한 코멘트를 남겨주세요." rows="9"> ${gpphoto.content } </textarea>
 			                                    <p><a class="button green margi" href="javascript:writeSubmit();">테마 저장 </a> &nbsp;&nbsp;&nbsp;&nbsp; <small>(타임캡슐은 다른 여행자들과 공유됩니다)</small></p>
+			                        	<hr>
 			                        	</form>
 			                        </div>	
 			                        	<hr/>
 			                    </div><!--썸네일추가끝  -->		
 			                    </div><!--ㅌㅔ마div끝  -->
-                   		
-									
-										
-								</div>
-                   				<!--append 되는 곳  -->
-        
-                        </div><!-- /.widget -->
+			                    
+			       
+			                    
+			                    
+			                    
+                   				</div><!--tab content끝  -->
+                   				
+     					           				
+							
+                       
+                         </div><!-- -widget - -->
                     </div><!--row  -->
                 </div><!--contaier  -->
             </section><!--지도 섹션끝  -->
@@ -632,7 +665,7 @@
                    // last-child앞에 새로운 tab li가 추가된다.
                    // li ID랑 그 li가 눌렸을때 어떻게 동작하는지 완전한 구조로 append된다.
                    $('ul#myTab li:last-child').before('<li id="li' + (nbrLiElem) + '">'
-                   +'<a href="#plandate' + (nbrLiElem) + '" role="tab" data-toggle="tab">plandate ' + (nbrLiElem) + ' <button type="button" class="btn btn-warning btn-xs" onclick="removeTab(' + (nbrLiElem) + ');"><span class="glyphicon glyphicon-remove"></span></button></a>');
+                   +'<a href="#plandate' + (nbrLiElem) + '" role="tab" data-toggle="tab">plandate ' + (nbrLiElem) + ' </a>');
                    
                    // <div class="tab-content">의 last-child 뒤에 새로운 div요소가 추가된다.
                    //$('div.tab-content div:last-child').after('<div class="tab-pane fade" id="tab'+(nbrLiElem)+'"></div>');
@@ -714,6 +747,10 @@
            return false;
        }
       
+        
+       $(document).ready(function() {
+    	  	$('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});
+    	});
         </script>
     </body>
 

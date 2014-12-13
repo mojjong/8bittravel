@@ -5,21 +5,11 @@
  
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=8dc3f50341e3abc71540971185f76729"></script>
 
-
-
-   
-
-
 <h1>${vo.plandate }</h1>
 <h1>${plandate }</h1>
 
-
-
 <h1>${vo.gpno }</h1>
 <h1>${vo.guideno }</h1>
-
-
-
 
 <!--ë´ì© ì ì²´ DiV  -->     
    <div>
@@ -35,6 +25,7 @@
 							
 				<div class="col-sm-7 sidebar">
 					<div class="widget no-margin-bottom">
+					
                                 <h1 class="widget-title no-margin-top no-margin-bottom">지도에서  <span class="higlight">장소</span>를 선택하세요</h1>
                                 <p>&nbsp;</p>
                          <div class="main-contact-form">
@@ -74,7 +65,7 @@
 			                        <input type="hidden" name="plandate" value = "${vo.plandate}" > 
 			                        <input type="hidden" name="lat">
 			                        <input type="hidden" name="lng">
-			                                <h3 class="widget-title">추가된 장소</h3>
+			                        <h3 class="widget-title">추가된 장소</h3><hr>
 			                   <div id="addplaceID${vo.gpno }" class="widget no-margin-bottom">
 			                                
 			                      <c:forEach var="placevo" items="${placeList}">
@@ -107,7 +98,7 @@
                              
                              <!--GuideBbs div  -->   
                             <div class="main-contact-form">
-	                               <form  name = "guideBbsForm" method="post" action="/bbs/guide/gWrite">
+	                               <form  name = "guideBbsForm" method="post" action="/bbs/">
 	                               	
 	                               	<input type = "hidden" name="guideid" value="user03">
 	                               	<input type = "hidden" name="travelno" value = "152"> 

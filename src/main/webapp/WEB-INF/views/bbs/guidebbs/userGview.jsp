@@ -1,43 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@include file="../../include/header.jsp" %> --%>
 <%@include file="../../include/photoheader.jsp"%>
+
+	<section class="page-head-holder">
+                <div class="container">
+
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>TourList</h2>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="breadcrumb-holder">
+                            <ol class="breadcrumb">
+                                <li><a href="#">Home</a></li>                              
+                                <li><a href="#">List</a></li>         
+                                <li><a href="#">Content</a></li> 
+                                <li><a href="#">TourList</a></li>   
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
     <section id="contact" class="section wide-fat">        
                 <div class="container">
                     <div class="row">  
                     
                     
-
+			<div class="row thumbnails">
+			
                    <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="thumbnail no-border no-padding">
                                 <div class="media">
-                                	
-                                    <img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/>
+	                                	
+	                                    <img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/>
                                     <div class="caption hovered">
                                         <div class="caption-wrapper div-table">
                                             <div class="caption-inner div-cell">
                                                 <p class="caption-buttons">
-                                                    
-                                                    <a href="/file/download?filename=${photo.filename}.${photo.suffix}" onclick="javascript:fillcontent.setting(this);" class="btn caption-zoom" data-gal="prettyPhoto" data-msg="${gpphoto.content }"><i class="fa fa-search"></i></a>
+                                                     <a href="/file/download?filename=${gpphoto.filename}.${gpphoto.suffix}"  class="btn caption-zoom" data-gal="prettyPhoto" ><i class="fa fa-search"></i></a> 
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div><!--media div 끝  -->
+                                
                                 <div class="caption after-media">
-                                 <p class="caption-category" style="color:#51575b" name="content">${gpphoto.content }</p>
+	                                 <p  style="color:#51575b" name="content"><span>${gpphoto.content }</span></p>
+	                                  
                                    <%--  <span>${gpphoto.content }</span> --%>
-                                </div>
+                                </div><!--caption after-media  -->
                             </div>
                         </div> 
-                    
+                  
           
                      <!--가이드 Plan 시작  -->
                      <div class="col-sm-7 sidebar">
 					<div class="widget no-margin-bottom">
-							 <h1 class="widget-title no-margin-top no-margin-bottom">당신의 여행 장소는 "<span class="higlight">전주</span> " 입니다.</h1>
+							 <h1 class="widget-title no-margin-top no-margin-bottom">당신의 여행 장소는 <span class="higlight">"전주"</span> 입니다.</h1>
                                 <p>&nbsp;</p> 
                                
                          <div class="main-contact-form">
@@ -117,6 +139,7 @@
                    		 </div><!--main-contact-form 끝  -->                                                                
                 	</div><!-- ì¥ìì ííë ê¸ì¨ë¥¼ ê°ì¸ë divë -->  
            		</div><!--ì ì²´ì¬ì´ëë°  --> 
+           		  </div><!--row thumnail 끝  -->
                     </div><!--row  -->
                 </div><!--contaier  -->
             </section><!--지도 섹션끝  -->
@@ -152,10 +175,6 @@
 
     
 <!-- jQuery -->
-
-
-
-
 
 <script src="/resources/inc/js/jquery-1.10.2.min.js"></script>
 
@@ -279,19 +298,11 @@
 <script type="text/javascript"
 	src="/resources/inc/js/jquery.raty.min.js"></script>
 
-
 <!-- prettyphoto -->
 
 <script type="text/javascript"
 	src="/resources/inc/prettyphoto/js/jquery.prettyPhoto.js"></script>
-
-
-<!-- Custom JS -->
-
-<script type="text/javascript" src="/resources/inc/js/custom.js"></script>
-
-         
-    <script>
+<script type="text/javascript">
 	var contentMaker = function (){
 		var msg = "";
 		return {
@@ -309,9 +320,15 @@
 		social_tools : '<div id="ppContent" class="twitter"></div>'
 	});
 	
-    
-    
-    </script> 
+	
+</script>
+
+<!-- Custom JS -->
+
+<script type="text/javascript" src="/resources/inc/js/custom.js"></script>
+
+         
+  
             
            
 </body>

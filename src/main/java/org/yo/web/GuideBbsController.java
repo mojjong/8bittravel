@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yo.guidebbs.service.GuideBbsService;
 import org.yo.guidebbs.vo.GP_PhotoVO;
@@ -167,18 +166,17 @@ public class GuideBbsController {
 		
 		
 		
-		//GuideBbsInsert -get
+		/*//GuideBbsInsert -get
 		@RequestMapping(value="/gWrite", method = RequestMethod.GET)
 		public String guideBbsInsert1(GuideBbsVO vo, Model model){
 			
 			return "/bbs/guidebbs/guideboard";
-		}
+		}*/
 		//GuideBbsInsert-post 
-		@RequestMapping(value="/gWrite", method = RequestMethod.POST)
+		@RequestMapping(value="/gbbsWrite", method = RequestMethod.POST)
 		public String guideBbsInsert2(GuideBbsVO vo){
 			System.out.println("gWrite 컨트롤러");
-			String a = vo.getGuideid();
-			logger.info(a);
+			
 			service.guideBbsinsert(vo); 
 			return "redirect:/bbs/travelbbs/read";
 		}

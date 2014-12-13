@@ -352,7 +352,7 @@
                $.each(data, function(key, val) {
             		  str += "<li>"+
             		  "<h3 class='post-title col-md-12'>"+
-            		  "<a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+
+            		  "<a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"&themeno="+val.themeno+"&regionno="+val.regionno+"'>"+
             		  val.guideid+"`s&nbsp;&nbsp;&nbsp;&nbsp;Guide</a></h3></li>"+
             		  "<hr style='margin-top:-2px;border-color:#BDBDBD;'>";
                });

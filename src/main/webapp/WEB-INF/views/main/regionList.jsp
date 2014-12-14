@@ -44,7 +44,7 @@ ${user}
 
 
 
-<section id="hotels" class="section wide-fat page">
+<section id="contact" class="section wide-fat page" style="padding-top:50px;">
 	<div class="container">
 	
 
@@ -279,71 +279,7 @@ ${user}
 
 
 
-
-<footer id="footer-2" class="widefat ">
-
-
-
-
-
-
-
-	<div class="container">
-
-
-
-
-
-		<div class="col-xs-12 ">
-
-			<ul class="footer-social-icons">
-
-				<li><a href="#" class="fa fa-facebook"></a></li>
-
-				<li><a href="#" class="fa fa-twitter"></a></li>
-
-				<li><a href="#" class="fa fa-pinterest"></a></li>
-
-				<li><a href="#" class="fa fa-tumblr"></a></li>
-
-				<li><a href="#" class="fa fa-vimeo-square"></a></li>
-
-			</ul>
-
-			<p>
-
-				Traveline - Copyright 2014. Designed by jThemes<br> Email:
-				info@example.com<br> Address: Lorem Ipsuum, Manchester M12 345,
-				UK<br> +44 123 456 7890
-
-			</p>
-
-		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	</div>
-
-
-
-
-
-
-
-</footer>
-<!-- /#footer -->
+<%@include file="../include/footer.jsp"%>
 
 
 

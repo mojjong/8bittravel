@@ -176,7 +176,6 @@ public class GuideBbsController {
 		@RequestMapping(value="/gbbsWrite", method = RequestMethod.POST)
 		public String guideBbsInsert2(GuideBbsVO vo){
 			System.out.println("gWrite 컨트롤러");
-			
 			service.guideBbsinsert(vo); 
 			return "redirect:/bbs/travelbbs/read";
 		}

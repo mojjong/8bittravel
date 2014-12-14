@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../../include/regionheader.jsp"%>
-sssssss
+
 <section class="page-head-holder">
 	<div class="container">
 		<div class="col-xs-12 col-sm-6">
@@ -20,7 +20,7 @@ sssssss
 </section>
 
 
-<section id="hotels" class="section wide-fat page">
+<section id="hotels" class="section wide-fat page" style="padding-top:50px;">
 	<div class="container">
 		<div class="hotels-filter">
 			<div class="container">
@@ -80,97 +80,18 @@ sssssss
 			</div>
 		</div>
 		<!-- /.hotels-filter -->
-<!-- Include Bootstrap-select CSS, JS -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+                                <div class="tab-pane" id="availability">
 
-<style type="text/css">
-#bootstrapSelectForm .selectContainer .form-control-feedback {
-    /* Adjust feedback icon position */
-    right: -15px;
-}
-</style>
+                                 <div class="contents grid-contents available-rooms " id="listContents">
 
-		<div class="contents-wrapper">
-			<div class="row">
-				<div class="contents grid-contents col-md-12 col-sm-6 no-margin">
-					<div class="row">
-					<c:forEach var="r_photo" items="${r_photoList }">
-						<div class="content col-md-3 col-sm-12">
-							<div class="inner">
-								<a class="thumbnailz" href="#"> 
-								<img src="/file/download?filename=${r_photo.dir }"
-									alt="Your Hotel Title Here" class="responsive-image" /> 
-								<span class="overlay">${r_photo.regionname }</span>
-								</a>
-								<div class="entry">
-									<article class="entry-content">
-										<h2 class="post-title">
-											<a href="#" title="Your Hotel Title Here">${r_photo.regionname }</a>
-										</h2>
-<%--  										<span class="price"><span
-											class="higlight emphasize value">${r_photo.regionname }</span> 명소</span><br /> --%>
-										<c:set var="content" value="${r_photo.content }" />
-										<c:if test="${content.length() > 40 }">
-										<p>${content.substring(0, 38) }...</p>
-										</c:if>
-										<c:if test="${content.length() <= 40 }">
-										<p>${content }</p>
-										</c:if>
-									</article>
-									<div class="entry-meta">
-										<span class="review"><a href="#">24 Reviews</a></span> <span
-											class="go-detail"><a href="#">More</a></span>
-									</div>
-								</div>
-								<!--/.entry -->
-							</div>
-						</div>
-						<!-- /.content -->
-						</c:forEach>
-                    </div>
-					</div>
-					<!-- /.row -->
-				</div>
-				<!-- /.contents.grid-contents -->
-			</div>
-			<!-- /.row -->
-		</div>
+                                 </div>
+
+                                </div>
 		<!-- /.contents-wrapper -->
 </section>
 <!-- /#hotels.section -->
 
-
-<footer id="footer-2" class="widefat ">
-	<div class="container">
-		<div class="col-xs-12 ">
-
-			<ul class="footer-social-icons">
-
-				<li><a href="#" class="fa fa-facebook"></a></li>
-
-				<li><a href="#" class="fa fa-twitter"></a></li>
-
-				<li><a href="#" class="fa fa-pinterest"></a></li>
-
-				<li><a href="#" class="fa fa-tumblr"></a></li>
-
-				<li><a href="#" class="fa fa-vimeo-square"></a></li>
-
-			</ul>
-
-			<p>
-
-				Traveline - Copyright 2014. Designed by jThemes<br> Email:
-				info@example.com<br> Address: Lorem Ipsuum, Manchester M12 345,
-				UK<br> +44 123 456 7890
-
-			</p>
-
-		</div>
-	</div>
-</footer>
-<!-- /#footer -->
+<%@include file="../../include/footer.jsp"%>
 </div>
 <!-- /#site -->
 <!-- Scripts -->
@@ -294,45 +215,8 @@ function filterSubmit(){
 	if(document.regionfilter.regionno.value == "" || document.regionfilter.themeno.value == ""){
 		alert("지역, 테마 선택을 완료해주세요");
 	}else {
-		var currentPage = 1;
-		document.regionfilter.page.value=currentPage;
 		var data = $("#regionfilterID").serialize();
-		var target = $(".contents");
-		$.ajax({
-	          type:"GET",
-	          url: "/bbs/travelbbs/filterlist",
-	          data: data,
-	          success: function(data){
-	        	  var str = "";
-	        	  $.each(data, function(idx, val){
-	        		  str +=
-	        		  '<div class="content col-md-3 col-sm-12">'+
-						'<div class="inner">'+
-						'<div class="entry" style="border-top: 1px solid #e0e5e9;">'+
-							'<article class="entry-content">'+
-								'<h2 class="post-title">'+
-									'<a href="javascript:read('+val.no+')"> '+val.title+'</a>'+
-								'</h2>'+
-							'</article>'+
-						'</div>'+
-							'<div class="entry">'+
-								'<article class="entry-content">'+
-								'<span class="price col-md-10"><span class="higlight emphasize value">'+ val.cost +'원</span> / 3 Day</span><br>'+
-								'<span class="col-md-7">지역 : '+val.region+'</span><span class="col-md-5">인원 : '+val.teammember+' 명</span>'+
-								'<p class="lead col-md-12" style="height:40px; overflow: hidden;">'+val.content+'</p><br>'+
-								'</article>'+
-								'<div class="entry-meta">'+
-								'<div class="go-detail col-md-12"><center><a href="/bbs/guide/place?travelno='+val.no+'">가이드 신청</a></center></div>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-						
-					'</div>';
-					
-	              });
-	        	  target.html(str);
-	          }
-	      });
+		window.location.assign("/bbs/travelbbs/board?"+data);
 	}
 }
 
@@ -369,35 +253,34 @@ $(document).ready(function(){
 
 	
 	console.log("set currentPage = " + currentPage);
-    var target = $(".contents");
+    var target = $("#listContents");
     
     $.getJSON("/bbs/travelbbs/filterlist?themeno="+qs["themeno"]+"&regionno="+qs["regionno"]+"&page=" + currentPage, function (data) {
         
         $.each(data, function (key, val) {
-        	target.append(
-	        		  '<div class="content col-md-3 col-sm-12">'+
-						'<div class="inner">'+
-						'<div class="entry" style="border-top: 1px solid #e0e5e9;">'+
-							'<article class="entry-content">'+
-								'<h2 class="post-title">'+
-									'<a href="javascript:read('+val.no+')"> '+val.title+'</a>'+
-								'</h2>'+
-							'</article>'+
-						'</div>'+
-							'<div class="entry">'+
-								'<article class="entry-content">'+
-								'<span class="price col-md-10"><span class="higlight emphasize value">'+ val.cost +'원</span> / 3 Day</span><br>'+
-								'<span class="col-md-7">지역 : '+val.region+'</span><span class="col-md-5">인원 : '+val.teammember+' 명</span>'+
-								'<p class="lead col-md-12" style="height:40px; overflow: hidden;">'+val.content+'</p><br>'+
-								'</article>'+
-								'<div class="entry-meta">'+
-								'<div class="go-detail col-md-12"><center><a href="/bbs/guide/place?travelno='+val.no+'">가이드 신청</a></center></div>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-						
-					'</div>'
-        	);
+        	var content = val.content;
+        	if((val.content).length > 50){
+        		content = content.substring(0,47)+"...";
+        	}
+        	var str = '<div class="row col-md-6"><div class="content  wide" style="display:block;">'
+        		+'<div class="inner"><div class="col-xs-12 col-md-1 no-margin"></div>'
+        		+'<div class="col-xs-12 col-md-7 no-margin" style="padding-top:20px">'
+        		+'<div class="entry"><article class="entry-content">'
+        		+'<h2 class="post-title"><a href="javascript:read('+val.no+')" title="Your Hotel Title Here">'+val.title+'</a></h2>'
+        		+'<span class="price"><span class="higlight emphasize value">₩'+val.cost+'</span> / 3Day</span><br />'
+        		+'<p><small>'+content+'</small></p></article>'
+        		+'</div></div>'
+        		+'<div class="col-xs-12 col-md-4 no-margin"><div class="right-area">'
+        		+'<div class="book-holder"><div class="field review"><small><strong>'+val.region+', '+val.transport+'</strong></small></div>'
+        		+'<div class="field max-holder"><span>';
+        		for(var i=0; i < val.teammember; i++){
+        		    str += '<i class="fa fa-user"></i>';
+        		}
+        		str += '</span></div><div class="field"><a href="/bbs/guide/place?travelno='+val.no+'&guideno=1" class="button wide-fat"><small>가이드 신청</small></a>';
+        		str += '</div></div></div></div></div></div></div>';
+
+
+        	target.append(str);
         
         	
         	if(key == 4) {
@@ -423,32 +306,33 @@ $(document).ready(function(){
                     	console.log(currentPage + " 페이지 로드");
                     	/* var target = $(".ul_table"); */
                         $.getJSON("/bbs/travelbbs/filterlist?themeno=${cri.themeno}&regionno=${regionno}&page=" + currentPage, function (data) {
-                            
+                        	console.dir(data);
                             $.each(data, function (key, val) {
-                            	target.append(
-                  	        		  '<div class="content col-md-3 col-sm-12">'+
-              						'<div class="inner">'+
-              						'<div class="entry" style="border-top: 1px solid #e0e5e9;">'+
-              							'<article class="entry-content">'+
-              								'<h2 class="post-title">'+
-              									'<a href="javascript:read('+val.no+')"> '+val.title+'</a>'+
-              								'</h2>'+
-              							'</article>'+
-              						'</div>'+
-              							'<div class="entry">'+
-              								'<article class="entry-content">'+
-              								'<span class="price col-md-10"><span class="higlight emphasize value">'+ val.cost +'원</span> / 3 Day</span><br>'+
-              								'<span class="col-md-7">지역 : '+val.region+'</span><span class="col-md-5">인원 : '+val.teammember+' 명</span>'+
-              								'<p class="lead col-md-12" style="height:40px; overflow: hidden;">'+val.content+'</p><br>'+
-              								'</article>'+
-              								'<div class="entry-meta">'+
-              								'<div class="go-detail col-md-12"><center><a href="/bbs/guide/place?travelno='+val.no+'">가이드 신청</a></center></div>'+
-              								'</div>'+
-              							'</div>'+
-              						'</div>'+
-              						
-              					'</div>'
-    			            	);
+                            	
+                            	
+                            	var content = val.content;
+                            	if((val.content).length > 50){
+                            		content = content.substring(0,47)+"...";
+                            	}
+                            	var str = '<div class="row col-md-6"><div class="content  wide" style="display:block;">'
+                            		+'<div class="inner"><div class="col-xs-12 col-md-1 no-margin"></div>'
+                            		+'<div class="col-xs-12 col-md-7 no-margin" style="padding-top:20px">'
+                            		+'<div class="entry"><article class="entry-content">'
+                            		+'<h2 class="post-title"><a href="javascript:read('+val.no+')" title="Your Hotel Title Here">'+val.title+'</a></h2>'
+                            		+'<span class="price"><span class="higlight emphasize value">₩'+val.cost+'</span> / 3Day</span><br />'
+                            		+'<p><small>'+content+'</small></p></article>'
+                            		+'</div></div>'
+                            		+'<div class="col-xs-12 col-md-4 no-margin"><div class="right-area">'
+                            		+'<div class="book-holder"><div class="field review"><small><strong>'+val.region+', '+val.transport+'</strong></small></div>'
+                            		+'<div class="field max-holder"><span>';
+                            		for(var i=0; i < val.teammember; i++){
+                            		    str += '<i class="fa fa-user"></i>';
+                            		}
+                            		str += '</span></div><div class="field"><a href="/bbs/guide/place?travelno='+val.no+'&guideno=1" class="button wide-fat"><small>가이드 신청</small></a>';
+                            		str += '</div></div></div></div></div></div></div>';
+
+
+                            	target.append(str);
                             });
                             
                         });

@@ -50,7 +50,7 @@ Content Tabel
 .button-hover {
   color: #ffffff;
   text-decoration: none;
-  background-color: #8bcf17;
+  background-color: #333333;
   border-top: solid 1px #8bcf17;
   border-left: solid 1px #8bcf17;
   border-right: solid 1px #8bcf17;
@@ -103,7 +103,7 @@ ol {
  * =============================== */
 body {
   background-color: #ffffff;
-  color: #333333;
+  color: #95a8b4;
   font-family: 'Lato', 'Nanum Gothic', serif;
   font-weight: 400;
   overflow-x: hidden;
@@ -184,19 +184,12 @@ noscript {
 .section {
   padding-top: 100px;
   padding-bottom: 100px;
-  background-image: url("images/world-map-bg.png");
 }
 .section.light {
   background-color: #f5f8f9;
 }
 .section.image-bg {
   background-image: url("images/content/testimonial_bg.png");
-  background-position: center center;
-  background-size: cover;
-}
-.section.travel_write-bg {
-/*   background-image: url("images/back.png"); */
-
   background-position: center center;
   background-size: cover;
 }
@@ -532,7 +525,7 @@ input.green:focus {
   padding: 20px;
 }
 .goto-top:after {
-  content: "�꼩";
+  content: "";
   font-family: fontawesome, 'Nanum Gothic', serif;
   position: absolute;
   left: 0;
@@ -3501,7 +3494,7 @@ textarea:focus {
 input {
   width: 100%;
   padding: 8px;
-  color: #333333;
+  color: #b3c1c9;
 }
 textarea {
   margin: 0 0 30px 0;
@@ -3637,7 +3630,7 @@ textarea {
   display: inline-block;
   width: 70%;
   font-style: italic;
-  color: #333333;
+  color: #333;
 }
 .custom-checkbox-holder {
   margin: 0 0 20px 0;
@@ -3989,7 +3982,7 @@ textarea {
 /*Responsive layout*/
 select.top-drop-menu {
   margin: 23px 0 0 0;
-  padding: 13px;
+  padding: 0px;
   /*    width: 100%;*/
 }
 @media (min-width: 1200px) {
@@ -4328,10 +4321,11 @@ height: 20px;
   #header #main-menu {
     display: block;
     float: none;
+    height: 30px;
   }
   .top-drop-menu {
     text-align: center;
-    margin: 23px auto!important;
+    margin: 0px auto!important;
   }
   .widget-support {
     margin: 10px 0!important;

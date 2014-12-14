@@ -76,7 +76,7 @@ public class UserController {
 	public String joinPost(UserVO vo, Model model) {
 		logger.info(vo.toString());
 		service.join(vo);
-		return "/user/join";
+		return "redirect:/main/region/";
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)

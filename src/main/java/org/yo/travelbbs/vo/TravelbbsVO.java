@@ -82,9 +82,11 @@ public class TravelbbsVO {
 		String[] date = startdate.split(" ");
 		
 		date[1] = dateMap.get(date[1]);
-		this.startdate = arrayJoin(" ", date);
-		
-		//this.startdate = startdate;
+		if(date[1] == null){
+			this.startdate = startdate;
+		}else{
+			this.startdate = arrayJoin(" ", date);
+		}
 	}
 	public String getEnddate() {
 		return enddate;
@@ -109,9 +111,11 @@ public class TravelbbsVO {
 		String[] date = enddate.split(" ");
 		
 		date[1] = dateMap.get(date[1]);
-		this.enddate = arrayJoin(" ", date);
-		
-		//this.enddate = enddate;
+		if(date[1] == null){
+			this.enddate = enddate;
+		}else{
+			this.enddate = arrayJoin(" ", date);
+		}
 	}
 	public int getTeammember() {
 		return teammember;

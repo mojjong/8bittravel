@@ -20,7 +20,7 @@ select gp.gpno,gr.no grno, place, lat, lng, msg, plandate from
 (select no, travelno, guideid, cost, pay 
 	from tbl_guidebbs 
 		where travelno = #{travelno} ) gb, tbl_guideplan gp
-	where gb.no = gp.guideno and guideno = #{guideno}) gp, tbl_guideregion gr
+	where gb.no = gp.guideno) gp, tbl_guideregion gr
 where gp.gpno = gr.gpno and gr.gpno=#{gpno}
 order by no asc
 </select>
@@ -30,15 +30,15 @@ order by no asc
 	<selectKey keyProperty="gpno" resultType="int" order="BEFORE">
 	            SELECT seq_guideplan.nextVal from dual
 	</selectKey>
-	insert into tbl_guideplan (no, plandate) 
-		values(#{gpno}, #{plandate})
+	insert into tbl_guideplan (no, guideno, rno, plandate) 
+		values(#{gpno},#{guideno}, #{rno}, #{plandate})
 
 </insert> 
 
 <select id="grList"  parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
 	select gp.no gpno, travelno,guideid,  cost, pay,gp.plandate, guideno, rno from 
 	(select no, travelno, guideid, cost, pay from tbl_guidebbs where travelno = #{travelno} ) gb, tbl_guideplan gp
-	where gb.no = gp.guideno and guideno = #{guideno} and plandate=#{plandate}
+	where gb.no = gp.guideno and plandate=#{plandate}
 </select>
 
 <select id="guideplan" parameterType="org.yo.guidebbs.vo.GuideBbsVO"   resultType="org.yo.guidebbs.vo.GuideBbsVO">
@@ -46,11 +46,12 @@ select
 	gp.guideno,
 	max(gb.travelno) travelno,
 	max(rno) rno,
-	max(gp.no) gpno
+	max(gp.no) gpno,
+  	max(gb.guideid) guideid
 from 
 	tbl_guideplan gp , tbl_guidebbs gb
 where gp.guideno = gb.no and
-	guideno = #{guideno} 
+	guideid = #{guideid}
 group by gp.guideno
 </select>
 

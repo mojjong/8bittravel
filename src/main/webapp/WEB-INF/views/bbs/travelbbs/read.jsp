@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@include file="../../include/header.jsp" %>
 
@@ -138,7 +139,7 @@
                      <button class="btn btn-success btn-sm" id="listBtn">목록</button>
                      <button class="btn btn-success btn-sm" id="updateBtn">수정</button>
                      <button class="btn btn-danger btn-sm" id="deleteBtn">삭제</button>
-                     <button onclick="location.href='/bbs/guide/place?travelno=${vo.no}&guideno=1'" class="btn btn-success btn-sm" style="float:right;">가이드신청</button>
+                     <button onclick="applyGuide(${vo.no})" class="btn btn-success btn-sm" style="float:right;">가이드신청</button>
                         </div>
 
                     </div>
@@ -153,7 +154,13 @@
                             <hr>
                      <form name="guideForm" id="guideForm">
                         <input type="hidden" name="travelno" value="${vo.no}">
-                        
+                                <sec:authentication var="user" property="principal" />
+        <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+          <input type="hidden" id="userid" value="${user }" />
+        </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+          <input type="hidden" id="userid" value="user00" />
+        </sec:authorize>
                      </form>
                      <div id="guideList"></div>
                       </div>
@@ -207,17 +214,22 @@
             success : function(data) {
                var str = "<article><ul>";
                $.each(data, function(key, val) {
-            		  str += "<li>"+
-            		  "<h3 class='post-title col-md-12'>"+
-            		  "<a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+
-            		  val.guideid+"`s&nbsp;&nbsp;&nbsp;&nbsp;Guide</a></h3></li>"+
-            		  "<hr style='margin-top:-2px;border-color:#BDBDBD;'>";
+                    str += "<li>"+
+                    "<h3 class='post-title col-md-12'>"+
+                    "<a href='/bbs/guide/userGviewlist?guideno="+val.guideno+"&travelno="+val.travelno+"'>"+
+                    val.guideid+"`s&nbsp;&nbsp;&nbsp;&nbsp;Guide</a></h3></li>"+
+                    "<hr style='margin-top:-2px;border-color:#BDBDBD;'>";
                });
                str += "<ul></article>";
-           	   target.html(str);
+                 target.html(str);
             }
            });
         });
+        
+        
+        function applyGuide(no){
+           window.location.assign("/bbs/guide/place?travelno="+no+"&guideid="+document.guideForm.userid.value);
+        }
         
 
         </script>

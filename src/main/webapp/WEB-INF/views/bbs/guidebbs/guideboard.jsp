@@ -71,12 +71,10 @@
 										<form target="zero" name="fileUploadForm" id="fileUploadFormId" action="/file/upload" method="post" enctype="multipart/form-data">
 											<input type="hidden" name="gpphotono" value="${gpphoto.gpphotono }"/>
 											<input type="hidden" name="foldername" value="GUIDEPLAN" />
-											<c:if test="${gpphoto.getIsfile() == 'f' }">
-											<input type='file' name='file' id="inputfile"  style="margin-bottom:10px;" ></c:if>
-											 <c:if test="${gpphoto.getIsfile() == 't' }">
-											  <p class="form-control-static"><a>선택된 파일 : ${gpphoto.getOriginfilename() }.${gpphoto.getSuffix() } </a></p>&nbsp;
+											
+											  <p class="form-control-static">선택된 파일 : ${gpphoto.getOriginfilename() }.${gpphoto.getSuffix() }</p>&nbsp;
 											<input type='file' name='file' id="inputfile"   style="margin-bottom:10px;" >
-											</c:if>
+											
 											<a class="button mini low-blue" href="javascript:fileupload.upload()">upload</a>
 											<small style="float:right;">jpg, gif, png 이미지 파일만 업로드 가능</small>
 										</form>
@@ -673,7 +671,7 @@
                     $('div.tab-content').append('<div class="tab-pane fade" id="plandate'+(nbrLiElem)+'"></div>');
                    
                   	//get방식으로 컨트롤러에게 안에 내용을 가져와 달라고 요청한다.
-                   $.get("/bbs/guide/guidetab?plandate="+nbrLiElem+"&travelno=159", function(data) {
+                   $.get("/bbs/guide/guidetab?plandate="+nbrLiElem+"&travelno=${guideplan.travelno}", function(data) {
                      
                       var tab = document.getElementById('plandate'+nbrLiElem);
 

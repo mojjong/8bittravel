@@ -28,7 +28,7 @@ public class GuideBbsController {
 	//travel View 화면에서 가이드 목록보기
 	@RequestMapping(value="/guidelist", method = RequestMethod.GET)
 	@ResponseBody
-	public List<GuideBbsVO> guidelist(GuideBbsVO vo,Integer travelno, Model model){
+	public List<GuideBbsVO> guidelist(GuideBbsVO vo, Model model){
 		logger.info("guideList : " + vo.toString());
 		//model.addAttribute("guList", service.gulist(vo.getTravelno())); 
 		return service.gulist(vo);
@@ -74,16 +74,19 @@ public class GuideBbsController {
 	@RequestMapping(value="/guidetab", method = RequestMethod.GET)
 	public String guideTab(GuideBbsVO vo, Model model){
 		logger.info("aaaaaaaaa" + vo.toString());
-		vo.setGuideno(33);
 		
 		if(!service.grList(vo).isEmpty()){
-			int gpno = service.grList(vo).get(0).getGpno();
-		
-			logger.info("GPNO!!!!"+ gpno);
-			vo.setGpno(service.grList(vo).get(0).getGpno());
+			GuideBbsVO gbVo = service.grList(vo).get(0);
+			
+			vo.setGuideid(gbVo.getGuideid());
+			vo.setGpno(gbVo.getGpno());
+			vo.setRno(gbVo.getRno());
+			vo.setGuideno(gbVo.getGuideno());
+			logger.info(vo);
 		}
 		
 		//탭 추가할때마다 gpno 증가/plandate 가져오기
+		logger.info(service.daylist(vo).isEmpty());
 		if(service.daylist(vo).isEmpty()){
 			logger.info("aaaaaaa");
 			service.gplan(vo);
@@ -134,9 +137,10 @@ public class GuideBbsController {
 		@RequestMapping(value = "/place", method = RequestMethod.POST ,produces = "application/json")
 		@ResponseBody
 			public List<GuideBbsVO> placeAdd(GuideBbsVO vo, Model model){
+				logger.info("추가 : "+ vo);
+				
 				service.placeAdd(vo);
 				
-				logger.info("추가 : "+ vo.getGpno());
 				
 				logger.info("데이 ADD : " + service.daylist(vo));
 			

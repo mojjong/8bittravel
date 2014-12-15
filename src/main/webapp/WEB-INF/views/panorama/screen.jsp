@@ -308,21 +308,35 @@
     }
     
     
+    
+    
     function initCB(instance) {
 //     	var gpsstr = null;
     	$.getJSON("/panorama/google/list" , function (data) {
             var gps = "";
+            var fileName = "";
+            var lat = "";
+            var lng	= "";
             $.each(data, function (key, val) {
-            	console.log(val);
-            	
-            	gps += val + ",";
-            	
-            	console.log(gps);
+            	fileName += val.fileName + " ";
+            	lat += val.lat + " ";
+            	lng += val.lng + " ";
             });
             
             
-            var gpsstr = gps.split(",");
-        	
+            console.log(fileName);
+            console.log(lat);
+            console.log(lng);
+            
+            
+            var fileNames = fileName.split(" ");
+            var lats = lat.split(" ");
+            var lngs = lng.split(" ");
+            
+            console.log(fileNames);
+            console.log(lats);
+            console.log(lngs);
+            
             ge = instance;
             ge.getWindow().setVisibility(true);
             
@@ -332,17 +346,18 @@
          
          // add some layers
             ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
-         
+         	 
+         	 var idx = 0;
             
              var kmlString = ''
             	 +'<?xml version="1.0" encoding="UTF-8"?>'
             	 +'<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">'
-            	 +'<Document>'
+            	 +'<Document>';
             	   
-           	     for(i = 0; i < gpsstr.length-1; i+=2){
+           	     for(i = 0; i < fileNames.length-1; i++){
                    	kmlString += '<Style id="mystyle_'+i+'">'
                         + '<IconStyle>'                          
-                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+i+'.jpg</href>'
+                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+fileNames[i]+'</href>'
                         + '</Icon>'
                         + '<scale>2.2</scale>'
                         + '</IconStyle>'   
@@ -350,7 +365,7 @@
 	                   	+ '  <Placemark>'
 	                    + '    <styleUrl>#mystyle_'+i+'</styleUrl>'
 	                    + '    <Point>'
-	                    + '      <coordinates>'+gpsstr[i+1]+','+gpsstr[i]+',0</coordinates>'
+	                    + '      <coordinates>'+lngs[i]+','+lats[i]+',0</coordinates>'
 	                    + '    </Point>'
 	                    + '  </Placemark>';
                   }
@@ -362,21 +377,27 @@
             	     +'<name>Play me</name>'
             	     +'<gx:Playlist>';
             	       
-           	     for(i = 0; i < gpsstr.length-1; i+=2){
-           	  			
-           	    	kmlString += 
-           	    		'<gx:FlyTo>'
-           	           +'<gx:duration>5.0</gx:duration>'
-           	           +'<LookAt>'
-           	           +'<longitude>'+gpsstr[i+1]+'</longitude>'
-           	           +'<latitude>'+gpsstr[i]+'</latitude>'
-           	           +'<altitude>400</altitude>'
+           	     for(i = 0; i < fileNames.length-1; i++){
+	           	  	if(lngs[i] == lngs[i+1]){
+	           	  		
+	           	    	kmlString += 
+	           	    		'<gx:FlyTo>'
+	           	           +'<gx:duration>2.0</gx:duration>';
+	           	    }else{
+	           	    	kmlString += 
+	           	    		'<gx:FlyTo>'
+	           	           +'<gx:duration>5.0</gx:duration>';
+	           	    }
+           	  		kmlString += 
+           	            '<LookAt>'
+           	           +'<longitude>'+lngs[i]+'</longitude>'
+           	           +'<latitude>'+lats[i]+'</latitude>'
+           	           +'<altitude>450</altitude>'
            	           +'<heading>0.0</heading>'
            	           +'<tilt>0.0</tilt>'
            	           +'<gx:altitudeMode>relativeToGround</gx:altitudeMode>'
            	           +'</LookAt>'
            	           +'</gx:FlyTo>'
-
            	           +'<gx:AnimatedUpdate>'
            	           +'<Update>'
            	           +'<targetHref/>'
@@ -388,19 +409,16 @@
            	           +'</Update>'
            	           +'</gx:AnimatedUpdate>'
            	           +'<gx:Wait>'
-           	           +'<gx:duration>5.0</gx:duration>'
+           	           +'<gx:duration>1.0</gx:duration>'
            	           +'</gx:Wait>';
            	       }
-
             	   kmlString += '</gx:Playlist>'
             	       +'</gx:Tour>'
             	       +'</Document>'
             	       +'</kml>';
                     
-
             var kmlObject = ge.parseKml(kmlString);
              ge.getFeatures().appendChild(kmlObject);
-
 			
           // Walk through the KML to find the tour object; assign to variable 'tour.'
              walkKmlDom(kmlObject, function() {
@@ -413,6 +431,116 @@
         });
     	
     }
+    
+    
+    
+    
+    
+//     function initCB(instance) {
+// //     	var gpsstr = null;
+//     	$.getJSON("/panorama/google/list" , function (data) {
+//             var gps = "";
+//             $.each(data, function (key, val) {
+//             	console.log(val);
+            	
+//             	gps += val + ",";
+            	
+//             	console.log(gps);
+//             });
+            
+            
+//             var gpsstr = gps.split(",");
+        	
+//             ge = instance;
+//             ge.getWindow().setVisibility(true);
+            
+//          // add a navigation control
+//             ge.getNavigationControl().setVisibility(ge.VISIBILITY_AUTO);
+         
+         
+//          // add some layers
+//             ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
+         
+            
+//              var kmlString = ''
+//             	 +'<?xml version="1.0" encoding="UTF-8"?>'
+//             	 +'<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">'
+//             	 +'<Document>'
+            	   
+//            	     for(i = 0; i < gpsstr.length-1; i+=2){
+//                    	kmlString += '<Style id="mystyle_'+i+'">'
+//                         + '<IconStyle>'                          
+//                         + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+i+'.jpg</href>'
+//                         + '</Icon>'
+//                         + '<scale>2.2</scale>'
+//                         + '</IconStyle>'   
+//                         + '</Style>'
+// 	                   	+ '  <Placemark>'
+// 	                    + '    <styleUrl>#mystyle_'+i+'</styleUrl>'
+// 	                    + '    <Point>'
+// 	                    + '      <coordinates>'+gpsstr[i+1]+','+gpsstr[i]+',0</coordinates>'
+// 	                    + '    </Point>'
+// 	                    + '  </Placemark>';
+//                   }
+            	    
+//             	  kmlString += 
+//             		  '<name>balloonVisibility Example</name>'
+//             	     +'<open>1</open>'
+//             	     +'<gx:Tour>'
+//             	     +'<name>Play me</name>'
+//             	     +'<gx:Playlist>';
+            	       
+//            	     for(i = 0; i < gpsstr.length-1; i+=2){
+           	  			
+//            	    	kmlString += 
+//            	    		'<gx:FlyTo>'
+//            	           +'<gx:duration>5.0</gx:duration>'
+//            	           +'<LookAt>'
+//            	           +'<longitude>'+gpsstr[i+1]+'</longitude>'
+//            	           +'<latitude>'+gpsstr[i]+'</latitude>'
+//            	           +'<altitude>400</altitude>'
+//            	           +'<heading>0.0</heading>'
+//            	           +'<tilt>0.0</tilt>'
+//            	           +'<gx:altitudeMode>relativeToGround</gx:altitudeMode>'
+//            	           +'</LookAt>'
+//            	           +'</gx:FlyTo>'
+
+//            	           +'<gx:AnimatedUpdate>'
+//            	           +'<Update>'
+//            	           +'<targetHref/>'
+//            	           +'<Change>'
+//            	           +'<Placemark targetId="underwater1">'
+//            	           +'<gx:balloonVisibility>1</gx:balloonVisibility>'
+//            	           +'</Placemark>'
+//            	           +'</Change>'
+//            	           +'</Update>'
+//            	           +'</gx:AnimatedUpdate>'
+//            	           +'<gx:Wait>'
+//            	           +'<gx:duration>5.0</gx:duration>'
+//            	           +'</gx:Wait>';
+//            	       }
+
+//             	   kmlString += '</gx:Playlist>'
+//             	       +'</gx:Tour>'
+//             	       +'</Document>'
+//             	       +'</kml>';
+                    
+
+//             var kmlObject = ge.parseKml(kmlString);
+//              ge.getFeatures().appendChild(kmlObject);
+
+			
+//           // Walk through the KML to find the tour object; assign to variable 'tour.'
+//              walkKmlDom(kmlObject, function() {
+//                  if (this.getType() == 'KmlTour') {
+//                      tour = this;
+//                      return false;
+//                  }
+//              });
+            
+//         });
+    	
+//     }
            
     
        

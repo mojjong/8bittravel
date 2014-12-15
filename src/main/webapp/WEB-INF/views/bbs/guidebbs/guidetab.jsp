@@ -33,10 +33,14 @@
                            <div class="widget no-margin-bottom">
                            		<!--ì¥ì ì¶ê° í¼ìì  -->
                                 <form  name="formPlace${plandate }" id="placeFormId${plandate }" >
-                                    <input type="hidden" name=plandate value = "${vo.plandate}"> 
-                                	<input type="hidden" name="gpno" value = "${vo.gpno }">
-									<input type="hidden" name="lat">
-									<input type="hidden" name="lng">
+                                    <input type="text" name="plandate" value = "${vo.plandate}"> 
+                                	<input type="text" name="travelno" value="${vo.travelno }">  
+			                        <input type="text" name="guideid" value="${vo.guideid }">
+			                        <input type="text" name="guideno" value="${vo.guideno }"> 
+			                        <input type="text" name="gpno" value = "${vo.gpno }"> 
+			                        <input type="text" name="rno" value="${vo.rno }">
+									<input type="text" name="lat">
+									<input type="text" name="lng">
 									
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -54,12 +58,12 @@
 						<!--장소 append 폼 -->				                      
                         <hr>
 		                        <form name = "placeList" id = "placeListId"  >    
-			                        <input type="hidden" name="travelno" value="159">  
-			                        <input type = "hidden" name="guideid" value="user02">
-			                        <input type="hidden" name = "guideno" value="${vo.guideno }"> 
-			                        <input type="hidden" name="gpno" value = "${vo.gpno }"> 
+			                        <input type="text" name="travelno" value="${vo.travelno }">  
+			                        <input type="text" name="guideid" value="${vo.guideid }">
+			                        <input type="text" name="guideno" value="${vo.guideno }"> 
+			                        <input type="text" name="gpno" value = "${vo.gpno }"> 
+			                        <input type="text" name="rno" value="${vo.rno }">
 			                        <input type="hidden" name="no" > 
-			                        <input type="hidden" name="rno" value="377">
 			                       	<input type="hidden" name="place">
 			                       	<input type="hidden" name="msg">
 			                        <input type="hidden" name="plandate" value = "${vo.plandate}" > 

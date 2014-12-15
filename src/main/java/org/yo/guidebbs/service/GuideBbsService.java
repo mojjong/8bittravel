@@ -46,6 +46,8 @@ public class GuideBbsService {
 	
 	public GuideBbsVO guideplan(GuideBbsVO vo){
 	  System.out.println("여기는 가이드 플랜");
+//	  	mapper.getGuideno(vo);
+	  
 		return mapper.guideplan(vo);
 	}
 	

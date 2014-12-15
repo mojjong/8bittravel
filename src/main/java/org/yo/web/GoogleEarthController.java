@@ -39,7 +39,7 @@ public class GoogleEarthController {
    private static final Logger logger = LoggerFactory
          .getLogger(GoogleEarthController.class);
    
-   private final static String path = "C:\\zzz\\upload\\dd\\";
+   private final static String path = "C:\\zzz\\upload\\uploadTest\\user00\\";
 
    @Inject
    GoogleEarthService service;
@@ -94,6 +94,8 @@ public class GoogleEarthController {
             	   List<GoogleEarthVO> mapper = service.getTime();
             	   
             	   for (GoogleEarthVO dbTime : mapper) {
+            		   
+            		   logger.info(dbTime.getTime().getTime() + " " + date.getTime());
             		 
             		   diffTemp = dbTime.getTime().getTime() - date.getTime();
             		   diffTemp = Math.abs(diffTemp);
@@ -115,7 +117,6 @@ public class GoogleEarthController {
                     	   
                     	   mapper.get(minIdx);
                     	   
-                    	  System.out.println("ssdsssssss"+mapper.get(minIdx));
                        }
                        
                    }
@@ -216,8 +217,6 @@ public class GoogleEarthController {
    @RequestMapping(value = "/view", produces = "image/jpeg")
    public @ResponseBody byte[] viewFile(String filename, HttpServletResponse res) throws Exception {
 
-//      logger.info(filename);
-      
       ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
       InputStream fin = new FileInputStream(path + filename);

@@ -5,11 +5,11 @@
  
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/naverMap.naver?ver=2.0&key=8dc3f50341e3abc71540971185f76729"></script>
 
-<h1>${vo.plandate }</h1>
+<%-- <h1>${vo.plandate }</h1>
 <h1>${plandate }</h1>
 
 <h1>${vo.gpno }</h1>
-<h1>${vo.guideno }</h1>
+<h1>${vo.guideno }</h1> --%>
 
 <!--ë´ì© ì ì²´ DiV  -->     
    <div>
@@ -33,14 +33,14 @@
                            <div class="widget no-margin-bottom">
                            		<!--ì¥ì ì¶ê° í¼ìì  -->
                                 <form  name="formPlace${plandate }" id="placeFormId${plandate }" >
-                                    <input type="text" name="plandate" value = "${vo.plandate}"> 
-                                	<input type="text" name="travelno" value="${vo.travelno }">  
-			                        <input type="text" name="guideid" value="${vo.guideid }">
-			                        <input type="text" name="guideno" value="${vo.guideno }"> 
-			                        <input type="text" name="gpno" value = "${vo.gpno }"> 
-			                        <input type="text" name="rno" value="${vo.rno }">
-									<input type="text" name="lat">
-									<input type="text" name="lng">
+                                    <input type="hidden" name="plandate" value = "${vo.plandate}"> 
+                                	<input type="hidden" name="travelno" value="${vo.travelno }">  
+			                        <input type="hidden" name="guideid" value="${vo.guideid }">
+			                        <input type="hidden" name="guideno" value="${vo.guideno }"> 
+			                        <input type="hidden" name="gpno" value = "${vo.gpno }"> 
+			                        <input type="hidden" name="rno" value="${vo.rno }">
+									<input type="hidden" name="lat">
+									<input type="hidden" name="lng">
 									
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -58,11 +58,11 @@
 						<!--장소 append 폼 -->				                      
                         <hr>
 		                        <form name = "placeList" id = "placeListId"  >    
-			                        <input type="text" name="travelno" value="${vo.travelno }">  
-			                        <input type="text" name="guideid" value="${vo.guideid }">
-			                        <input type="text" name="guideno" value="${vo.guideno }"> 
-			                        <input type="text" name="gpno" value = "${vo.gpno }"> 
-			                        <input type="text" name="rno" value="${vo.rno }">
+			                        <input type="hidden" name="travelno" value="${vo.travelno }">  
+			                        <input type="hidden" name="guideid" value="${vo.guideid }">
+			                        <input type="hidden" name="guideno" value="${vo.guideno }"> 
+			                        <input type="hidden" name="gpno" value = "${vo.gpno }"> 
+			                        <input type="hidden" name="rno" value="${vo.rno }">
 			                        <input type="hidden" name="no" > 
 			                       	<input type="hidden" name="place">
 			                       	<input type="hidden" name="msg">
@@ -81,7 +81,7 @@
 				       						
 				       						<li><input id="lat_${placevo.getGrno() }" type="hidden"  value="${placevo.getLat() }" ></li>
 			           						<li><input id="lng_${placevo.getGrno() }" type="hidden" value="${placevo.getLng() }" ></li>
-						       				<li id="placeId_${placevo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}+ ${placevo.getGrno()}</span></li>
+						       				<li id="placeId_${placevo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${placevo.getPlace()}</span></li>
 				       						<li id="msgId_${placevo.getGrno() }"><span><i class='fa-li fa fa-map-marker'></i>${placevo.getMsg()}</span></li>
 				       						<li><a href='javascript:placeModify(${placevo.getGrno()})'>수정 </a>&nbsp;&nbsp;</li>
 			       							<li><a href='javascript:placeDel(${placevo.getGrno()})'>삭제 </a></li>

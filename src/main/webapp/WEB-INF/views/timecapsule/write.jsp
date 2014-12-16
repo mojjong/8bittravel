@@ -21,7 +21,7 @@
                 </div>
             </section>
 
-            <section id="more-pages" class="section wide-fat">
+            <section id="contact" class="section wide-fat">
                 <div class="container">
 
                     <!-- Project Details -->

@@ -279,7 +279,7 @@ $(document).ready(function(){
               +'<p><small>'+content+'</small></p></article>'
               +'</div></div>'
               +'<div class="col-xs-12 col-md-4 no-margin"><div class="right-area">'
-              +'<div class="book-holder"><div class="field review"><small><strong>'+val.region+', '+val.transport+'</strong></small></div>'
+              +'<div class="book-holder"><div class="field review"><small><strong>전주, '+val.transport+'</strong></small></div>'
               +'<div class="field max-holder"><span>';
               for(var i=0; i < val.teammember; i++){
                   str += '<i class="fa fa-user"></i>';
@@ -331,7 +331,7 @@ $(document).ready(function(){
                                   +'<p><small>'+content+'</small></p></article>'
                                   +'</div></div>'
                                   +'<div class="col-xs-12 col-md-4 no-margin"><div class="right-area">'
-                                  +'<div class="book-holder"><div class="field review"><small><strong>'+val.region+', '+val.transport+'</strong></small></div>'
+                                  +'<div class="book-holder"><div class="field review"><small><strong>전주, '+val.transport+'</strong></small></div>'
                                   +'<div class="field max-holder"><span>';
                                   for(var i=0; i < val.teammember; i++){
                                       str += '<i class="fa fa-user"></i>';

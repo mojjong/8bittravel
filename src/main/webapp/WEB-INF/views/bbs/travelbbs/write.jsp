@@ -33,8 +33,8 @@
                             <div class="form-holder booking-form">
                                 <form class="info-form" name="writeForm" action="/bbs/travelbbs/write" method="post">
                                  <input name = "regionno" type = "hidden" value= "377">
-                                 <input name = "userid" type = "hidden"  value = "user03">
-                                 <input name = "themeno" type = "hidden" value = "24">
+                                 <input name = "userid" type = "hidden"  value = "user00">
+                                 <input name = "themeno" type = "hidden" value = "41">
                                  
                                  
                                  

@@ -34,7 +34,6 @@
                    <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="thumbnail no-border no-padding">
                                 <div class="media">
-	                                	
 	                                    <img name="carouselitem0" class="img-responsive" src="/file/view/${gpphoto.filename }/${gpphoto.suffix}" alt=""/>
                                     <div class="caption hovered">
                                         <div class="caption-wrapper div-table">
@@ -91,7 +90,7 @@
 				       					<ul class='address-ul fa-ul'>
 				       						<li><input id="lat_${guvo.getGrno() }" type="hidden"  value="${guvo.getLat() }" ></li>
 			           						<li><input id="lng_${guvo.getGrno() }" type="hidden" value="${guvo.getLng() }" ></li>
-						       				<li id="placeId_${guvo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${guvo.getPlace()}+ ${guvo.getGrno()} + ${guvo.getPlandate()}</span></li>
+						       				<li id="placeId_${guvo.getGrno() }"><span><i class='fa-li fa fa-home'></i>${guvo.getPlace()}</span></li>
 				       						<li id="msgId_${guvo.getGrno() }"><span><i class='fa-li fa fa-map-marker'></i>${guvo.getMsg()}</span></li>
 				       					</ul>
 				       					</address>

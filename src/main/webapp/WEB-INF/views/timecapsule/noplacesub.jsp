@@ -26,9 +26,7 @@
 			
 			
 				
-            <section id="more-pages" class="section wide-fat" style="background-image: url('http://media2.giphy.com/media/1TpGKApbHmkZa/giphy.gif');
-background-position: center center;
-background-size: cover;">
+            <section id="contact" class="section wide-fat">
                 <div class="container">
                 <div class="area-404-2">
 
@@ -39,11 +37,11 @@ background-size: cover;">
                             </h1>
                         </div>
 
-                        <h1>No Timecapsule in the place</h1>
+                        <h1>No Timecapsule in this place</h1>
 
-                        <h3>새로운 타임캡슐을 등록해주세요</h3>
+                        <h3><small>새로운 타임캡슐을 등록해주세요</small></h3>
 
-                        <p class="margin-top-30"><a href='/timecapsule/sub/write?grno=${param.grno}' class="button btn-lg">첫 타임캡슐 심으러 가기</a></p>
+                        <p class="margin-top-30"><a href='/timecapsule/sub/write?grno=${param.grno}' class="button green btn-lg"><small>타임캡슐 등록하러 가기</small></a></p>
 
                     </div>
 

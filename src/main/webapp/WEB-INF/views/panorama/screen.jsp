@@ -357,7 +357,7 @@
            	     for(i = 0; i < fileNames.length-1; i++){
                    	kmlString += '<Style id="mystyle_'+i+'">'
                         + '<IconStyle>'                          
-                        + '<Icon><href>http://localhost:8080/panorama/google/view?filename='+fileNames[i]+'</href>'
+                        + '<Icon><href>http://192.168.0.79:8080/panorama/google/view?filename='+fileNames[i]+'</href>'
                         + '</Icon>'
                         + '<scale>2.2</scale>'
                         + '</IconStyle>'   

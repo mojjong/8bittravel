@@ -251,11 +251,11 @@
 	<script type="text/javascript" src="/resources/inc/js/custom.js"></script>	
 	
 	
-<script src="http://192.168.0.79:5555/socket.io/socket.io.js"></script>
+<script src="http://192.168.0.77:5555/socket.io/socket.io.js"></script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
 
-    var socket = io.connect("http://192.168.0.79:5555");
+    var socket = io.connect("http://192.168.0.77:5555");
     
     //로그인버튼
     socket.emit("login", document.getElementById("userid").value);

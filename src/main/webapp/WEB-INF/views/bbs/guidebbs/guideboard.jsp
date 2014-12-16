@@ -9,6 +9,7 @@
                 <div class="container">
 
                     <div class="col-xs-12 col-sm-6">
+                    
                         <h2>GuideWrite</h2>
                     </div>
 
@@ -267,7 +268,7 @@
        form1.lat.value = pos.point.getX();
        form1.lng.value = pos.point.getY();
        
-       alert(form1.lat.value+", "+form1.lng.value);
+       
     }); 
     });
     </script>  		 
@@ -405,7 +406,7 @@
        
    <script>
    
-   alert(document.writeForm.gpphotono.value == "");
+  
    
    var fileCounter = function() {
 
@@ -435,10 +436,10 @@
 		
      
      function writeSubmit() {
-    	 alert(document.writeForm.gpphotono.value);
+    	 
     	var gpphotonno = document.writeForm.gpphotono.value;
     	 if(gpphotonno == ""){
-    		 alert("비었다.");
+    		 
     		 document.writeForm.gpphotono.value = 0;
     	 }
     	 
@@ -484,10 +485,10 @@
     
         
       function placeAdd(plandate, gpno){
-    	  alert('#placeFormId'+plandate);
+    	 
           	var a =$('#placeFormId'+plandate).serialize();
           	//placeFormId${plandate }
-    		alert(a);
+    		
            $.ajax({
                url:"/bbs/guide/place",
                data: a,
@@ -498,23 +499,22 @@
             	   var str = "";
             	   $.each(data, function(k,v){
            
-            		   str += "<div id= 'place_"+v.grno+">"
+            		   str += "<div id= 'place_"+v.grno+" class='widget no-margin-bottom'>"
             		   +"<address >"
                        +"<ul class='address-ul fa-ul'>"
                        +"<input id='grno_"+v.grno+"' type='hidden'  value='"+v.grno+"'>"
                        +"<input id='gpno_"+v.grno+"' type='hidden'  value='"+v.gpno+"'>"
                        +"<input id='lat_"+v.grno+"' type='hidden'  value='"+v.lat+"'>"
 			           +"<input id='lng_"+v.grno+"' type='hidden'  value='"+v.lng+"'>"
-                       +"<li id='placeId_"+v.grno+"'>"
-                       +"<span>"
-                       +"<i class='fa-li fa fa-home'></i>"+v.place
-                       +"</span> "   
+			           
+                       +"<li id='placeId_"+v.grno+"'><span>"
+                       +"<i class='fa-li fa fa-home'></i>"+v.place+"</span> "   
                        +"</li>"
                        +"<li id= 'msgId_"+v.grno+"'>"
                        +"<span >"
-                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno+',' + v.gpno
+                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg
                        +"</span></li>"
-                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정"+ v.plandate+"</a>&nbsp;&nbsp;</li>"
+                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
                        +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
                        +"</ul>"
                        +"</address><hr></div>";
@@ -528,14 +528,14 @@
         
 		
         function placeModify(grno){
-           alert("grno"+grno);
+           
            var div = document.getElementById("place_"+grno);
            var modiPlace=$("#placeId_"+grno).text();
            var modiMsg = $("#msgId_"+grno).text();
            var modilat = $("#lat_"+grno).val();
            var modilng = $("#lng_"+grno).val();
           
-           alert("lat" +modilat);
+           
            
            if(modiPlace !==null && modiMsg!== null){
               div.innerHTML =  "<div id= 'place_"+grno+"'>"
@@ -563,7 +563,7 @@
         function placeUpdate(grno){
 
 	        var lat = document.getElementById('modi_lat').value;
-	        alert("LLLL"+lat);
+	        
 	        var lng = document.getElementById('modi_lng').value;
 	        var place = document.getElementById('modi_place').value;
 	        var placeMsg = document.getElementById('modi_msg').value;
@@ -598,7 +598,7 @@
 			                       +"</li>"
 			                       +"<li id= 'msgId_"+v.grno+"'>"
 			                       +"<span >"
-			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno+','+v.gpno
+			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg
 			                       +"</span></li>"
 			                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
 			                       +"<li><a href='javascript:placeDel("+v.grno+")'>삭제</a></li>"
@@ -633,7 +633,7 @@
 			                       +"</li>"
 			                       +"<li id= 'msgId_"+v.grno+"'>"
 			                       +"<span >"
-			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg+','+v.lat+','+v.lng +','+v.grno
+			                       +"<i class='fa-li fa fa-map-marker'></i>"+v.msg
 			                       +"</span></li>"
 			                       +"<li><a href='javascript:placeModify("+v.grno+")'>수정</a>&nbsp;&nbsp;</li>"
 			                       +"<li><a href='/bbs/guide/placeDel?grno="+v.grno+"'>삭제</a></li>"
@@ -679,7 +679,7 @@
                       
 					  //jquery로 추가한탭의 아이디로 map div를 이용해 지도를 붙여넣는다,
                       var q=$('div#plandate'+nbrLiElem+' div#map');
-                      alert("AAAA"+q); 
+                      
                       mapObj(q[0], nbrLiElem);
                      });
 					

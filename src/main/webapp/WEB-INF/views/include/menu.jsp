@@ -9,7 +9,7 @@
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="/main/region/"><i class="icon_group"></i> Home</a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li class="active" role="presentation">
-                                                <a role="menuitem" tabindex="-1" href="/main/region/">Region&Theme</a>
+                                                <a role="menuitem" tabindex="-1" href="/main/region/">REGION&THEME</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -26,8 +26,8 @@
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon_globe_alt"></i> CHAT</a>
                                           <ul class="dropdown-menu" role="menu">
                                             <li class="active" role="presentation">
-                                                <a role="menuitem" tabindex="-1" href="/chat/uroom">user</a>
-                                                <a role="menuitem" tabindex="-1" href="/chat/groom">guide</a>
+                                                <a role="menuitem" tabindex="-1" href="/chat/uroom">USER</a>
+                                                <a role="menuitem" tabindex="-1" href="/chat/groom">GUIDE</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -41,12 +41,12 @@
                                 </ul>
 
                                 <select class="top-drop-menu nav visible-sm visible-xs visible-md">
-                                    <optgroup label="Home">
+                                    <optgroup label="HOME">
                                         <option value="/main/region/">
-                                            8BIT Travel
+                                            8BIT TRAVEL
                                         </option>
                                         <option value="/main/region/">
-                                            Region&Theme
+                                            REGION&THEME
                                         </option>
                                     </optgroup>
 
@@ -64,10 +64,10 @@
 
                                     <optgroup label="CHAT">
                                         <option value="/chat/uroom">
-                                            User
+                                            USER
                                         </option>
                                         <option value="/chat/groom">
-                                            Guide
+                                            GUIDE
                                         </option>
                                     </optgroup>
 

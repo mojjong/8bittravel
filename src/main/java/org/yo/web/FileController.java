@@ -81,6 +81,8 @@ public class FileController {
 	@RequestMapping(value="/view/{foldername}/{filename}/{suffix}", produces="images/jpeg")
 	public @ResponseBody byte[] viewFile(@PathVariable("foldername") String foldername, @PathVariable("filename") String filename, @PathVariable("suffix") String suffix) throws Exception{
 		
+		
+		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		
 		byte[] buffer = new byte[1024*8];
